@@ -1,0 +1,112 @@
+{"timestamp":"2025-07-20 09:00:07.708","source":"Server.js:225","message":"=== Starting Server ===","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.709","source":"Server.js:145","message":"[Server] Init v2.24.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.712","source":"Server.js:146","message":"[Server] Node.js Version: v22.16.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.712","source":"Server.js:147","message":"[Server] Platform: linux","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.713","source":"Server.js:148","message":"[Server] Arch: x64","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.722","source":"BinaryManager.js:346","message":"[BinaryManager] Skipping check for binaries","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.723","source":"Database.js:161","message":"[Database] absdatabase.sqlite not found at /home/andrew/server/shells/config/absdatabase.sqlite","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.730","source":"Database.js:207","message":"[Database] Initializing db at \"/home/andrew/server/shells/config/absdatabase.sqlite\"","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.768","source":"Database.js:282","message":"[Database] Loading extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.769","source":"Database.js:290","message":"[Database] Successfully loaded extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.771","source":"Database.js:259","message":"[Database] Db supports unaccent and unicode foldings","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.771","source":"Database.js:263","message":"[Database] Db connection was successful","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:07.826","source":"MigrationManager.js:71","message":"[MigrationManager] Database is new. Skipping migrations.","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.506","source":"Database.js:191","message":"[Database] Db initialized with models: user, library, libraryFolder, book, podcast, podcastEpisode, libraryItem, mediaProgress, series, bookSeries, author, bookAuthor, collection, collectionBook, playlist, playlistMediaItem, device, playbackSession, feed, feedEpisode, setting, customMetadataProvider, mediaItemShare","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.507","source":"Database.js:796","message":"[Database] Adding trigger update_library_items_title","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.515","source":"Database.js:796","message":"[Database] Adding trigger update_library_items_title_ignore_prefix","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.525","source":"Database.js:796","message":"[Database] Adding trigger update_library_items_title_from_podcasts_title","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.532","source":"Database.js:796","message":"[Database] Adding trigger update_library_items_title_ignore_prefix_from_podcasts_title_ignore_prefix","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.540","source":"Database.js:834","message":"[Database] Adding trigger update_library_items_author_names_on_book_authors_insert","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.548","source":"Database.js:834","message":"[Database] Adding trigger update_library_items_author_names_on_book_authors_delete","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.556","source":"Database.js:859","message":"[Database] Adding trigger update_library_items_author_names_on_authors_update","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.607","source":"Database.js:197","message":"[Database] running ANALYZE","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.617","source":"Database.js:199","message":"[Database] ANALYZE completed","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.619","source":"LogManager.js:66","message":"[LogManager] Init current daily log filename: 2025-07-20.txt","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.648","source":"BackupManager.js:285","message":"[BackupManager] 0 Backups Found","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.649","source":"BackupManager.js:72","message":"[BackupManager] Auto Backups are disabled","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:00:08.692","source":"Server.js:407","message":"Listening on http://0.0.0.0:8000","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:01:36.828","source":"Server.js:417","message":"[Server] Initializing new server","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:01:42.542","source":"Auth.js:892","message":"[Auth] User \"root\" logged in from ip 127.0.0.1","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:01:42.743","source":"SocketAuthority.js:175","message":"[SocketAuthority] Socket Connected to /audiobookshelf/socket.io QtbicXTEtscQBi_FAAAB","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:06:11.152","source":"Server.js:200","message":"SIGINT (Ctrl+C) received. Shutting down...","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.210","source":"Server.js:225","message":"=== Starting Server ===","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.210","source":"Server.js:145","message":"[Server] Init v2.24.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.210","source":"Server.js:146","message":"[Server] Node.js Version: v22.16.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.210","source":"Server.js:147","message":"[Server] Platform: linux","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.210","source":"Server.js:148","message":"[Server] Arch: x64","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.212","source":"BinaryManager.js:346","message":"[BinaryManager] Skipping check for binaries","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.213","source":"Database.js:207","message":"[Database] Initializing db at \"/home/andrew/server/shells/config/absdatabase.sqlite\"","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.232","source":"Database.js:282","message":"[Database] Loading extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.233","source":"Database.js:290","message":"[Database] Successfully loaded extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.234","source":"Database.js:259","message":"[Database] Db supports unaccent and unicode foldings","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.234","source":"Database.js:263","message":"[Database] Db connection was successful","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.237","source":"MigrationManager.js:77","message":"[MigrationManager] Database is already up to date.","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.322","source":"Database.js:191","message":"[Database] Db initialized with models: user, library, libraryFolder, book, podcast, podcastEpisode, libraryItem, mediaProgress, series, bookSeries, author, bookAuthor, collection, collectionBook, playlist, playlistMediaItem, device, playbackSession, feed, feedEpisode, setting, customMetadataProvider, mediaItemShare","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.343","source":"Database.js:197","message":"[Database] running ANALYZE","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.350","source":"Database.js:199","message":"[Database] ANALYZE completed","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.351","source":"LogManager.js:66","message":"[LogManager] Init current daily log filename: 2025-07-20.txt","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.357","source":"BackupManager.js:285","message":"[BackupManager] 0 Backups Found","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.357","source":"BackupManager.js:72","message":"[BackupManager] Auto Backups are disabled","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:14:04.376","source":"Server.js:407","message":"Listening on http://0.0.0.0:8000","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.535","source":"Server.js:225","message":"=== Starting Server ===","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.535","source":"Server.js:145","message":"[Server] Init v2.24.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.535","source":"Server.js:146","message":"[Server] Node.js Version: v22.16.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.535","source":"Server.js:147","message":"[Server] Platform: linux","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.536","source":"Server.js:148","message":"[Server] Arch: x64","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.548","source":"BinaryManager.js:346","message":"[BinaryManager] Skipping check for binaries","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.549","source":"Database.js:207","message":"[Database] Initializing db at \"/home/andrew/server/shells/config/absdatabase.sqlite\"","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.565","source":"Database.js:282","message":"[Database] Loading extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.566","source":"Database.js:290","message":"[Database] Successfully loaded extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.566","source":"Database.js:259","message":"[Database] Db supports unaccent and unicode foldings","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.566","source":"Database.js:263","message":"[Database] Db connection was successful","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.570","source":"MigrationManager.js:77","message":"[MigrationManager] Database is already up to date.","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.647","source":"Database.js:191","message":"[Database] Db initialized with models: user, library, libraryFolder, book, podcast, podcastEpisode, libraryItem, mediaProgress, series, bookSeries, author, bookAuthor, collection, collectionBook, playlist, playlistMediaItem, device, playbackSession, feed, feedEpisode, setting, customMetadataProvider, mediaItemShare","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.667","source":"Database.js:197","message":"[Database] running ANALYZE","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.680","source":"Database.js:199","message":"[Database] ANALYZE completed","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.681","source":"LogManager.js:66","message":"[LogManager] Init current daily log filename: 2025-07-20.txt","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.686","source":"BackupManager.js:285","message":"[BackupManager] 0 Backups Found","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.686","source":"BackupManager.js:72","message":"[BackupManager] Auto Backups are disabled","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:18:15.705","source":"Server.js:407","message":"Listening on http://0.0.0.0:8000","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.220","source":"Server.js:225","message":"=== Starting Server ===","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.220","source":"Server.js:145","message":"[Server] Init v2.24.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.221","source":"Server.js:146","message":"[Server] Node.js Version: v22.16.0","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.221","source":"Server.js:147","message":"[Server] Platform: linux","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.221","source":"Server.js:148","message":"[Server] Arch: x64","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.229","source":"BinaryManager.js:346","message":"[BinaryManager] Skipping check for binaries","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.231","source":"Database.js:207","message":"[Database] Initializing db at \"/home/andrew/server/shells/config/absdatabase.sqlite\"","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.252","source":"Database.js:282","message":"[Database] Loading extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.253","source":"Database.js:290","message":"[Database] Successfully loaded extension /nix/store/dbymhygfb5fmsmnm9lng24b42qsf0ywy-nunicode-1.11-sqlite/lib/libnusqlite3","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.253","source":"Database.js:259","message":"[Database] Db supports unaccent and unicode foldings","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.253","source":"Database.js:263","message":"[Database] Db connection was successful","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.257","source":"MigrationManager.js:77","message":"[MigrationManager] Database is already up to date.","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.335","source":"Database.js:191","message":"[Database] Db initialized with models: user, library, libraryFolder, book, podcast, podcastEpisode, libraryItem, mediaProgress, series, bookSeries, author, bookAuthor, collection, collectionBook, playlist, playlistMediaItem, device, playbackSession, feed, feedEpisode, setting, customMetadataProvider, mediaItemShare","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.356","source":"Database.js:197","message":"[Database] running ANALYZE","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.370","source":"Database.js:199","message":"[Database] ANALYZE completed","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.372","source":"LogManager.js:66","message":"[LogManager] Init current daily log filename: 2025-07-20.txt","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.382","source":"BackupManager.js:285","message":"[BackupManager] 0 Backups Found","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.382","source":"BackupManager.js:72","message":"[BackupManager] Auto Backups are disabled","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:24.401","source":"Server.js:407","message":"Listening on http://0.0.0.0:8000","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:36.888","source":"Auth.js:892","message":"[Auth] User \"root\" logged in from ip 192.168.0.45","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:37.351","source":"SocketAuthority.js:175","message":"[SocketAuthority] Socket Connected to /socket.io nwBRimFV3rXI8gA4AAAB","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.008","source":"PlaybackSessionManager.js:110","message":"[PlaybackSessionManager] Syncing local session \"April 12th-18th 2025\" (32fb8d48-07d1-472b-a7db-de6cd078208f)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.010","source":"LibraryItem.js:196","message":"[LibraryItem] Library item not found with id \"0835bcbb-f45c-454a-9e01-722da969294c\"","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.010","source":"PlaybackSessionManager.js:132","message":"[PlaybackSessionManager] syncLocalSession: Media item not found for session \"April 12th-18th 2025\" (32fb8d48-07d1-472b-a7db-de6cd078208f)","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.010","source":"PlaybackSessionManager.js:110","message":"[PlaybackSessionManager] Syncing local session \"April 12th-18th 2025\" (247a2a92-a25a-48a0-a6de-a9558e2d3dd4)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.011","source":"LibraryItem.js:196","message":"[LibraryItem] Library item not found with id \"0835bcbb-f45c-454a-9e01-722da969294c\"","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.012","source":"PlaybackSessionManager.js:132","message":"[PlaybackSessionManager] syncLocalSession: Media item not found for session \"April 12th-18th 2025\" (247a2a92-a25a-48a0-a6de-a9558e2d3dd4)","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.012","source":"PlaybackSessionManager.js:110","message":"[PlaybackSessionManager] Syncing local session \"April 12th-18th 2025\" (d4e20bef-f235-4c25-85f3-f71856cbc9e8)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.014","source":"LibraryItem.js:196","message":"[LibraryItem] Library item not found with id \"0835bcbb-f45c-454a-9e01-722da969294c\"","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.014","source":"PlaybackSessionManager.js:132","message":"[PlaybackSessionManager] syncLocalSession: Media item not found for session \"April 12th-18th 2025\" (d4e20bef-f235-4c25-85f3-f71856cbc9e8)","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.014","source":"PlaybackSessionManager.js:110","message":"[PlaybackSessionManager] Syncing local session \"April 12th-18th 2025\" (d3155ef5-4ddb-4c20-91f3-117b632100e6)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.015","source":"LibraryItem.js:196","message":"[LibraryItem] Library item not found with id \"0835bcbb-f45c-454a-9e01-722da969294c\"","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.016","source":"PlaybackSessionManager.js:132","message":"[PlaybackSessionManager] syncLocalSession: Media item not found for session \"April 12th-18th 2025\" (d3155ef5-4ddb-4c20-91f3-117b632100e6)","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.016","source":"PlaybackSessionManager.js:110","message":"[PlaybackSessionManager] Syncing local session \"April 12th-18th 2025\" (f7fdd810-473a-4170-8dce-9216d275e335)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:38.017","source":"LibraryItem.js:196","message":"[LibraryItem] Library item not found with id \"0835bcbb-f45c-454a-9e01-722da969294c\"","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:38.017","source":"PlaybackSessionManager.js:132","message":"[PlaybackSessionManager] syncLocalSession: Media item not found for session \"April 12th-18th 2025\" (f7fdd810-473a-4170-8dce-9216d275e335)","levelName":"ERROR","level":4}
+{"timestamp":"2025-07-20 09:21:44.583","source":"Server.js:200","message":"SIGINT (Ctrl+C) received. Shutting down...","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.583","source":"Server.js:490","message":"=== Stopping Server ===","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.584","source":"Server.js:492","message":"[Server] Watcher Closed","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.584","source":"SocketAuthority.js:129","message":"[SocketAuthority] closing...","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.585","source":"SocketAuthority.js:132","message":"[SocketAuthority] Closing Socket.IO server: /socket.io","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.588","source":"SocketAuthority.js:202","message":"[SocketAuthority] Socket nwBRimFV3rXI8gA4AAAB disconnected from client \"root\" after 7236ms (Reason: server shutting down)","levelName":"INFO","level":2}
+{"timestamp":"2025-07-20 09:21:44.589","source":"SocketAuthority.js:132","message":"[SocketAuthority] Closing Socket.IO server: /audiobookshelf/socket.io","levelName":"INFO","level":2}
