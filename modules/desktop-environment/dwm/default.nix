@@ -12,7 +12,7 @@
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
         buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
-        patches = [ ./patch.dwm.7.config.def.h.diff ];
+        patches = [ ./patch.dwm.8.config.def.h.diff ];
       });
     })
   ];

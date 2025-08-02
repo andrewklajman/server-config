@@ -2,6 +2,7 @@
 
 let 
   passmenulogin = pkgs.writeShellScriptBin "passmenulogin" '' ${builtins.readFile ./passmenulogin} '';
+  passwebsite = pkgs.writeShellScriptBin "passwebsite" '' ${builtins.readFile ./passwebsite} '';
 in
 {
   options.personal-security = {
@@ -18,7 +19,11 @@ in
     };
 
     environment = {
-      systemPackages = with pkgs; [ pass passmenulogin ];
+      systemPackages = with pkgs; [ 
+        pass 
+        passmenulogin 
+        passwebsite
+      ];
       variables = {
         GNUPGHOME = config.personal-security.gnupgHome;
         PASSWORD_STORE_DIR = config.personal-security.passwordStoreDir;
