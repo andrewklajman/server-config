@@ -45,11 +45,9 @@ mount /dev/disk/by-label/persist-enc /mnt/persist-enc
 
 echo '--- Generating Config ---'
 nixos-generate-config --root /mnt
-sed '5 i environment.systemPackages = with pkgs [ vim git ];' /mnt/etc/nixos/configuration.nix
-sed '5 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
-sed '5 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
+sed '16 i environment.systemPackages = with pkgs; [ vim git ];' /mnt/etc/nixos/configuration.nix
+sed '16 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
+sed '16 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
 
-exit
 nixos-install
 
-#reboot
