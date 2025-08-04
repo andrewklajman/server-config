@@ -4,12 +4,12 @@
 # parted /dev/ -- mkpart primary linux-swap -8GB 100%
 
 echo '--- Setting Variables ---'
-DISK="/dev/"
-PART1="/dev/"
-PART2="/dev/"
-PART3="/dev/"
-PART4="/dev/"
-PART5="/dev/"
+DISK="/dev/nvme0n1"
+PART1="/dev/nvme0n1p1"
+PART2="/dev/nvme0n1p2"
+PART3="/dev/nvme0n1p3"
+PART4="/dev/nvme0n1p4"
+PART5="/dev/nvme0n1p5"
 
 echo '--- Partitioning (UEFI) ---'
 parted $DISK -- mklabel gpt
@@ -44,12 +44,11 @@ mount /dev/disk/by-label/persist-enc /mnt/persist-enc
 
 echo '--- Generating Config ---'
 nixos-generate-config --root /mnt
+sed '5 i environment.systemPackages = with pkgs [ vim git ];' /mnt/etc/nixos/configuration.nix
+sed '5 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
+sed '5 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
+
 exit
-
-vim /mnt/etc/nixos/configuration.nix
-# environment.systemPackages = [ pkgs.vim ];
-# nix.settings.experimental-features = [ "nix-command" "flakes" ];
-# users.users.root.initialPassword = "pass";
-
 nixos-install
-reboot
+
+#reboot
