@@ -44,6 +44,7 @@
     	  ./modules
         ( { config, ... }: { 
             desktop-manager           = "dwm";
+            doas.enable               = true;
             zsh.enable                = true;
           })
       ];
