@@ -4,6 +4,7 @@
 # parted /dev/ -- mkpart primary linux-swap -8GB 100%
 
 echo '--- Setting Variables ---'
+LUKS_PASS=""
 DISK="/dev/nvme0n1"
 PART1="/dev/nvme0n1p1"
 PART2="/dev/nvme0n1p2"
@@ -21,8 +22,8 @@ parted $DISK -- mkpart swap linux-swap 200GB 210GB
 parted $DISK -- set 1 esp on
 
 echo '--- Disk Encryption ---'
-cryptsetup luksFormat $PART4
-cryptsetup open $PART4 persist-enc
+echo $LUKS_PASS | cryptsetup -q luksFormat $PART4
+echo $LUKS_PASS | cryptsetup -q open $PART4 persist-enc
 
 echo '--- Formatting Disks ---'
 mkfs.fat -F 32 -n boot $PART1        # (for UEFI systems only)
