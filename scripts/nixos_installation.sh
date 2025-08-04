@@ -16,13 +16,13 @@ parted $DISK -- mklabel gpt
 parted $DISK -- mkpart ESP fat32 1MB 512MB
 parted $DISK -- mkpart nix ext4 512MB 100GB
 parted $DISK -- mkpart persist ext4 100GB 150GB
-parted $DISK -- mkpart persist-enc ext4 150GB 220GB
-parted $DISK -- mkpart swap linux-swap 220GB 100%
-parted $DISK -- set 5 esp on
+parted $DISK -- mkpart persist-enc ext4 150GB 200GB
+parted $DISK -- mkpart swap linux-swap 200GB 210GB
+parted $DISK -- set 1 esp on
 
 echo '--- Disk Encryption ---'
 cryptsetup luksFormat $PART4
-cryptsetup open /dev/ persist-enc
+cryptsetup open $PART4 persist-enc
 
 echo '--- Formatting Disks ---'
 mkfs.fat -F 32 -n boot $PART1        # (for UEFI systems only)
