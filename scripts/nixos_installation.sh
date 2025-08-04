@@ -29,7 +29,7 @@ mkfs.fat -F 32 -n boot $PART1        # (for UEFI systems only)
 # mkfs.ext4 -L boot /dev/           # (for MBR systems only)
 mkfs.ext4 -L nix $PART2
 mkfs.ext4 -L persist $PART3
-mkfs.ext4 -L persist-enc /dev/mapper/persist-env
+mkfs.ext4 -L persist-enc /dev/mapper/persist-enc
 mkswap -L swap $PART5
 swapon $PART5
 
@@ -47,8 +47,9 @@ nixos-generate-config --root /mnt
 exit
 
 vim /mnt/etc/nixos/configuration.nix
-# environment.systemPackages = [ pkgs.vim ]
+# environment.systemPackages = [ pkgs.vim ];
 # nix.settings.experimental-features = [ "nix-command" "flakes" ];
+# users.users.root.initialPassword = "pass";
 
 nixos-install
 reboot
