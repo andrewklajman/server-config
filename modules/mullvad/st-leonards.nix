@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  environment.persistence."/persist/persistence-module" = {
-    enable = true;
-    hideMounts = false;
-    directories = [
-      "/etc/NetworkManager/system-connections"
-    ];
-  };
+#  environment.persistence."/persist/persistence-module" = {
+#    enable = true;
+#    hideMounts = false;
+#    directories = [
+#      "/etc/NetworkManager/system-connections"
+#    ];
+#  };
 }
 
 # environment.etc."NetworkManager/system-connections/Optus_C99CB5.nmconnection" = {
