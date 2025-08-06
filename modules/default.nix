@@ -1,5 +1,11 @@
 { config, pkgs, lib, age, ... }:
+
 {
+  desktop-manager = "dwm";
+  doas.enable     = true;
+  git.enable      = true;
+  zsh.enable      = true;
+
   imports = [
 #    ./agenix
     ./audiobookshelf.nix
@@ -8,6 +14,7 @@
     ./doas.nix
     ./docker.nix
     ./environment.nix
+    ./git.nix
     ./metube.nix
     ./microsocks.nix
     ./mullvad
@@ -24,5 +31,6 @@
     ./virt-manager.nix
     ./zsh.nix
   ];
+
 }
 

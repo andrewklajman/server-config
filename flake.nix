@@ -14,25 +14,17 @@
         ./modules
         ( { config, ... }: { 
             audiobookshelf.enable     = false; 
-            desktop-manager           = "dwm";
-            doas.enable               = true;
-            docker.enable             = false;
+            qbittorrent.enable        = true;
             personal-security = {
               enable                  = true;
-              gnupgHome               = "/persist/gnupg";
-              passwordStoreDir        = "/persist/password-store";
+              gnupgHome               = "/persist/persistence/apps/gnupg";
+              passwordStoreDir        = "/persist/persistence/apps/password-store";
             };
             mullvad = { 
               enable = true; 
-              mullvadSettingsDir = "/persist/persistence-mullvad/MULLVAD_SETTINGS_DIR/";
-              mullvadCacheDir = "/persist/persistence-mullvad/MULLVAD_CACHE_DIR/";
+              mullvadSettingsDir = "/persist/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
+              mullvadCacheDir = "/persist/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
             };
-            qbittorrent.enable        = true;
-            systemd-journal.enable    = false;
-            systemd-recur-task.enable = false;
-            tmux.enable               = false;
-            virt-manager.enable       = true;
-            zsh.enable                = true;
           })
       ];
     };

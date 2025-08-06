@@ -17,6 +17,11 @@
     options = [ "bind" ];
   };
 
+  fileSystems."/home/andrew/.gitconfig" = { 
+    device = "/persist/persistence/andrew/gitconfig";
+    options = [ "bind" ];
+  };
+
   fileSystems."/home/andrew/.zshrc" = { 
     device = "/persist/persistence/andrew/zshrc";
     options = [ "bind" ];
@@ -24,6 +29,11 @@
 
   fileSystems."/home/andrew/.ssh" = { 
     device = "/persist/persistence/andrew/ssh";
+    options = [ "bind" ];
+  };
+
+  fileSystems."/root/.ssh" = { 
+    device = "/persist/persistence/root/ssh";
     options = [ "bind" ];
   };
 

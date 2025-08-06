@@ -3,7 +3,18 @@
 {
   options.doas.enable = lib.mkEnableOption "doas";
   config = lib.mkIf config.doas.enable {
-    security.doas.enable = true;
+
     security.sudo.enable = false;
+    security.doas = {
+      enable = true;
+      extraRules = [
+        {
+          users = ["andrew"];
+          keepEnv = true; 
+          persist = true;
+        }
+      ];
+    };
+
   };
 }

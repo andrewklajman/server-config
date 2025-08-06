@@ -31,13 +31,25 @@
         options = "--delete-older-than 1w";
       };
 
+
+  programs.git = {
+    enable = true;
+    config =  {
+      safe = {
+        directory = "/persist/server";
+      };
+    };
+  };
+
+
+
   # Packages
   environment.systemPackages = with pkgs; [ 
     alsa-utils
     arandr autorandr
     cryptsetup
     btop
-    git
+    # git
     jq
     mpv
     ncdu
