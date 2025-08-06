@@ -1,15 +1,12 @@
 {
   description = "System Configuration";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-  inputs.agenix.url = "github:ryantm/agenix";
-  inputs.impermanence.url = "github:nix-community/impermanence";
 
-  outputs = { self, nixpkgs, agenix, impermanence, ... }@inputs: {
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.lenovo = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        agenix.nixosModules.default
-        impermanence.nixosModules.impermanence
         ./hosts/lenovo/configuration.nix
         ./modules
         ( { config, ... }: { 
@@ -34,11 +31,6 @@
       modules = [
         ./hosts/pc/configuration.nix
     	  ./modules
-        ( { config, ... }: { 
-            desktop-manager           = "dwm";
-            doas.enable               = true;
-            zsh.enable                = true;
-          })
       ];
     };
 

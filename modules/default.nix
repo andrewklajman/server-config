@@ -7,7 +7,6 @@
   zsh.enable      = true;
 
   imports = [
-#    ./agenix
     ./audiobookshelf.nix
     ./calibre.nix
     ./desktop-environment
