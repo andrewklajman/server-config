@@ -1,8 +1,14 @@
 
 # Todo 
 
+- Update Passwords with Websites
+        * Up to westerdn union
+- Have websites open in provate tab and grab password
 - Deploy to PC
+- Fix up Wifi
+- Update GPG key to github
 - Update to USB3 YubiKey
+- Implement YubiKey for Google
 
 # Windows Installation
 
