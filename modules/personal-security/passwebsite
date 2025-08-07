@@ -29,7 +29,10 @@ password=$(printf '%s\n' "${password_files[@]}" | "$dmenu" "-i" "$@")
 [[ -n $password ]] || exit
 
 if [[ $typeit -eq 0 ]]; then
-	pass show "$password" | grep website | cut -d' ' -f2 | xclip -sel clip 2>/dev/null
+	# pass show "$password" | grep website | cut -d' ' -f2 | xclip -sel clip 2>/dev/null
+  SITE=$(pass show "$password" | grep website | cut -d' ' -f2)
+  mullvad-browser --private-window $SITE & 2>/dev/null
+  pass show -c "$password" 2>/dev/null
 else
 	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } | $xdotool
 fi
