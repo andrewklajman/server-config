@@ -2,6 +2,11 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  services.pcscd = {
+    enable = true;
+    plugins = [ pkgs.acsccid ];
+  };
+
   users.users.andrew = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
@@ -14,6 +19,11 @@
 
   fileSystems."/etc/NetworkManager/system-connections" = { 
     device = "/persist/persistence/system/system-connections";
+    options = [ "bind" ];
+  };
+
+  fileSystems."/home/andrew/persist" = { 
+    device = "/persist/server";
     options = [ "bind" ];
   };
 

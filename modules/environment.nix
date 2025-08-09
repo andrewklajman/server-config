@@ -49,11 +49,11 @@
     arandr autorandr
     cryptsetup
     btop
-    # git
     jq
     mpv
     ncdu
     ranger
+    yubikey-manager
     yt-dlp
     cups-pdf-to-pdf
     ledger
