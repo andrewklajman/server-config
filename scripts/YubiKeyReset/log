@@ -1,0 +1,223 @@
+[H[2J--- Load GnuPG Home ---
+DELETE/:
+total 0
+drwxr-xr-x 3 root root  60 Aug  9 10:20 backup
+drwx------ 5 root root 260 Aug  9 10:51 gnupg-2024-09-09-nMEuHHsj7e
+
+DELETE/backup:
+total 0
+drwx------ 5 root root 260 Aug  9 10:20 gnupg-2024-09-09-nMEuHHsj7e
+
+DELETE/backup/gnupg-2024-09-09-nMEuHHsj7e:
+total 108
+-rw-r--r-- 1 root root  6900 Aug  9 10:20 02AFAAF7B9AB5AB8-2024-09-09.asc
+-rw------- 1 root root 13898 Aug  9 10:20 02AFAAF7B9AB5AB8-Certify.key
+-rw------- 1 root root 12159 Aug  9 10:20 02AFAAF7B9AB5AB8-Subkeys.key
+-rw-r--r-- 1 root root  2273 Aug  9 10:20 gpg.conf
+drwx------ 2 root root    60 Aug  9 10:20 openpgp-revocs.d
+drwxr-xr-x 2 root root    40 Aug  9 10:20 =p
+drwx------ 2 root root   120 Aug  9 10:20 private-keys-v1.d
+-rw-r--r-- 1 root root  5339 Aug  9 10:20 pubring.kbx
+-rw-r--r-- 1 root root  4196 Aug  9 10:20 pubring.kbx~
+-rw-r--r-- 1 root root 49152 Aug  9 10:20 tofu.db
+-rw------- 1 root root  1280 Aug  9 10:20 trustdb.gpg
+
+DELETE/backup/gnupg-2024-09-09-nMEuHHsj7e/openpgp-revocs.d:
+total 4
+-rw------- 1 root root 1859 Aug  9 10:20 4A1A296CB262CF363DF7E62A02AFAAF7B9AB5AB8.rev
+
+DELETE/backup/gnupg-2024-09-09-nMEuHHsj7e/=p:
+total 0
+
+DELETE/backup/gnupg-2024-09-09-nMEuHHsj7e/private-keys-v1.d:
+total 16
+-rw------- 1 root root 3787 Aug  9 10:20 04FD9E79B0AE54C136120281C39A1F3E0CBF7987.key
+-rw------- 1 root root 3789 Aug  9 10:20 1D23B7B589EC6DEED17AAC0C7CB8C34CAD4BA7DE.key
+-rw------- 1 root root 3787 Aug  9 10:20 234D94750C7D38F499BC24261606C1680A3FE81A.key
+-rw------- 1 root root 3787 Aug  9 10:20 C88EBB7C6D6FAA1AE8EF2B0B7AB04850074CB2C0.key
+
+DELETE/gnupg-2024-09-09-nMEuHHsj7e:
+total 108
+-rw-r--r-- 1 root root  6900 Aug  9 10:51 02AFAAF7B9AB5AB8-2024-09-09.asc
+-rw------- 1 root root 13898 Aug  9 10:51 02AFAAF7B9AB5AB8-Certify.key
+-rw------- 1 root root 12159 Aug  9 10:51 02AFAAF7B9AB5AB8-Subkeys.key
+-rw-r--r-- 1 root root  2273 Aug  9 10:51 gpg.conf
+drwx------ 2 root root    60 Aug  9 10:51 openpgp-revocs.d
+drwxr-xr-x 2 root root    40 Aug  9 10:51 =p
+drwx------ 2 root root   120 Aug  9 10:51 private-keys-v1.d
+-rw-r--r-- 1 root root  5339 Aug  9 10:51 pubring.kbx
+-rw-r--r-- 1 root root  4196 Aug  9 10:51 pubring.kbx~
+-rw-r--r-- 1 root root 49152 Aug  9 10:51 tofu.db
+-rw------- 1 root root  1280 Aug  9 10:51 trustdb.gpg
+
+DELETE/gnupg-2024-09-09-nMEuHHsj7e/openpgp-revocs.d:
+total 4
+-rw------- 1 root root 1859 Aug  9 10:51 4A1A296CB262CF363DF7E62A02AFAAF7B9AB5AB8.rev
+
+DELETE/gnupg-2024-09-09-nMEuHHsj7e/=p:
+total 0
+
+DELETE/gnupg-2024-09-09-nMEuHHsj7e/private-keys-v1.d:
+total 16
+-rw------- 1 root root 3787 Aug  9 10:51 04FD9E79B0AE54C136120281C39A1F3E0CBF7987.key
+-rw------- 1 root root 3789 Aug  9 10:51 1D23B7B589EC6DEED17AAC0C7CB8C34CAD4BA7DE.key
+-rw------- 1 root root 3787 Aug  9 10:51 234D94750C7D38F499BC24261606C1680A3FE81A.key
+-rw------- 1 root root 3787 Aug  9 10:51 C88EBB7C6D6FAA1AE8EF2B0B7AB04850074CB2C0.key
+
+--- Setting Variables ---
+# Identity
+Identity: Andrew Klajman <andrew.klajman@gmail.com>
+
+# Pins
+ADMIN_PIN:    Newadmin1232
+USER_PIN:     Newadmin1232
+GNUPGHOME:    /persist/YubiKeyReset/DELETE/gnupg-2024-09-09-nMEuHHsj7e
+
+# Establishing KeyID and KeyFP
+
+Key ID:                         02AFAAF7B9AB5AB8
+Key FP: 4A1A296CB262CF363DF7E62A02AFAAF7B9AB5AB8
+
+
+--- Reset YubiKey ---
+Touch your YubiKey...
+FIDO application data reset.
+Resetting YubiHSM Auth data...
+Reset complete. All YubiHSM Auth data has been cleared from the YubiKey.
+Your YubiKey now has an empty Management password.
+Resetting OATH data...
+Reset complete. All OATH accounts have been deleted from the YubiKey.
+Resetting OpenPGP data, don't remove the YubiKey...
+Reset complete. OpenPGP data has been cleared and default PINs are set.
+PIN:         123456
+Reset code:  NOT SET
+Admin PIN:   12345678
+ERROR: Not possible to delete an empty slot.
+ERROR: Not possible to delete an empty slot.
+Resetting PIV data...
+Reset complete. All PIV data has been cleared from the YubiKey.
+Your YubiKey now has the default PIN, PUK and Management Key:
+	PIN:	123456
+	PUK:	12345678
+	Management Key:	010203040506070801020304050607080102030405060708
+
+--- Check Card Recognition ---
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+gpg: selecting card failed: No such device
+gpg: OpenPGP card not available: No such device
+
+Reader ...........: 1050:0407:X:0
+Application ID ...: D2760001240100000006267522590000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: 26752259
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Salutation .......: 
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa2048 rsa2048 rsa2048
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 0
+KDF setting ......: off
+UIF setting ......: Sign=off Decrypt=off Auth=off
+Signature key ....: [none]
+Encryption key....: [none]
+Authentication key: [none]
+General key info..: [none]
+
+--- Setting up YubiKey ---
+# Setting the Admin Pin
+gpg: OpenPGP card no. D2760001240100000006267522590000 detected
+
+# Setting the User Pin
+gpg: OpenPGP card no. D2760001240100000006267522590000 detected
+
+--- Transfering Keys ---
+# Signature Key
+# Encryption Key
+# Authentication Key
+
+--- Debug ---
+# gpg --list-keys
+/persist/YubiKeyReset/DELETE/gnupg-2024-09-09-nMEuHHsj7e/pubring.kbx
+--------------------------------------------------------------------
+pub   rsa4096/0x02AFAAF7B9AB5AB8 2024-09-09 [C]
+      Key fingerprint = 4A1A 296C B262 CF36 3DF7  E62A 02AF AAF7 B9AB 5AB8
+uid                   [ultimate] Andrew Klajman <andrew.klajman@gmail.com>
+sub   rsa4096/0x16BA6956115C2831 2024-09-09 [S] [expires: 2026-09-09]
+sub   rsa4096/0x53F6F9071B8D80E7 2024-09-09 [E] [expires: 2026-09-09]
+sub   rsa4096/0x578FF66E9C2D79D7 2024-09-09 [A] [expires: 2026-09-09]
+
+
+# gpg --list-secret-keys
+/persist/YubiKeyReset/DELETE/gnupg-2024-09-09-nMEuHHsj7e/pubring.kbx
+--------------------------------------------------------------------
+sec   rsa4096/0x02AFAAF7B9AB5AB8 2024-09-09 [C]
+      Key fingerprint = 4A1A 296C B262 CF36 3DF7  E62A 02AF AAF7 B9AB 5AB8
+uid                   [ultimate] Andrew Klajman <andrew.klajman@gmail.com>
+ssb>  rsa4096/0x16BA6956115C2831 2024-09-09 [S] [expires: 2026-09-09]
+ssb>  rsa4096/0x53F6F9071B8D80E7 2024-09-09 [E] [expires: 2026-09-09]
+ssb>  rsa4096/0x578FF66E9C2D79D7 2024-09-09 [A] [expires: 2026-09-09]
+
+
+# gpg --card-status
+Reader ...........: 1050:0407:X:0
+Application ID ...: D2760001240100000006267522590000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: 26752259
+Name of cardholder: [not set]
+Language prefs ...: [not set]
+Salutation .......: 
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: rsa4096 rsa4096 rsa4096
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 3 0 3
+Signature counter : 0
+KDF setting ......: off
+UIF setting ......: Sign=off Decrypt=off Auth=off
+Signature key ....: 6BB4 AAF0 8AE1 F333 A23D  2A99 16BA 6956 115C 2831
+      created ....: 2024-09-09 03:00:18
+Encryption key....: CFE1 77EC A0BA 645D 3BC8  C697 53F6 F907 1B8D 80E7
+      created ....: 2024-09-09 03:00:20
+Authentication key: C2D6 359A E036 1442 3846  FDEA 578F F66E 9C2D 79D7
+      created ....: 2024-09-09 03:00:21
+General key info..: sub  rsa4096/0x16BA6956115C2831 2024-09-09 Andrew Klajman <andrew.klajman@gmail.com>
+sec   rsa4096/0x02AFAAF7B9AB5AB8  created: 2024-09-09  expires: never     
+ssb>  rsa4096/0x16BA6956115C2831  created: 2024-09-09  expires: 2026-09-09
+                                  card-no: 0006 26752259
+ssb>  rsa4096/0x53F6F9071B8D80E7  created: 2024-09-09  expires: 2026-09-09
+                                  card-no: 0006 26752259
+ssb>  rsa4096/0x578FF66E9C2D79D7  created: 2024-09-09  expires: 2026-09-09
+                                  card-no: 0006 26752259
+

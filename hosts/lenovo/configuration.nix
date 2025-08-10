@@ -23,7 +23,7 @@
   };
 
   fileSystems."/home/andrew/persist" = { 
-    device = "/persist/server";
+    device = "/persist";
     options = [ "bind" ];
   };
 

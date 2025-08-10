@@ -1,8 +1,7 @@
 # Todo 
 
-- Autologin
 - Deploy to PC (Install windows)
-    * Filed Intel Rapid Tech Driver question to forum
+    * Ventoy works
 - Update to USB3 YubiKey
 - Implement YubiKey 
     * for Google
@@ -19,3 +18,4 @@
 - Secure boot should be set to No
 - Make a better unlock mechanism
 - Fix up Wifi
+- Autologin

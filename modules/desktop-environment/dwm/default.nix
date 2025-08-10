@@ -32,6 +32,7 @@ in
   services = {
     xserver = {
       enable = true;
+      displayManager.lightdm.enable = true;
       windowManager.dwm.enable = true;
       xkb = {
         layout = "au"; 
@@ -41,12 +42,13 @@ in
         Option "DRI" "2"
         Option "TearFree" "true"
       '';
-      displayManager = {
-        startx.enable = true;
-        gdm.enable = true;
-      };
     };
   };
+
+# Auto login
+  services.displayManager.defaultSession = "none+dwm";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "andrew";
   
 }
 
