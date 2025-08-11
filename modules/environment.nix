@@ -31,6 +31,9 @@
       safe.directory = [ 
         "/persist/server" 
         "/persist/server-config" 
+        "/home/andrew/persist/server-config" 
+        "/home/andrew/server" 
+        "/home/andrew/persist/server" 
       ];
       user.name = [ "andrew" ];
       user.email = [ "andrew.klajman@gmail.com" ];
