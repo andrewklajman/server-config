@@ -22,15 +22,10 @@
     options = [ "bind" ];
   };
 
-  fileSystems."/home/andrew/persist" = { 
-    device = "/persist";
+  fileSystems."/home/andrew/server" = { 
+    device = "/persist/server";
     options = [ "bind" ];
   };
-
-#  fileSystems."/home/andrew/.gitconfig" = { 
-#    device = "/persist/persistence/andrew/gitconfig";
-#    options = [ "bind" ];
-#  };
 
   fileSystems."/home/andrew/.zshrc" = { 
     device = "/persist/persistence/andrew/zshrc";
