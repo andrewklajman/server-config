@@ -22,6 +22,7 @@
               mullvadSettingsDir = "/persist/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
               mullvadCacheDir = "/persist/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
             };
+            virt-manager.enable           = true;
           })
       ];
     };
