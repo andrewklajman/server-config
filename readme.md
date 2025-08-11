@@ -1,23 +1,17 @@
 # Todo 
 
+- Unlock Script: 
+    1. Open floating terminal 
+    2. Should be universal (not in dwm)
+
+
 - Deploy to PC (Install windows)
     * Ventoy works
 - Update to USB3 YubiKey
-- Implement YubiKey 
-    * for Google
-    * For Github
-
 - Update GPG key to github  I dont think this is great bcause it will mean an
   issue with the password store
 - Implement slstatus (for mullvad and wifi and time)
-- nixos installation script 
-    * copy across shadow file.
-    * Set persist to neede for boot
-    * remove persist-enc
-    * Create and copy ssh files
-- unlock scripe should not be with dwm and should be universal
 - shoiuld automatically create the empty /persist/persistence/... files
-- See if i can add safe directroy and user and email globalliy
 
 # Windows Installation
 
@@ -28,3 +22,4 @@
 - Make a better unlock mechanism
 - Fix up Wifi
 - Autologin
+- See if i can add safe directroy and user and email globalliy

@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
 {
-#  # Variables
-#  environment.variables = {
-#    GNUPGHOME = "/persist/persist-encrypted/gnupg";
-#    PASSWORD_STORE_DIR = "/persist/persist-encrypted/password-store";
-#  };
-
   # Misc
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -31,18 +25,17 @@
         options = "--delete-older-than 1w";
       };
 
-
   programs.git = {
     enable = true;
-    config.safe.directory = [ "/persist/server" "/persist/server-config" ];
-#    config =  {
-#      safe = {
-#        directory = "/persist/server";
-#      };
-#    };
+    config = {
+      safe.directory = [ 
+        "/persist/server" 
+        "/persist/server-config" 
+      ];
+      user.name = [ "andrew" ];
+      user.email = [ "andrew.klajman@gmail.com" ];
+    };
   };
-
-
 
   # Packages
   environment.systemPackages = with pkgs; [ 

@@ -32,8 +32,11 @@
         ./hosts/pc/configuration.nix
     	  ./modules
         ( { config, ... }: { 
-            networking.enableIPv6 = false;
-            networking.networkmanager.enable = true;
+            mullvad = { 
+              enable = true; 
+              mullvadSettingsDir = "/persist/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
+              mullvadCacheDir = "/persist/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
+            };
           })
       ];
     };

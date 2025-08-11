@@ -48,6 +48,8 @@ nixos-generate-config --root /mnt
 sed -i '16 i environment.systemPackages = with pkgs; [ vim git ];' /mnt/etc/nixos/configuration.nix
 sed -i '16 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
 sed -i '16 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
+sed -i '6 i fileSystems."/persist".neededForBoot = true;' /mnt/etc/nixos/hardware-configuration.nix
+  
 
 echo '--- Installation ---'
 nixos-install
@@ -58,9 +60,13 @@ cp /mnt/etc/nixos/* /mnt/persist/original_config
 cd /mnt/persist
 git clone https://www.github.com/andrewklajman/server-config
 
-echo '--- Restart ---'
-restart
+echo '--- SSH Key Generation ---'
+mkdir /mnt/persist/persistence/root/ssh
+ssh-keygen -N '' -f /mnt/persist/persistence/root/ssh_key
+mkdir /mnt/persist/persistence/andrew/ssh
+ssh-keygen -N '' -f /mnt/persist/persistence/andrew/ssh_key
 
-
-
+echo '--- Checklist ---'
+echo ' * Remove auto mount for encrypted device'
+echo ' * Set fileSystems.
 
