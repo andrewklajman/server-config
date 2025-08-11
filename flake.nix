@@ -32,6 +32,7 @@
         ./hosts/pc/configuration.nix
     	  ./modules
         ( { config, ... }: { 
+            qbittorrent.enable        = true;
             mullvad = { 
               enable = true; 
               mullvadSettingsDir = "/persist/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
