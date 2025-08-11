@@ -34,11 +34,12 @@
 
   programs.git = {
     enable = true;
-    config =  {
-      safe = {
-        directory = "/persist/server";
-      };
-    };
+    config.safe.directory = [ "/persist/server" "/persist/server-config" ];
+#    config =  {
+#      safe = {
+#        directory = "/persist/server";
+#      };
+#    };
   };
 
 

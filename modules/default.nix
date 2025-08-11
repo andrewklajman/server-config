@@ -4,7 +4,7 @@
   desktop-manager = "dwm";
   #desktop-manager = "retroarch";
   doas.enable     = true;
-  git.enable      = true;
+  #git.enable      = true;
   zsh.enable      = true;
 
   imports = [

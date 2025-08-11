@@ -2,7 +2,18 @@
 
 let 
   unlock = pkgs.writeShellScriptBin "unlock" '' 
-    doas cryptsetup open /dev/nvme0n1p5 persist-enc
+    echo $HOST
+    echo $HOSTNAME
+    echo [[ "$HOSTNAME" == "pc" ]]
+
+    if [[ "$HOSTNAME" == "pc" ]]; then
+      echo PC Decrypt
+      doas cryptsetup open /dev/nvme0n1p4 persist-enc
+    else
+      echo Lenovo Decrypt
+      doas cryptsetup open /dev/nvme0n1p5 persist-enc
+    fi
+
     doas mkdir /persist-enc
     doas mount /dev/mapper/persist-enc /persist-enc
   '';

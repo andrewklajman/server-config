@@ -38,6 +38,7 @@
       nr = "nixos-rebuild switch --flake ./#pc";
       nrr = "nixos-rebuild switch --flake ./#pc && reboot";
       nrl = "doas git add . && doas nixos-rebuild switch --flake ./#lenovo";
+      nrp = "doas git add . && doas nixos-rebuild switch --flake ./#pc";
       ts = "tailscale status";
       ms = "mullvad status";
       mc = "mullvad connect";

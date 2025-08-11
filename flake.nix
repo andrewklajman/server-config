@@ -31,6 +31,10 @@
       modules = [
         ./hosts/pc/configuration.nix
     	  ./modules
+        ( { config, ... }: { 
+            networking.enableIPv6 = false;
+            networking.networkmanager.enable = true;
+          })
       ];
     };
 

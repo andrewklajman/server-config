@@ -8,43 +8,23 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
+    { device = "/dev/disk/by-uuid/25177f73-7fe5-40ee-9e45-80fde7d845cc";
+      fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CAE6-D474";
+    { device = "/dev/disk/by-uuid/160B-1372";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/3f30eb69-32ac-4fbe-b32e-7ea93170f583";
-      fsType = "ext4";
-    };
-
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
-
-#  fileSystems."/persist-enc" =
-#    { device = "/dev/disk/by-uuid/83ea2481-f20e-4e11-8506-fa63c65524f4";
-#      fsType = "ext4";
-#    };
-#
-#  boot.initrd.luks.devices."persist-enc".device = "/dev/disk/by-uuid/f61d2a4b-2302-4d2c-8a96-80482a6d7ceb";
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/bc3c06ce-960b-476f-83ae-71b89bae7fc3"; }
-    ];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
