@@ -1,16 +1,17 @@
 # Todo 
 
+- Deploy to PC (Install windows)
+    * Ventoy works
 - Unlock Script: 
     1. Open floating terminal 
     2. Should be universal (not in dwm)
-
-
-- Deploy to PC (Install windows)
-    * Ventoy works
+- Use initialHashedFile for Lenovo
 - Update to USB3 YubiKey
-- Update GPG key to github  I dont think this is great bcause it will mean an
-  issue with the password store
+- Taiscale with SSH
+- Wifi still sometimes not working
 - Implement slstatus (for mullvad and wifi and time)
+- Create a function for mapping
+- Implement Retro Arch
 - shoiuld automatically create the empty /persist/persistence/... files
 
 # Windows Installation
