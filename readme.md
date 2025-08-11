@@ -7,6 +7,7 @@
     2. Should be universal (not in dwm)
 - Use initialHashedFile for Lenovo
 - Update to USB3 YubiKey
+- Install Nvidea on Nixos PC
 - Taiscale with SSH
 - Wifi still sometimes not working
 - Implement slstatus (for mullvad and wifi and time)
