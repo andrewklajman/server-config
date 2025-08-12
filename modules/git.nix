@@ -9,7 +9,7 @@
       enable = true;
       config =  {
         safe = {
-          directory = [ "/persist/server" "/persist/server-config" ];
+          directory = [ "/persist/server-config" ];
         };
       };
     };

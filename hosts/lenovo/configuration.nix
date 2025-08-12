@@ -22,8 +22,8 @@
     options = [ "bind" ];
   };
 
-  fileSystems."/home/andrew/server" = { 
-    device = "/persist/server";
+  fileSystems."/home/andrew/server-config" = { 
+    device = "/persist/server-config";
     options = [ "bind" ];
   };
 

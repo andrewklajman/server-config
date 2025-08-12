@@ -47,7 +47,7 @@
       ss = "systemctl status";
       sr = "systemctl restart";
       j = "journalctl -xeu";
-      envrust = "nix-shell -A rust /persist/server/shells";
+      envrust = "nix-shell -A rust /persist/server-config/shells";
     };
   };
 
