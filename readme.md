@@ -1,5 +1,8 @@
 # Todo 
 
+- slstatus: battery, wifi mullvad, time date,
+
+
 - Deploy to PC (Install windows)
     * Ventoy works
 - Unlock Script: 
@@ -16,6 +19,9 @@
 - shoiuld automatically create the empty /persist/persistence/... files
 
 # Windows Installation
+
+
+
 
 - Update Passwords with Websites
 - Have websites open in provate tab and grab password
