@@ -1,6 +1,8 @@
 # Todo 
 
 - slstatus: battery, wifi mullvad, time date,
+- Arrange storage options
+- Create a YubiKey Storage encryption
 
 
 - Deploy to PC (Install windows)
