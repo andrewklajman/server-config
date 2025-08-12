@@ -1,12 +1,18 @@
-export IDENTITY='Andrew Klajman <andrew.klajman@gmail.com>'
-export WORKDIR="/persist/YubiKeyReset"
-export GNUPGFOLDER="gnupg-2024-09-09-nMEuHHsj7e"
-export GNUPGHOME="$WORKDIR/DELETE/$GNUPGFOLDER"
-export GNUPGHOME="$WORKDIR/DELETE/$GNUPGFOLDER"
-
-export ADMIN_PIN='Newadmin1232'
-export  USER_PIN='Newadmin1232'
+# Take existing .gnupg folder and create new YubiKey
 clear
+export GNUPGHOME_EXISTING="/persist/YubiKeyReset"
+export GNUPGHOME=$(mktemp -d)
+
+export IDENTITY='Andrew Klajman <andrew.klajman@gmail.com>'
+export YUBI_ADMIN='Newadmin1232'
+export  YUBI_USER='Newadmin1232'
+
+export KEY_EXPORT=$(mktemp -d)
+export KEY_EXPORT_PUBLIC="$KEY_EXPORT\Public"
+export KEY_EXPORT_PRIVATE="$KEY_EXPORT\Private"
+export KEY_EXPORT_HOME="$KEY_EXPORT\gnupghome"
+
+export WORKDIR="/persist/YubiKeyReset"
 
 main() {
   load_gpg_home
@@ -17,16 +23,16 @@ main() {
   setting_up_yubikey
   transfering_keys
 
-  export_public_key
+  export_public_keys
+  export_private_keys
+  export_gpg_home
 
   debug
 }
 
 load_gpg_home() {
   echo '--- Load GnuPG Home ---'
-    rm -rf $GNUPGHOME
-    cp -r $WORKDIR/DELETE/backup/$GNUPGFOLDER  DELETE/
-    ls -l --recursive DELETE/
+    cp -r $GNUPG_EXISTING $GNUPGHOME
     export KEYID=$(gpg -k --with-colons "$IDENTITY" | awk -F: '/^pub:/ { print $5; exit }')
     export KEYFP=$(gpg -k --with-colons "$IDENTITY" | awk -F: '/^fpr:/ { print $10; exit }')
     echo 
@@ -35,8 +41,8 @@ load_gpg_home() {
 variables() {
   echo --- Variables ---
     echo "Identity:  $IDENTITY"
-    echo "ADMIN_PIN: $ADMIN_PIN"
-    echo "USER_PIN:  $USER_PIN"
+    echo "YUBI_ADMIN: $YUBI_ADMIN"
+    echo "YUBI_USER:  $YUBI_USER"
     echo "GNUPGHOME: $GNUPGHOME"
     echo "Key ID:    $KEYID"
     echo "Key FP:    $KEYFP"
@@ -75,8 +81,8 @@ setting_up_yubikey() {
 gpg --command-fd=0 --pinentry-mode=loopback --change-pin <<EOF
 3
 12345678
-$ADMIN_PIN
-$ADMIN_PIN
+$YUBI_ADMIN
+$YUBI_ADMIN
 q
 EOF
   echo
@@ -85,23 +91,22 @@ EOF
 gpg --command-fd=0 --pinentry-mode=loopback --change-pin <<EOF
 1
 123456
-$USER_PIN
-$USER_PIN
+$YUBI_USER
+$YUBI_USER
 q
 EOF
   echo
 }
 
 transfering_keys() {
-# TODO: I need to check the ADMIN and User pin used below
   echo --- Transfering Keys ---
     echo '# Signature Key'
 gpg --command-fd=0 --pinentry-mode=loopback --edit-key $KEYID <<EOF
 key 1
 keytocard
 1
-$ADMIN_PIN
-$USER_PIN
+$YUBI_ADMIN
+$YUBI_USER
 save
 EOF
     echo '# Encryption Key'
@@ -109,8 +114,8 @@ gpg --command-fd=0 --pinentry-mode=loopback --edit-key $KEYID <<EOF
 key 2
 keytocard
 2
-$ADMIN_PIN
-$USER_PIN
+$YUBI_ADMIN
+$YUBI_USER
 save
 EOF
     echo '# Authentication Key'
@@ -118,19 +123,40 @@ gpg --command-fd=0 --pinentry-mode=loopback --edit-key $KEYID <<EOF
 key 3
 keytocard
 3
-$ADMIN_PIN
-$USER_PIN
+$YUBI_ADMIN
+$YUBI_USER
 save
 EOF
     echo
 }
 
-export_public_key() {
-  echo --- Debug ---
-    echo "# Exporting public key to $WORKDIR"
-    gpg --output $WORKDIR/$KEYID-$(date +%F).asc \
-        --armor --export $KEYID
-    echo
+export_public_keys() {
+  echo "-- Exporting public key to $KEY_EXPORT_PUBLIC"
+  mkdir -p $KEY_EXPORT_PUBLIC
+  gpg --output $KEY_EXPORT_PUBLIC/$KEYID-$(date +%F).asc \
+      --armor --export $KEYID
+  echo
+}
+
+export_private_keys() {
+  echo "-- Exporting private key to $KEY_EXPORT_PRIVATE"
+  mkdir -p $KEY_EXPORT_PRIVATE
+  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-Certify.key \
+      --batch --pinentry-mode=loopback --passphrase-fd 0 \
+      --armor --export-secret-keys $KEYID
+  
+  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-Subkeys.key \
+      --batch --pinentry-mode=loopback --passphrase-fd 0 \
+      --armor --export-secret-subkeys $KEYID
+
+  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-$(date +%F).asc \
+      --armor --export $KEYID
+}
+
+export_gpg_home() {
+  echo "-- Exporting gnupg to $KEY_EXPORT_HOME"
+    mkdir -p $KEY_EXPORT_HOME
+    cp -r $GNUPGHOME $KEY_EXPORT_HOME
 }
 
 debug() {

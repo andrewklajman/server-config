@@ -46,6 +46,7 @@
     arandr autorandr
     cryptsetup
     btop
+    entr
     jq
     mpv
     ncdu

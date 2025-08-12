@@ -20,6 +20,7 @@ let
     shellHook = '' 
       PS1="[rust] " 
       alias ccr="clear; RUSTFLAGS=-Awarnings cargo run;"
+      alias entrust="echo src/main.rs | entr -cs 'cargo run'"
     '';
   };
 
