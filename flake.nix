@@ -12,6 +12,7 @@
         ( { config, ... }: { 
             audiobookshelf.enable     = false; 
             qbittorrent.enable        = true;
+            virt-manager.enable           = true;
             personal-security = {
               enable                  = true;
               gnupgHome               = "/persist/persistence/apps/gnupg";
@@ -22,7 +23,6 @@
               mullvadSettingsDir = "/persist/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
               mullvadCacheDir = "/persist/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
             };
-            virt-manager.enable           = true;
           })
       ];
     };

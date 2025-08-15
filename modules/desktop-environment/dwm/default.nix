@@ -2,10 +2,6 @@
 
 let 
   unlock = pkgs.writeShellScriptBin "unlock" '' 
-    echo $HOST
-    echo $HOSTNAME
-    echo [[ "$HOSTNAME" == "pc" ]]
-
     if [[ "$HOSTNAME" == "pc" ]]; then
       echo PC Decrypt
       doas cryptsetup open /dev/nvme0n1p4 persist-enc
@@ -26,6 +22,7 @@ in
   environment.systemPackages = with pkgs; [ 
     unlock
     dmenu 
+    slstatus
     st tabbed
     xclip
     mullvad-browser-andrew
@@ -35,15 +32,27 @@ in
     (self: super: {
       dwm = super.dwm.overrideAttrs (oldAttrs: rec {
         buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
-        patches = [ ./patch.dwm.8.config.def.h.diff ];
+        patches = [ ./patch.dwm.9.config.def.h.diff ];
       });
     })
   ];
+
+
+#   services.xserver.displayManager.startx = {
+#     generateScript = true;
+#     extraCommands = ''
+#       slstatus &
+#     '';
+#   };
+
   
   services = {
     xserver = {
       enable = true;
-      displayManager.lightdm.enable = true;
+      displayManager = {
+        lightdm.enable = true;
+      };
+
       windowManager.dwm.enable = true;
       xkb = {
         layout = "au"; 

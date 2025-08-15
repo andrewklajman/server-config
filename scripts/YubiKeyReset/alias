@@ -1,0 +1,2 @@
+alias load='bash /persist/server-config/scripts/YubiKeyReset/yubikey_load_gpghome.sh'
+alias reset_key='bash /persist/server-config/scripts/YubiKeyReset/yubikey_reset.sh'

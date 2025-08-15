@@ -1,11 +1,12 @@
 # Take existing .gnupg folder and create new YubiKey
+
 clear
-export GNUPGHOME_EXISTING="/persist/YubiKeyReset"
+export GNUPGHOME_EXISTING="/root/KEY/gnupg-2024-09-09-nMEuHHsj7e"
 export GNUPGHOME=$(mktemp -d)
 
 export IDENTITY='Andrew Klajman <andrew.klajman@gmail.com>'
-export YUBI_ADMIN='Newadmin1232'
-export  YUBI_USER='Newadmin1232'
+export YUBI_ADMIN='^R2@Q1z&2H6&K2dK'
+export  YUBI_USER='^R2@Q1z&2H6&K2dK'
 
 export KEY_EXPORT=$(mktemp -d)
 export KEY_EXPORT_PUBLIC="$KEY_EXPORT\Public"
@@ -23,16 +24,12 @@ main() {
   setting_up_yubikey
   transfering_keys
 
-  export_public_keys
-  export_private_keys
-  export_gpg_home
-
   debug
 }
 
 load_gpg_home() {
   echo '--- Load GnuPG Home ---'
-    cp -r $GNUPG_EXISTING $GNUPGHOME
+    cp -r "$GNUPGHOME_EXISTING"/* "$GNUPGHOME"
     export KEYID=$(gpg -k --with-colons "$IDENTITY" | awk -F: '/^pub:/ { print $5; exit }')
     export KEYFP=$(gpg -k --with-colons "$IDENTITY" | awk -F: '/^fpr:/ { print $10; exit }')
     echo 
@@ -63,6 +60,7 @@ ykman_reset() {
 
 gpg_card_check() {
   echo --- Check Card Recognition ---
+  echo You need to pull out the card for at least 60 seconds.
   sleep 60 # .................... Initial check for 60 sec
   gpg --card-status
 
@@ -128,35 +126,6 @@ $YUBI_USER
 save
 EOF
     echo
-}
-
-export_public_keys() {
-  echo "-- Exporting public key to $KEY_EXPORT_PUBLIC"
-  mkdir -p $KEY_EXPORT_PUBLIC
-  gpg --output $KEY_EXPORT_PUBLIC/$KEYID-$(date +%F).asc \
-      --armor --export $KEYID
-  echo
-}
-
-export_private_keys() {
-  echo "-- Exporting private key to $KEY_EXPORT_PRIVATE"
-  mkdir -p $KEY_EXPORT_PRIVATE
-  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-Certify.key \
-      --batch --pinentry-mode=loopback --passphrase-fd 0 \
-      --armor --export-secret-keys $KEYID
-  
-  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-Subkeys.key \
-      --batch --pinentry-mode=loopback --passphrase-fd 0 \
-      --armor --export-secret-subkeys $KEYID
-
-  gpg --output $KEY_EXPORT_PRIVATE/$KEYID-$(date +%F).asc \
-      --armor --export $KEYID
-}
-
-export_gpg_home() {
-  echo "-- Exporting gnupg to $KEY_EXPORT_HOME"
-    mkdir -p $KEY_EXPORT_HOME
-    cp -r $GNUPGHOME $KEY_EXPORT_HOME
 }
 
 debug() {

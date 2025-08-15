@@ -7,15 +7,17 @@
     plugins = [ pkgs.acsccid ];
   };
 
+  users.users.root.hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
   users.users.andrew = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
+    hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
   };
 
-  fileSystems."/etc/shadow" = { 
-    device = "/persist/persistence/system/shadow";
-    options = [ "bind" ];
-  };
+#  fileSystems."/etc/shadow" = { 
+#    device = "/persist/persistence/system/shadow";
+#    options = [ "bind" ];
+#  };
 
   fileSystems."/etc/NetworkManager/system-connections" = { 
     device = "/persist/persistence/system/system-connections";
