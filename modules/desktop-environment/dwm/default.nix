@@ -36,23 +36,29 @@ in
       });
     })
   ];
-
-
-#   services.xserver.displayManager.startx = {
-#     generateScript = true;
-#     extraCommands = ''
-#       slstatus &
-#     '';
-#   };
-
   
+#  services.xserver.displayManager.startx = {
+#    enable = true;
+#    #generateScript = true;
+#    #extraCommands = ''
+#    #  slstatus &
+#    #'';
+#  };
+#  environment.etc."X11/xinit/xinitrc".text = ''
+#    ${lib.getExe pkgs.slstatus} &
+#  '';
+
   services = {
     xserver = {
+      logFile = "/home/andrew/xlog";
       enable = true;
       displayManager = {
         lightdm.enable = true;
+        setupCommands = ''
+          ${pkgs.slstatus}/bin/slstatus &
+        '';
       };
-
+ 
       windowManager.dwm.enable = true;
       xkb = {
         layout = "au"; 
@@ -64,7 +70,7 @@ in
       '';
     };
   };
-
+ 
 # Auto login
   services.displayManager.defaultSession = "none+dwm";
   services.displayManager.autoLogin.enable = true;

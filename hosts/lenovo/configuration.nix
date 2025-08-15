@@ -14,11 +14,6 @@
     hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
   };
 
-#  fileSystems."/etc/shadow" = { 
-#    device = "/persist/persistence/system/shadow";
-#    options = [ "bind" ];
-#  };
-
   fileSystems."/etc/NetworkManager/system-connections" = { 
     device = "/persist/persistence/system/system-connections";
     options = [ "bind" ];
