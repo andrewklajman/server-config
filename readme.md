@@ -8,16 +8,12 @@
 - minimal config
 
 - create auto start for browser and terminal (Seems like xinit is it)
-- slstatus: battery, wifi mullvad, time date, (Filed for it.)
 - Implement storage better
     /storage/unencrypted/{ andrew, root, apps, system }
             /encrypt-luks/Documents/{ rust / guides / financials }
                          /{ torrent, windrivers, ... }
             /encrypt-fido TBD
             /networking/
-
-- Unlock Script: 
-    2. Should be universal (not in dwm)
 
 - Install Nvidea on Nixos PC
 - Taiscale with SSH
@@ -31,6 +27,21 @@
 
 - Create a function for mapping
 - Installation Script (Generate SSH, HashedPasswordFile, networking, ...)
+
+## New encryption
+
+size of 
+- p folder          22GB
+- persist folde
+
+create temp folder
+encrypt temp folder
+
+create unlock script
+bind unlock script
+
+add custom browser
+
 
 # Windows Installation
 

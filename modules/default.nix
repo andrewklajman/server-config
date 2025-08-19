@@ -5,6 +5,11 @@
   doas.enable     = true;
   zsh.enable      = true;
 
+  services.calibre-server = {
+    enable = true;
+    libraries = [ "/storage/encrypted-luks/calibre" ];
+  };
+
   imports = [
     ./audiobookshelf.nix
     ./calibre.nix
@@ -19,12 +24,13 @@
     ./neovim.nix
     ./password-manager.nix
     ./personal-security
-    ./qbittorrent.nix
+    ./retroarch.nix
     ./systemd-journal.nix
     ./systemd-recur-task.nix
     ./tailscale
     ./taskwarrior.nix
     ./tmux.nix
+    ./torrent.nix
     ./users.nix
     ./virt-manager.nix
     ./zsh.nix

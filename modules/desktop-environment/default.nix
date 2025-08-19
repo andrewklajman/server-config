@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, localLuks, ... }:
 
 let
   is_dwm = ( config.desktop-manager == "dwm" );
   is_retroarch = ( config.desktop-manager == "retroarch" );
   is_gnome = ( config.desktop-manager == "gnome" );
-  module_dwm = (import ./dwm { inherit config lib pkgs; } );
+  module_dwm = (import ./dwm { inherit config lib pkgs localLuks; } );
   module_retroarch = (import ./retroarch.nix { inherit config lib pkgs; } );
   module_gnome = (import ./gnome.nix { inherit config lib pkgs; } );
 in

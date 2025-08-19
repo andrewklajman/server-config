@@ -1,47 +1,51 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, localPersist, ... }:
+
+let 
+  bindMount = device: {
+    inherit device;
+    options = [ "bind" ];
+  };
+  mp = localPersist.mountPoint;
+in
+
 {
-  imports = [ ./hardware-configuration.nix ];
+
+  fileSystems = {
+    "/home/andrew/server-config" = bindMount "${mp}/server-config";
+    "/home/andrew/rust" = bindMount "${mp}/rust";
+
+    "/home/andrew/.gitconfig" = bindMount "${mp}/persistence/andrew/gitconfig";
+    "/home/andrew/.zshrc" = bindMount "${mp}/persistence/andrew/zshrc";
+    "/home/andrew/.ssh" = bindMount "${mp}/persistence/andrew/ssh";
+    "/etc/NetworkManager/system-connections" = bindMount "${mp}/persistence/system/system-connections";
+    "/root/.ssh" = bindMount "${mp}/persistence/root/ssh";
+  };
+
+  imports = [ 
+    ./hardware-configuration.nix 
+  ];
 
   services.pcscd = {
     enable = true;
     plugins = [ pkgs.acsccid ];
   };
 
-  users.users.root.hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
+   services.blueman.enable = true;
+   hardware.bluetooth = {
+     enable = true;
+     powerOnBoot = true;
+     settings = {
+       General = {
+         Experimental = true; # Show battery charge of Bluetooth devices
+       };
+     };
+   };
+
+  users.users.root.hashedPasswordFile = "${mp}/persistence/system/hashedPasswordFile";
   users.users.andrew = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-    hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
-  };
-
-  fileSystems."/etc/NetworkManager/system-connections" = { 
-    device = "/persist/persistence/system/system-connections";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/server-config" = { 
-    device = "/persist/server-config";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/.gitconfig" = { 
-    device = "/persist/persistence/andrew/gitconfig";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/.zshrc" = { 
-    device = "/persist/persistence/andrew/zshrc";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/.ssh" = { 
-    device = "/persist/persistence/andrew/ssh";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/root/.ssh" = { 
-    device = "/persist/persistence/root/ssh";
-    options = [ "bind" ];
+    hashedPasswordFile = "${mp}/persistence/system/hashedPasswordFile";
   };
 
   boot.loader.systemd-boot.enable = true;

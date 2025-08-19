@@ -1,5 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
+{ config, lib, pkgs, modulesPath, localPersist, ... }:
 {
 # Screen tearing - https://discourse.nixos.org/t/eliminate-screen-tearing-with-intel-mesa/14724/25
   services.picom = {
@@ -17,10 +16,10 @@
   ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-    };
+  fileSystems."/" = { 
+    device = "tmpfs";
+    fsType = "tmpfs";
+  };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/4625-0759";
@@ -28,8 +27,9 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/9e831367-26eb-4ece-a7a5-666d46034160";
+  fileSystems.${localPersist.mountPoint} = 
+    { 
+      device = "${localPersist.device}";
       fsType = "ext4";
       neededForBoot = true;
     };

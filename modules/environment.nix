@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, localPersist, ... }:
 
 {
   # Misc
@@ -29,7 +29,7 @@
     enable = true;
     config = {
       safe.directory = [ 
-        "/persist/server-config" 
+        "${localPersist.mountPoint}/server-config" 
         "/home/andrew/server-config" 
       ];
       user.name = [ "andrew" ];

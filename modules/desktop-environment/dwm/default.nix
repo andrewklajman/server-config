@@ -1,20 +1,18 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, localLuks, ... }:
 
 let 
   unlock = pkgs.writeShellScriptBin "unlock" '' 
-    if [[ "$HOSTNAME" == "pc" ]]; then
-      echo PC Decrypt
-      doas cryptsetup open /dev/nvme0n1p4 persist-enc
-    else
-      echo Lenovo Decrypt
-      doas cryptsetup open /dev/nvme0n1p5 persist-enc
-    fi
-
-    doas mkdir /persist-enc
-    doas mount /dev/mapper/persist-enc /persist-enc
+    doas cryptsetup open ${localLuks.device} ${localLuks.mapperName}
+    doas mkdir ${localLuks.mountPoint}
+    doas mount /dev/mapper/${localLuks.mapperName} ${localLuks.mountPoint}
+  '';
+  unlock_p = pkgs.writeShellScriptBin "unlock_p" '' 
+    doas cryptsetup open /mnt/localLuks/.ZNfKKTx03EVnh unlock_p
+    doas mkdir /home/andrew/unlock_p
+    doas mount /dev/mapper/unlock_p /home/andrew/unlock_p
   '';
   mullvad-browser-andrew = pkgs.writeShellScriptBin "mullvad-browser-andrew" '' 
-    mullvad-browser --profile /persist-enc/mullvad-profiles/andrew
+    mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/andrew
   '';
   slstatus_command = pkgs.writeShellScriptBin "slstatus_command" '' 
     # --- Internet Status --- #
@@ -49,21 +47,13 @@ let
   '';
 in
 {
-  # fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-
-  # fonts.packages = with pkgs; [ 
-  #   nerdfonts 
-  #   #source-code-pro 
-  #   #font-awesome 
-  # ];
-
   fonts.packages = with pkgs; [
     source-code-pro font-awesome 
     nerd-fonts.code-new-roman
   ];
 
   environment.systemPackages = with pkgs; [ 
-    unlock
+    unlock unlock_p
     dmenu 
     slstatus slstatus_command
     st tabbed

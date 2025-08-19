@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, localPersist, ... }:
 
 {
   options.zsh.enable = lib.mkEnableOption "zsh";
@@ -47,7 +47,7 @@
       ss = "systemctl status";
       sr = "systemctl restart";
       j = "journalctl -xeu";
-      envrust = "nix-shell -A rust /persist/server-config/shells";
+      envrust = "nix-shell -A rust ${localPersist.mountPoint}/server-config/shells";
     };
   };
 
