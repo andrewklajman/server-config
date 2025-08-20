@@ -1,11 +1,34 @@
-{ config, pkgs, lib, localPersist, ... }:
+{ config, pkgs, lib, localPersist, localLuks, ... }:
 
+let 
+  mp = localPersist.mountPoint;
+in 
 {
-  # Misc
+# Users
+  users.users.root.hashedPasswordFile = "${mp}/persistence/system/hashedPasswordFile";
+  users.users.andrew = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ];
+    hashedPasswordFile = "${mp}/persistence/system/hashedPasswordFile";
+  };
+
+# Bluetooth
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true; # Show battery charge of Bluetooth devices
+      };
+    };
+  };
+
+# Misc
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Audio
+# Audio
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -13,10 +36,23 @@
     pulse.enable = true;
   };
 
-  # Timezone
+# Doas
+  security.sudo.enable = false;
+  security.doas = {
+    enable = true;
+    extraRules = [
+      {
+        users = ["andrew"];
+        keepEnv = true; 
+        persist = true;
+      }
+    ];
+  };
+
+# Timezone
   time.timeZone = "Australia/Sydney";
 
-  # Reducing disk space usage
+# Reducing disk space usage
   boot.loader.systemd-boot.configurationLimit = 10;
   nix.settings.auto-optimise-store = true;
   nix.gc = {
@@ -25,6 +61,7 @@
     options = "--delete-older-than 1w";
   };
 
+# Git
   programs.git = {
     enable = true;
     config = {
@@ -37,7 +74,7 @@
     };
   };
 
-  # Packages
+# Packages
   environment.systemPackages = with pkgs; [ 
     alsa-utils
     arandr autorandr
@@ -54,7 +91,7 @@
     ledger
   ];
 
-  # Environment variables
+# Environment variables
   environment = {
     sessionVariables = {
       PROMPT = "%n@%m %~> ";
@@ -62,10 +99,11 @@
     };
   };
 
-  # Documentation
+# Documentation
   documentation = {
     enable = true;
     man.enable = true;
     dev.enable = true;
   };
+
 }

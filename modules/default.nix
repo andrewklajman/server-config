@@ -1,40 +1,43 @@
-{ config, pkgs, lib, age, ... }:
+{ config, pkgs, lib, localLuks, ... }:
 
 {
+  calibre.enable  = false;
   desktop-manager = "dwm";
-  doas.enable     = true;
   zsh.enable      = true;
 
-  services.calibre-server = {
-    enable = true;
-    libraries = [ "/storage/encrypted-luks/calibre" ];
-  };
-
   imports = [
-    ./audiobookshelf.nix
-    ./calibre.nix
     ./desktop-environment
-    ./doas.nix
-    ./docker.nix
     ./environment.nix
-    ./git.nix
-    ./metube.nix
-    ./microsocks.nix
-    ./mullvad
-    ./neovim.nix
-    ./password-manager.nix
+    ./mullvad.nix
+    ./neovim
     ./personal-security
     ./retroarch.nix
-    ./systemd-journal.nix
-    ./systemd-recur-task.nix
-    ./tailscale
-    ./taskwarrior.nix
-    ./tmux.nix
     ./torrent.nix
-    ./users.nix
     ./virt-manager.nix
     ./zsh.nix
-  ];
 
+    ( { config, ... }: { # .... calibre module
+      options.calibre.enable = lib.mkEnableOption "calibre";
+      config = lib.mkIf config.calibre.enable  {
+        services.udisks2.enable = true;
+        services.calibre-server = {
+          enable = true;
+          libraries = [ "${localLuks.mountPoint}/calibre" ];
+        }; 
+      }; 
+    })
+
+    ( { config, pkgs, lib, ... }: {
+      options.audiobookshelf.enable = lib.mkEnableOption "audiobookshelf";
+      config = lib.mkIf config.audiobookshelf.enable {
+        networking.firewall.allowedTCPPorts = [ 8000 ];
+        services.audiobookshelf = {
+          enable = true;
+          host = "0.0.0.0";
+        };
+      };
+    })
+
+  ];
 }
 

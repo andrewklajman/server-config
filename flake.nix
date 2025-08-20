@@ -1,8 +1,6 @@
 {
   description = "System Configuration";
-
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.lenovo = 
       let 
@@ -25,7 +23,6 @@
           ./modules
           ( { config, ... }: { 
               audiobookshelf.enable = false; 
-              retroarch.enable      = true;
               torrent.enable        = true;
               virt-manager.enable   = true;
               personal-security = {
@@ -47,13 +44,13 @@
       modules = [
         ./hosts/pc/configuration.nix
     	  ./modules
-        ( { config, ... }: { 
+#        ( { config, ... }: { 
 #             mullvad = { 
 #               enable = true; 
 #               mullvadSettingsDir = "${localPersist}/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
 #               mullvadCacheDir = "${localPersist}/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
 #             };
-          })
+#          })
       ];
     };
 

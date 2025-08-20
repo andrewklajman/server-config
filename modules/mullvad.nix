@@ -5,8 +5,6 @@ let
 in
 with lib;
 {
-#  imports = [ ./st-leonards.nix ];
-
   options.mullvad = {
     enable = lib.mkEnableOption "mullvad";
     mullvadSettingsDir = lib.mkOption { type = lib.types.str; };

@@ -2,11 +2,7 @@
 
 let
   is_dwm = ( config.desktop-manager == "dwm" );
-  is_retroarch = ( config.desktop-manager == "retroarch" );
-  is_gnome = ( config.desktop-manager == "gnome" );
   module_dwm = (import ./dwm { inherit config lib pkgs localLuks; } );
-  module_retroarch = (import ./retroarch.nix { inherit config lib pkgs; } );
-  module_gnome = (import ./gnome.nix { inherit config lib pkgs; } );
 in
 {
   options.desktop-manager = lib.mkOption {
@@ -14,8 +10,9 @@ in
     default = "dwm";
   };
 
-  config = lib.mkMerge [ (lib.mkIf is_dwm module_dwm)
-                         (lib.mkIf is_retroarch module_retroarch)
-                         (lib.mkIf is_gnome module_gnome) ];
+  config = lib.mkMerge [ 
+    (lib.mkIf is_dwm module_dwm)
+  ];
+
 }
 

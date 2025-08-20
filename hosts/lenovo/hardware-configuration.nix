@@ -14,6 +14,24 @@
     "kvm-intel" 
     "iwlwifi"  # Ensures wireless works
   ];
+
+# Ensures wireless works
+#    options iwlwifi d0i3_disable=1
+#    options iwlwifi lar_disable=1
+  boot.extraModprobeConfig = ''
+    options iwlwifi 11n_disable=1 swcrypto=0 bt_coex_active=0 power_save=0
+    options iwlmvm power_scheme=1
+    options iwlwifi uapsd_disable=1
+
+    options usbcore autosuspend=0
+    options i915 modeset=1
+    options iwlwifi swcrypto=0
+    options iwlwifi power_save=0
+    options iwlwifi uapsd_disable=1
+    options iwlmvm power_scheme=1
+
+  '';
+
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = { 
@@ -33,13 +51,6 @@
       fsType = "ext4";
       neededForBoot = true;
     };
-
-  #boot.initrd.luks.devices."persist-enc".device = "/dev/disk/by-uuid/64d3c28f-b3fc-4252-8cf0-13f92c75440a";
-  #fileSystems."/persist-enc" =
-  #  { device = "/dev/disk/by-uuid/81d7125e-4c79-48ff-8723-e6774fddba16";
-  #    fsType = "ext4";
-  #  };
-
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/0e90433d-d7b7-4153-a6ca-994b4ce3780a";

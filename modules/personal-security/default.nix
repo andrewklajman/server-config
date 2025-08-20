@@ -12,6 +12,10 @@ in
   };
 
   config = lib.mkIf config.personal-security.enable {
+    services.pcscd = {
+      enable = true;
+      plugins = [ pkgs.acsccid ];
+    };
 
     programs.gnupg.agent = {
       enable = true;
@@ -29,8 +33,7 @@ in
         PASSWORD_STORE_DIR = config.personal-security.passwordStoreDir;
       };
     };
-
+    
   };
-
 }
 

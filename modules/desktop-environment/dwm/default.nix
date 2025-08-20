@@ -10,6 +10,7 @@ let
     doas cryptsetup open /mnt/localLuks/.ZNfKKTx03EVnh unlock_p
     doas mkdir /home/andrew/unlock_p
     doas mount /dev/mapper/unlock_p /home/andrew/unlock_p
+    mullvad-browser --profile /home/andrew/unlock_p/mullvad-browser &
   '';
   mullvad-browser-andrew = pkgs.writeShellScriptBin "mullvad-browser-andrew" '' 
     mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/andrew
@@ -33,7 +34,7 @@ let
     DATE_BAR="$(date '+%A %B %d %r')"
     
     # --- Encrypted Disk --- #
-    ls -l / | grep persist-enc > /dev/null
+    ls -l /mnt | grep localLuks > /dev/null
     if [ $? -eq 0 ]; then
       ENCRYPT_BAR="󰢬 |"
     else
