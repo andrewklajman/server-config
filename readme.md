@@ -1,17 +1,25 @@
 # Todo 
 
-- Create a YubiKey Storage encryption
-- extra configs in grub
-- Implement Retro Arch
-- implement reading
-- rust pi hole
-- minimal config
+- Build a quick home bind
+- Build server version of calibre
 
+- Implement reading
+    * Download books >> DONE
+    * Wireless eReader (Need server
+        
+- Create a Pirate Profile
+
+- Rust pi hole >> ..... Implement server first
+- Implement Retro Arch 
+    * Minimal with only specific cores
+    * Autoconnect for controller
 - Install Nvidea on Nixos PC
 - Taiscale with SSH
+- Installation Script (HashedPasswordFile, networking, ...)
 
-- Installation Script (Generate SSH, HashedPasswordFile, networking, ...)
-
+- Create a YubiKey Storage encryption
+    * https://research.kudelskisecurity.com/2023/12/14/luks-disk-encryption-with-fido2/
+    * Just does not seem to be practical for my needs right now
 - Wifi still sometimes not working
 [    7.167512] iwlwifi 0000:00:14.3: Failed to run INIT ucode: -110
 

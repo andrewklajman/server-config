@@ -1,4 +1,5 @@
 { config, lib, pkgs, modulesPath, localPersist, ... }:
+
 {
 # Screen tearing - https://discourse.nixos.org/t/eliminate-screen-tearing-with-intel-mesa/14724/25
   services.picom = {

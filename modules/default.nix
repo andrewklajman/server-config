@@ -1,42 +1,46 @@
 { config, pkgs, lib, localLuks, ... }:
 
-{
-  calibre.enable  = false;
-  desktop-manager = "dwm";
-  zsh.enable      = true;
+let 
+  makeBasicModule =  moduleName: moduleContent: {
+    options.${moduleName}.enable = lib.mkEnableOption "${moduleName}";
+    config = lib.mkIf config.${moduleName}.enable moduleContent;
+  };
+in
 
+{
   imports = [
     ./desktop-environment
-    ./environment.nix
+    ./environment
     ./mullvad.nix
-    ./neovim
     ./personal-security
     ./retroarch.nix
-    ./torrent.nix
-    ./virt-manager.nix
-    ./zsh.nix
+    ./qbittorrent-client.nix
 
-    ( { config, ... }: { # .... calibre module
-      options.calibre.enable = lib.mkEnableOption "calibre";
-      config = lib.mkIf config.calibre.enable  {
-        services.udisks2.enable = true;
-        services.calibre-server = {
-          enable = true;
-          libraries = [ "${localLuks.mountPoint}/calibre" ];
-        }; 
-      }; 
-    })
-
-    ( { config, pkgs, lib, ... }: {
-      options.audiobookshelf.enable = lib.mkEnableOption "audiobookshelf";
-      config = lib.mkIf config.audiobookshelf.enable {
+    ( makeBasicModule "audiobookshelf" { 
         networking.firewall.allowedTCPPorts = [ 8000 ];
         services.audiobookshelf = {
           enable = true;
           host = "0.0.0.0";
         };
-      };
-    })
+    } )
+
+    ( makeBasicModule "calibre" {
+        services.udisks2.enable = true;
+        services.calibre-server = {
+          enable = true;
+          libraries = [ "${localLuks.mountPoint}/calibre" ];
+        }; 
+    } )
+
+    ( makeBasicModule "qbittorrent-server" { 
+        services = {
+          qbittorrent = {
+            enable = false;
+            profileDir = "${localLuks.mountPoint}/torrent/profile";
+            webuiPort = 8080;
+          };
+        };
+    } )
 
   ];
 }

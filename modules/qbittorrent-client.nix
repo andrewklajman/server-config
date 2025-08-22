@@ -4,9 +4,9 @@ let
   mp = localLuks.mountPoint;
 in
 {
-  options.torrent.enable = lib.mkEnableOption "torrent";
+  options.qbittorrent-client.enable = lib.mkEnableOption "qbittorrent-client";
 
-  config = lib.mkIf config.torrent.enable {
+  config = lib.mkIf config.qbittorrent-client.enable {
 
     environment.systemPackages = [
       ( pkgs.symlinkJoin {
@@ -19,11 +19,6 @@ in
         '';
       } ) 
     ];
-
-#    environment.systemPackages = [
-#      pkgs.qbittorrent
-#      torrent
-#    ];
 
   };
 

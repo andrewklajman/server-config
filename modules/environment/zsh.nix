@@ -1,8 +1,8 @@
 { config, pkgs, lib, localPersist, ... }:
 
 {
-  options.zsh.enable = lib.mkEnableOption "zsh";
-  config = lib.mkIf config.zsh.enable {
+ # options.zsh.enable = lib.mkEnableOption "zsh";
+ # config = lib.mkIf config.zsh.enable {
     users.defaultUserShell = pkgs.zsh;
     programs.zsh = {
       enable = true;
@@ -49,6 +49,6 @@
       j       = "journalctl -xeu";
       envrust = "nix-shell -A rust ${localPersist.mountPoint}/server-config/shells";
     };
-  };
+ # };
 
 }

@@ -4,6 +4,12 @@ let
   mp = localPersist.mountPoint;
 in 
 {
+
+  imports = [
+    ./neovim
+    ./zsh.nix 
+  ];
+
 # Users
   users.users.root.hashedPasswordFile = "${mp}/persistence/system/hashedPasswordFile";
   users.users.andrew = {
