@@ -21,24 +21,23 @@ in
   qbittorrent-client.enable = true;
   personal-security = {
     enable                  = true;
-    gnupgHome               = "${localPersist.mountPoint}/persistence/apps/gnupg";
-    passwordStoreDir        = "${localPersist.mountPoint}/persistence/apps/password-store";
+    gnupgHome               = "${mp}/persistence/apps/gnupg";
+    passwordStoreDir        = "${mp}/persistence/apps/password-store";
   };
   mullvad = { 
-    enable = true; 
-    mullvadSettingsDir      = "${localPersist.mountPoint}/persistence/apps/mullvad/MULLVAD_SETTINGS_DIR/";
-    mullvadCacheDir         = "${localPersist.mountPoint}/persistence/apps/mullvad/MULLVAD_CACHE_DIR/";
+    enable    = true; 
+    configDir = "${mp}/persistence/apps/mullvad/";
   };
 
   fileSystems = {
-    "/home/andrew/server-config" = bindMount "${localPersist.mountPoint}/server-config";
-    "/home/andrew/rust"          = bindMount "${localPersist.mountPoint}/rust";
+    "/home/andrew/server-config" = bindMount "${mp}/server-config";
+    "/home/andrew/rust"          = bindMount "${mp}/rust";
 
-    "/home/andrew/.gitconfig"    = bindMount "${localPersist.mountPoint}/persistence/andrew/gitconfig";
-    "/home/andrew/.zshrc"        = bindMount "${localPersist.mountPoint}/persistence/andrew/zshrc";
-    "/home/andrew/.ssh"          = bindMount "${localPersist.mountPoint}/persistence/andrew/ssh";
-    "/root/.ssh"                 = bindMount "${localPersist.mountPoint}/persistence/root/ssh";
-    "/etc/NetworkManager/system-connections" = bindMount "${localPersist.mountPoint}/persistence/system/system-connections";
+    "/home/andrew/.gitconfig"    = bindMount "${mp}/persistence/andrew/gitconfig";
+    "/home/andrew/.zshrc"        = bindMount "${mp}/persistence/andrew/zshrc";
+    "/home/andrew/.ssh"          = bindMount "${mp}/persistence/andrew/ssh";
+    "/root/.ssh"                 = bindMount "${mp}/persistence/root/ssh";
+    "/etc/NetworkManager/system-connections" = bindMount "${mp}/persistence/system/system-connections";
   };
 
   boot.loader.systemd-boot.enable = true;

@@ -7,6 +7,7 @@ with lib;
 {
   options.mullvad = {
     enable = lib.mkEnableOption "mullvad";
+    configDir = lib.mkOption { type = lib.types.str; };
     mullvadSettingsDir = lib.mkOption { type = lib.types.str; };
     mullvadCacheDir = lib.mkOption { type = lib.types.str; };
   };
@@ -39,8 +40,10 @@ with lib;
       startLimitIntervalSec = 20;
       serviceConfig = {
         Environment = [
-          "MULLVAD_SETTINGS_DIR=${config.mullvad.mullvadSettingsDir}"
-          "MULLVAD_CACHE_DIR=${config.mullvad.mullvadCacheDir}"
+#          "MULLVAD_SETTINGS_DIR=${config.mullvad.mullvadSettingsDir}"
+#          "MULLVAD_CACHE_DIR=${config.mullvad.mullvadCacheDir}"
+          "MULLVAD_SETTINGS_DIR=${config.mullvad.configDir}/MULLVAD_SETTINGS_DIR/"
+          "MULLVAD_CACHE_DIR=${config.mullvad.configDir}/MULLVAD_CACHE_DIR/"
         ];
         ExecStart = '' ${cfg.package}/bin/mullvad-daemon -v --disable-stdout-timestamps '';
         Restart = "always";
