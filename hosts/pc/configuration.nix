@@ -1,45 +1,43 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, localPersist, ... }:
+
+let 
+  mp = localPersist.mountPoint;
+  bindMount = device: {
+    inherit device;
+    options = [ "bind" ];
+  };
+in
 
 {
-  networking.hostName = "pc";
+  imports = [ 
+    ./hardware-configuration.nix
+    ../../modules
+  ];
 
-  imports = [ ./hardware-configuration.nix ];
+  calibre.enable            = false;
+  desktop-manager           = "dwm";
 
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.acsccid ];
+  audiobookshelf.enable     = false; 
+  qbittorrent-client.enable = false;
+  personal-security = {
+    enable                  = false;
+    gnupgHome               = "${mp}/persistence/apps/gnupg";
+    passwordStoreDir        = "${mp}/persistence/apps/password-store";
+  };
+  mullvad = { 
+    enable                  = false; 
+    configDir               = "${mp}/persistence/apps/mullvad/";
   };
 
-  users.users.root.hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
-  users.users.andrew = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
-    hashedPasswordFile = "/persist/persistence/system/hashedPasswordFile";
-  };
+  fileSystems = {
+    "/home/andrew/server-config" = bindMount "${mp}/server-config";
+    "/home/andrew/rust"          = bindMount "${mp}/rust";
 
-  fileSystems."/etc/NetworkManager/system-connections" = { 
-    device = "/persist/persistence/system/system-connections";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/server" = { 
-    device = "/persist/server";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/.zshrc" = { 
-    device = "/persist/persistence/andrew/zshrc";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/home/andrew/.ssh" = { 
-    device = "/persist/persistence/andrew/ssh";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/root/.ssh" = { 
-    device = "/persist/persistence/root/ssh";
-    options = [ "bind" ];
+    "/home/andrew/.gitconfig"    = bindMount "${mp}/persistence/andrew/gitconfig";
+    "/home/andrew/.zshrc"        = bindMount "${mp}/persistence/andrew/zshrc";
+    "/home/andrew/.ssh"          = bindMount "${mp}/persistence/andrew/ssh";
+    "/root/.ssh"                 = bindMount "${mp}/persistence/root/ssh";
+    "/etc/NetworkManager/system-connections" = bindMount "${mp}/persistence/system/system-connections";
   };
 
   boot.loader.systemd-boot.enable = true;

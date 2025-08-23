@@ -29,7 +29,7 @@
       fsType = "ext4";
     };
 
-  fileSystems."/persist" =
+  fileSystems."/mnt/localPersist" =
     { device = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
       fsType = "ext4";
       neededForBoot = true;
