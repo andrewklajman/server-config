@@ -44,6 +44,16 @@
       '';
     };
 
+    # https://doc.owncloud.com/ocis/next/deployment/tips/useful_mount_tip.html
+    systemd.services.vsftpd = {
+      description = lib.mkForce "Vsftpd Server (After localLuks mount)";
+      requires = [ "mnt-localLuks.mount" ];
+      after    = [ "mnt-localLuks.mount" ];
+      unitConfig = {
+        RequiresMountsFor = "/mnt/localLuks";
+      };
+    };
+
   };
 }
 
