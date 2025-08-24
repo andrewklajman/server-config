@@ -15,6 +15,7 @@ in
     ./personal-security
     ./retroarch.nix
     ./qbittorrent-client.nix
+    ./vsftpd-ftp-books.nix
 
     ( makeBasicModule "audiobookshelf" { 
         networking.firewall.allowedTCPPorts = [ 8000 ];
@@ -41,6 +42,7 @@ in
           };
         };
     } )
+
 
   ];
 }

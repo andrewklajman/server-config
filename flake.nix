@@ -21,28 +21,20 @@
       };
 
     nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
-        modules = [ ./hosts/pc/configuration.nix ];
-        system = "x86_64-linux";
-        specialArgs = { 
-          localPersist = {
-            device     = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
-            mountPoint = "/mnt/localPersist";
-          };
-          localLuks = {
-            device     = "/dev/disk/by-uuid/83ea2481-f20e-4e11-8506-fa63c65524f4";
-            mapperName = "persist-enc";
-            mountPoint = "/mnt/localLuks";
-          };
+      modules = [ ./hosts/pc/configuration.nix ];
+      system = "x86_64-linux";
+      specialArgs = { 
+        localPersist = {
+          device     = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
+          mountPoint = "/mnt/localPersist";
+        };
+        localLuks = {
+          device     = "/dev/nvme0n1p4";
+          mapperName = "persist-enc";
+          mountPoint = "/mnt/localLuks";
         };
       };
-
-#    nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
-#      system = "x86_64-linux";
-#      modules = [
-#        ./hosts/pc/configuration.nix
-#    	  ./modules
-#      ];
-#    };
+    };
 
   };
 }

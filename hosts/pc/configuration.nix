@@ -14,36 +14,7 @@ in
     ../../modules
   ];
 
-# https://www.digitalocean.com/community/tutorials/how-to-set-up-vsftpd-for-a-user-s-directory-on-ubuntu-20-04
-  networking.firewall = { allowedTCPPorts = [ 20 21 ]; };
-  services.vsftpd = {
-    enable = true;
-    # anonymousUser = true;
-    # anonymousUserHome = "/home/andrew";
-    # anonymousUserNoPassword = true;
-    # anonymousMkdirEnable = true;
-    writeEnable = true;
-    localUsers = true;
-    userlist = [ "andrew" ];
-    userlistEnable = true;
-  };
-
-  services.vsftpd.extraConfig = ''
-    pasv_enable=Yes
-    pasv_min_port=51000
-    pasv_max_port=51999
-  '';
-  networking.firewall.allowedTCPPortRanges = [ { from = 51000; to = 51999; } ];
-
-
-#  environment.systemPackages = [ pkgs.vsftpd ];
-#  networking.firewall.allowedTCPPortRanges = [
-#    {
-#      from = 40000;
-#      to = 50000;
-#    }
-#  ];
-
+  vsftpd-ftp-books.enable = true;
 
   calibre.enable            = false;
   desktop-manager           = "dwm";
