@@ -9,11 +9,11 @@ PART5="/dev/nvme0n1p5"
 
 echo '--- Partitioning (UEFI) ---'
 parted $DISK -- mklabel gpt
-parted $DISK -- mkpart ESP fat32 1MB 512MB
-parted $DISK -- mkpart nix ext4 512MB 100GB
-parted $DISK -- mkpart localPersist ext4 100GB 110GB
-parted $DISK -- mkpart localLuks ext4 110GB -10GB
-parted $DISK -- mkpart swap linux-swap -10GB 100%
+parted $DISK -- mkpart ESP          fat32        1MB 512MB
+parted $DISK -- mkpart nix          ext4       512MB 100GB
+parted $DISK -- mkpart localPersist ext4       100GB 110GB
+parted $DISK -- mkpart localLuks    ext4       110GB -10GB
+parted $DISK -- mkpart swap         linux-swap -10GB  100%
 parted $DISK -- set 1 esp on
 
 echo '--- Disk Encryption ---'
