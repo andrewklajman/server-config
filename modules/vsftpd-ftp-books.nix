@@ -3,6 +3,10 @@
 
 { config, pkgs, lib, ... }:
 
+let 
+  cfg = config.vsftpd-ftp-books;
+in
+
 {
   options.vsftpd-ftp-books = {
     enable = lib.mkEnableOption "vsftpd-ftp-books";
@@ -14,14 +18,18 @@
       type = lib.types.str;
       default = "/mnt/localLuks/books";
     };
+    serviceTrigger = lib.mkOption {
+      type = lib.types.str;
+      default = "mnt-localLuks.service";
+    };
   };
   
-  config = lib.mkIf config.vsftpd-ftp-books.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 20 21 ];
-    networking.firewall.allowedTCPPortRanges = [ config.vsftpd-ftp-books.pasvPorts ];
+    networking.firewall.allowedTCPPortRanges = [ cfg.pasvPorts ];
 
     fileSystems."/home/books" =  {
-      device = config.vsftpd-ftp-books.booksFolder;
+      device = cfg.booksFolder;
       options = [ "bind" ];
     };
   
@@ -39,19 +47,17 @@
       userlistEnable = true;
       extraConfig = ''
         pasv_enable=YES
-        pasv_min_port=${toString config.vsftpd-ftp-books.pasvPorts.from}
-        pasv_max_port=${toString config.vsftpd-ftp-books.pasvPorts.to}
+        pasv_min_port=${toString cfg.pasvPorts.from}
+        pasv_max_port=${toString cfg.pasvPorts.to}
       '';
     };
 
     # https://doc.owncloud.com/ocis/next/deployment/tips/useful_mount_tip.html
     systemd.services.vsftpd = {
       description = lib.mkForce "Vsftpd Server (After localLuks mount)";
-      requires = [ "mnt-localLuks.mount" ];
-      after    = [ "mnt-localLuks.mount" ];
-      unitConfig = {
-        RequiresMountsFor = "/mnt/localLuks";
-      };
+      requires =             [ "${cfg.serviceTrigger}" ];
+      after    =             [ "${cfg.serviceTrigger}" ];
+      wantedBy = lib.mkForce [ "${cfg.serviceTrigger}" ];
     };
 
   };

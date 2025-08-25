@@ -5,6 +5,7 @@ let
     doas cryptsetup open ${localLuks.device} ${localLuks.mapperName}
     doas mkdir ${localLuks.mountPoint}
     doas mount /dev/mapper/${localLuks.mapperName} ${localLuks.mountPoint}
+    doas systemctl start mnt-localLuks.service
   '';
   unlock_p = pkgs.writeShellScriptBin "unlock_p" '' 
     doas cryptsetup open /mnt/localLuks/.ZNfKKTx03EVnh unlock_p
@@ -48,6 +49,12 @@ let
   '';
 in
 {
+
+  systemd.services.mnt-localLuks = { 
+    enable = true;
+    serviceConfig.ExecStart = "${pkgs.coreutils}/bin/echo mnt-localLuks trigger has run"; 
+  };
+
   fonts.packages = with pkgs; [
     source-code-pro font-awesome 
     nerd-fonts.code-new-roman

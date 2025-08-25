@@ -14,25 +14,8 @@ in
     ../../modules
   ];
 
-
-  systemd.services.demo = {
-    enable = true;
-    serviceConfig = {
-      ExecStart = "${pkgs.coreutils}/bin/echo demo";
-    };
-  };
-
-  systemd.services.demo-localLuks = {
-    enable = true;
-    after = [ "mnt-localLuks.mount" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.coreutils}/bin/echo demo";
-    };
-  };
-
-
-
-  vsftpd-ftp-books.enable = true;
+  vsftpd-ftp-books.enable   = true;
+  qbittorrent-server.enable = true;
 
   calibre.enable            = false;
   desktop-manager           = "dwm";

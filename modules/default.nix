@@ -15,6 +15,7 @@ in
     ./personal-security
     ./retroarch.nix
     ./qbittorrent-client.nix
+    ./qbittorrent-server.nix
     ./vsftpd-ftp-books.nix
 
     ( makeBasicModule "audiobookshelf" { 
@@ -33,15 +34,6 @@ in
         }; 
     } )
 
-    ( makeBasicModule "qbittorrent-server" { 
-        services = {
-          qbittorrent = {
-            enable = false;
-            profileDir = "${localLuks.mountPoint}/torrent/profile";
-            webuiPort = 8080;
-          };
-        };
-    } )
 
 
   ];
