@@ -14,6 +14,9 @@ in
     ../../modules
   ];
 
+  environment.enable        = true;
+
+
   calibre.enable            = true;
   desktop-manager           = "dwm";
 
