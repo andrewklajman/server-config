@@ -43,7 +43,6 @@
       ms      = "mullvad status";
       mc      = "mullvad connect";
       md      = "mullvad disconnect";
-      ssh     = "ssh andrew@lenovo";
       ss      = "systemctl status";
       sr      = "systemctl restart";
       j       = "journalctl -xeu";
