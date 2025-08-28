@@ -14,21 +14,21 @@ parted $DISK -- mkpart primary            100GB 110GB # /mnt/persist
 parted $DISK -- mkpart primary linux-swap -10GB  100% # swap
 
 echo '--- Formatting Disks ---'
-mkfs.ext4 -q -L boot    $PART1
-mkfs.ext4 -q -L nix     $PART2
-mkfs.ext4 -q -L persist $PART3
+mkfs.ext4 -q -F -L boot    $PART1
+mkfs.ext4 -q -F -L nix     $PART2
+mkfs.ext4 -q -F -L persist $PART3
 mkswap    -q -L swap    $PART4
-swapon $PART5
+swapon $PART4
 
 echo '--- Mounting Disks ---'
 mount -t tmpfs -o size=1G tmpfs /mnt
 mkdir -p /mnt/boot /mnt/nix /mnt/mnt/persist
-mount /dev/disk/by-label/boot /mnt/boot
-mount /dev/disk/by-label/nix /mnt/nix
-mount /dev/disk/by-label/persist /mnt/mnt/persist
+mount $PART1 /mnt/boot
+mount $PART2 /mnt/nix
+mount $PART3 /mnt/mnt/persist
 
 echo '--- Generating and Adjust Config ---'
 nixos-generate-config --root /mnt
 
 echo '--- Post Hardware to Web ---'
-cat /mnt/etc/hardware-configuration.nix | nc termbin.com 9999
+cat /mnt/etc/nixos/hardware-configuration.nix | nc termbin.com 9999
