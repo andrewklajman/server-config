@@ -1,7 +1,7 @@
-{ config, pkgs, lib, localLuks, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
-  mp = localLuks.mountPoint;
+  mp = config.consts.localLuks.mountPoint;
 in
 {
   options.qbittorrent-client.enable = lib.mkEnableOption "qbittorrent-client";

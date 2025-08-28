@@ -1,8 +1,8 @@
-{ config, lib, pkgs, localLuks, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   is_dwm = ( config.desktop-manager == "dwm" );
-  module_dwm = (import ./dwm { inherit config lib pkgs localLuks; } );
+  module_dwm = (import ./dwm { inherit config lib pkgs; } );
 in
 {
   options.desktop-manager = lib.mkOption {

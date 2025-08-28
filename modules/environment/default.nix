@@ -1,7 +1,7 @@
-{ config, pkgs, lib, localPersist, localLuks, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
-  mp = localPersist.mountPoint;
+  mp = config.consts.localPersist.mountPoint;
 in 
 {
   imports = [
@@ -77,7 +77,7 @@ in
       enable = true;
       config = {
         safe.directory = [ 
-          "${localPersist.mountPoint}/server-config" 
+          "${mp}/server-config" 
           "/home/andrew/server-config" 
         ];
         user.name = [ "andrew" ];

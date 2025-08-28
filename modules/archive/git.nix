@@ -1,4 +1,4 @@
-{ config, pkgs, lib, localPersist, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
@@ -10,7 +10,7 @@
       config =  {
         safe = {
           directory = [ 
-            "${localPersist.mountPoint}/server-config" 
+            "${config.consts.localPersist.mountPoint}/server-config" 
             "/home/andrew/server-config" 
           ];
 

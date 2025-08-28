@@ -1,6 +1,8 @@
-{ config, lib, pkgs, localLuks, ... }:
+{ config, lib, pkgs, ... }:
 
 let 
+  localLuks = config.consts.localLuks;
+
   unlock = pkgs.writeShellScriptBin "unlock" '' 
     doas cryptsetup open ${localLuks.device} ${localLuks.mapperName}
     doas mkdir ${localLuks.mountPoint}
@@ -81,29 +83,12 @@ in
     })
   ];
   
-#  services.xserver.displayManager.startx = {
-#    enable = true;
-#    #generateScript = true;
-#    #extraCommands = ''
-#    #  slstatus &
-#    #'';
-#  };
-#  environment.etc."X11/xinit/xinitrc".text = ''
-#    ${lib.getExe pkgs.slstatus} &
-#  '';
-
   services = {
     xserver = {
       logFile = "/home/andrew/xlog";
       enable = true;
       displayManager = {
         lightdm.enable = true;
-        #setupCommands = ''
-        #  ${pkgs.slstatus}/bin/slstatus &
-        #'';
-        #extraCommands = ''
-        #  ${pkgs.slstatus}/bin/slstatus &
-        #'';
         sessionCommands = ''
           ${pkgs.slstatus}/bin/slstatus &
         '';

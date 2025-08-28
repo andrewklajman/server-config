@@ -1,4 +1,4 @@
-{ config, pkgs, lib, localLuks, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
   makeBasicModule =  moduleName: moduleContent: {
@@ -10,7 +10,9 @@ in
 {
   imports = [
     ./audiobookshelf.nix
-    ./desktop-environment
+    # ./desktop-environment
+    ./dwm-basic
+    ./dwm-enhanced
     ./environment
     ./mullvad.nix
     ./personal-security
@@ -23,7 +25,7 @@ in
         services.udisks2.enable = true;
         services.calibre-server = {
           enable = true;
-          libraries = [ "${localLuks.mountPoint}/calibre" ];
+          libraries = [ "${config.consts.localLuks.mountPoint}/calibre" ];
         }; 
     } )
 
