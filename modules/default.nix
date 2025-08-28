@@ -10,7 +10,6 @@ in
 {
   imports = [
     ./audiobookshelf.nix
-    # ./desktop-environment
     ./dwm-basic
     ./dwm-enhanced
     ./environment

@@ -35,7 +35,6 @@ in
 
     calibre.enable            = true;
     dwm-enhanced.enable       = true;
-    # desktop-manager           = "dwm";
 
     audiobookshelf.enable     = false; 
     qbittorrent-client.enable = true;
