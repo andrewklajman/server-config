@@ -8,6 +8,21 @@ let
 in
 
 {
+  config = {
+    basePackages.enable      = true;
+    bootlimit.enable         = true;
+    diskusage.enable         = true;
+    doas.enable              = true;
+    manPages.enable          = true;
+    mullvad.enable           = true;
+    neovim.enable            = true;
+    networkmanager.enable    = true;
+    programs.git.enable      = true;
+    sessionVariables.enable  = true;
+    users.enable             = true;
+    zsh.enable               = true;
+  };
+
   imports = [
     ./audiobookshelf.nix
     ./dwm-basic.nix
@@ -18,11 +33,11 @@ in
     ./neovim
     ./openssh.nix
     ./personal-security
-    ./retroarch.nix
     ./qbittorrent-client.nix
     ./qbittorrent-server.nix
     ./vsftpd-ftp-books.nix
     ./zsh.nix
+    ./users.nix
 
     ( makeBasicModule "calibre" {
         services.udisks2.enable = true;
@@ -30,15 +45,6 @@ in
           enable = true;
           libraries = [ "${config.consts.localLuks.mountPoint}/calibre" ];
         }; 
-    } )
-
-    ( makeBasicModule "users" { 
-        users.users.root.initialPassword = "pass";
-        users.users.andrew = {
-          isNormalUser = true;
-          extraGroups = [ "wheel" ]; 
-          initialPassword = "pass";
-        };
     } )
 
     ( makeBasicModule "doas" { 

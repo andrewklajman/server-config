@@ -1,7 +1,8 @@
-{ config, lib, pkgs, localPersist, ... }:
+{ config, lib, pkgs, ... }:
 
 let 
-  mp = config.consts.localPersist.mountPoint;
+  mp = "/mnt/localPersist";
+  settings = "/mnt/localPersist/persistence";
   bindMount = device: {
     inherit device;
     options = [ "bind" ];
@@ -17,10 +18,6 @@ in
     type = lib.types.attrs;
     readOnly = true;
     default = {
-      localPersist = {
-        device     = "/dev/disk/by-uuid/9e831367-26eb-4ece-a7a5-666d46034160";
-        mountPoint = "/mnt/localPersist";
-      };
       localLuks = {
         device     = "/dev/nvme0n1p5";
         mapperName = "persist-enc";
@@ -30,19 +27,6 @@ in
   };
 
   config = {
-    basePackages.enable      = true;
-    bootlimit.enable         = true;
-    diskusage.enable         = true;
-    doas.enable              = true;
-    manPages.enable          = true;
-    mullvad.enable           = true;
-    neovim.enable            = true;
-    networkmanager.enable    = true;
-    programs.git.enable      = true;
-    sessionVariables.enable  = true;
-    users.enable             = true;
-    zsh.enable               = true;
-
     bluetooth.enable         = true;
     dwm-enhanced.enable      = true;
     personal-security.enable = true;
@@ -50,17 +34,21 @@ in
 
     networking.hostName      = "lenovo";
 
+    users = {
+      hashedPasswordFile = "${settings}/andrew/hashedPasswordFile";
+    };
+
     networkmanager  = {
-      config = "${mp}/persistence/system/system-connections";
+      config = "${settings}/system/system-connections";
     };
 
     mullvad = {
-      configDir = "${mp}/persistence/apps/mullvad/";
+      configDir = "${settings}/apps/mullvad/";
     };
 
     personal-security = {
-      gnupgHome        = "${mp}/persistence/apps/gnupg";
-      passwordStoreDir = "${mp}/persistence/apps/password-store";
+      gnupgHome        = "${settings}/apps/gnupg";
+      passwordStoreDir = "${settings}/apps/password-store";
     };
 
     programs.git = {
@@ -78,10 +66,10 @@ in
       "/home/andrew/server-config" = bindMount "${mp}/server-config";
       "/home/andrew/rust"          = bindMount "${mp}/rust";
 
-      "/home/andrew/.gitconfig"    = bindMount "${mp}/persistence/andrew/gitconfig";
-      "/home/andrew/.zshrc"        = bindMount "${mp}/persistence/andrew/zshrc";
-      "/home/andrew/.ssh"          = bindMount "${mp}/persistence/andrew/ssh";
-      "/root/.ssh"                 = bindMount "${mp}/persistence/root/ssh";
+      "/home/andrew/.gitconfig"    = bindMount "${settings}/andrew/gitconfig";
+      "/home/andrew/.zshrc"        = bindMount "${settings}/andrew/zshrc";
+      "/home/andrew/.ssh"          = bindMount "${settings}/andrew/ssh";
+      "/root/.ssh"                 = bindMount "${settings}/root/ssh";
     };
 
     time.timeZone = "Australia/Sydney";

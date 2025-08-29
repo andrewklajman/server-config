@@ -21,14 +21,14 @@
 #        modules = [ ./hosts/pc/configuration.nix ];
 #        system = "x86_64-linux";
 #        specialArgs = { 
-#          localPersist = {
+#          localiPersist = {
 #            device     = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
-#            mountPoint = "/mnt/localPersist";
+#            mountPoint = "/mnt/localiPersist";
 #          };
-#          localLuks = {
+#          localiLuks = {
 #            device     = "/dev/nvme0n1p4";
 #            mapperName = "persist-enc";
-#            mountPoint = "/mnt/localLuks";
+#            mountPoint = "/mnt/localiLuks";
 #          };
 #        };
 #      };

@@ -46,9 +46,9 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems.${config.consts.localPersist.mountPoint} = 
+  fileSystems."/mnt/localPersist" = 
     { 
-      device = "${config.consts.localPersist.device}";
+      device = "/dev/disk/by-uuid/9e831367-26eb-4ece-a7a5-666d46034160";
       fsType = "ext4";
       neededForBoot = true;
     };
