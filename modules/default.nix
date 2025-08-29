@@ -14,6 +14,7 @@ in
     ./dwm-enhanced
     ./environment
     ./mullvad.nix
+    ./networking
     ./personal-security
     ./retroarch.nix
     ./qbittorrent-client.nix
@@ -27,8 +28,6 @@ in
           libraries = [ "${config.consts.localLuks.mountPoint}/calibre" ];
         }; 
     } )
-
-
 
   ];
 }

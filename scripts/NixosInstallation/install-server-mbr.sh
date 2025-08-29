@@ -30,5 +30,5 @@ mount $PART3 /mnt/mnt/persist
 echo '--- Generating and Adjust Config ---'
 nixos-generate-config --root /mnt
 
-echo '--- Post Hardware to Web ---'
-cat /mnt/etc/nixos/hardware-configuration.nix | nc termbin.com 9999
+#echo '--- Post Hardware to Web ---'
+#cat /mnt/etc/nixos/hardware-configuration.nix | nc termbin.com 9999
