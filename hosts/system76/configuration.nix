@@ -16,17 +16,21 @@ in
   ];
 
   config = {
-    dwm-basic.enable        = true;
-    zsh.enable              = true;
-    networkmanager.enable   = true;
-    mullvad.enable          = true;
-    openssh.enable          = true;
-    users.enable            = true;
+    basePackages.enable     = true;
+    bootlimit.enable         = true;
+    diskusage.enable         = true;
     doas.enable             = true;
+    manPages.enable          = true;
+    mullvad.enable          = true;
+    neovim.enable           = true;
+    networkmanager.enable   = true;
     programs.git.enable     = true;
     sessionVariables.enable = true;
-    basePackages.enable     = true;
-    neovim.enable           = true;
+    users.enable            = true;
+    zsh.enable              = true;
+
+    dwm-basic.enable        = true;
+    openssh.enable          = true;
 
     networking.hostName     = "system76";
 

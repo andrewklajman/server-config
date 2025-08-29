@@ -30,24 +30,24 @@ in
   };
 
   config = {
-    dwm-enhanced.enable      = true;
-    zsh.enable               = true;
-    users.enable             = true;
-    doas.enable              = true;
-    sessionVariables.enable  = true;
-    bootlimit.enable         = true;
-    personal-security.enable = true;
-    networkmanager.enable    = true;
-    mullvad.enable           = true;
-    programs.git.enable      = true;
     basePackages.enable      = true;
-    neovim.enable            = true;
+    bootlimit.enable         = true;
     diskusage.enable         = true;
-    bluetooth.enable         = true;
-    pipewire.enable          = true;
+    doas.enable              = true;
     manPages.enable          = true;
-    openssh.enable           = false;
-    
+    mullvad.enable           = true;
+    neovim.enable            = true;
+    networkmanager.enable    = true;
+    programs.git.enable      = true;
+    sessionVariables.enable  = true;
+    users.enable             = true;
+    zsh.enable               = true;
+
+    bluetooth.enable         = true;
+    dwm-enhanced.enable      = true;
+    personal-security.enable = true;
+    pipewire.enable          = true;
+
     networking.hostName      = "lenovo";
 
     networkmanager  = {
