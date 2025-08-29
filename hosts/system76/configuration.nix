@@ -16,19 +16,6 @@ in
   ];
 
   config = {
-    basePackages.enable     = true;
-    bootlimit.enable         = true;
-    diskusage.enable         = true;
-    doas.enable             = true;
-    manPages.enable          = true;
-    mullvad.enable          = true;
-    neovim.enable           = true;
-    networkmanager.enable   = true;
-    programs.git.enable     = true;
-    sessionVariables.enable = true;
-    users.enable            = true;
-    zsh.enable              = true;
-
     dwm-basic.enable        = true;
     openssh.enable          = true;
 
@@ -36,6 +23,10 @@ in
 
     networkmanager  = {
       config = "${config}/system-connections";
+    };
+
+    users = {
+      hashedPasswordFile = "${config}/hashedPasswordFile";
     };
 
     openssh = {
