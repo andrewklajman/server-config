@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let 
-  mp = config.consts.localPersist.mountPoint;
+  persist = "/mnt/persist";
+  config = "${persist}/config";
   bindMount = device: {
     inherit device;
     options = [ "bind" ];
@@ -14,69 +15,54 @@ in
     ../../modules
   ];
 
-  options.consts = lib.mkOption {
-    type = lib.types.attrs;
-    readOnly = true;
-    default = { 
-      nm_config = "/mnt/persist/config/system-connections";
-    };
-  };
-
   config = {
-    dwm-basic.enable       = true;
+    dwm-basic.enable        = true;
+    zsh.enable              = true;
+    networkmanager.enable   = true;
+    mullvad.enable          = true;
+    openssh.enable          = true;
+    users.enable            = true;
+    doas.enable             = true;
+    programs.git.enable     = true;
+    sessionVariables.enable = true;
+    basePackages.enable     = true;
+    neovim.enable           = true;
 
-    networking = {
-      NetworkManager = {
-        enable = true;
-        config = "${config.consts.nm_config}";
+    networking.hostName     = "system76";
+
+    networkmanager  = {
+      config = "${config}/system-connections";
+    };
+
+    openssh = {
+      sshKey = {
+        device = "${config}/ssh-andrew";
+        mountPoint = "/home/andrew/.ssh";
       };
-      openssh = {
-        enable = true;
-      	sshKey = {
-      	  device = "/mnt/persist/config/ssh-andrew";
-      	  mountPoint = "/home/andrew/.ssh";
-      	};
-        authKeyFile = {
-          device = "/mnt/persist/config/ssh-andrew-authorized-keys";
-      	  mountPoint = "/home/andrew/.ssh/authorized_keys";
-        };
+      authKeyFile = {
+        device = "${config}/ssh-andrew-authorized-keys";
+        mountPoint = "/home/andrew/.ssh/authorized_keys";
       };
     };
 
-
-# Users
-    users.users.root.initialPassword = "pass";
-    users.users.andrew = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ]; 
-      initialPassword = "pass";
+    mullvad = {
+      configDir = "${config}/mullvad";
     };
 
-    environment.systemPackages = with pkgs; [
-      vim 
-      wget
-      git 
-    ];
-
-  # Doas
-    security.sudo.enable = false;
-    security.doas = {
-      enable = true;
-      extraRules = [
-        {
-          users = ["andrew"];
-          keepEnv = true; 
-          persist = true;
-        }
-      ];
+    programs.git = {
+      config = {
+        safe.directory = [ "${persist}/server-config" ];
+        user.name  =     [ "andrew" ];
+        user.email =     [ "andrew.klajman@gmail.com" ];
+      };
     };
-  
-  # Timezone
+
     time.timeZone = "Australia/Sydney";
-
-    system.stateVersion = "25.05"; 
+    nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     boot.loader.grub.enable = true;
     boot.loader.grub.device = "/dev/sda"; 
+    system.stateVersion = "25.05"; 
   };
 }
 
