@@ -14,7 +14,7 @@ in
     ./dwm-enhanced
     ./environment
     ./mullvad.nix
-    ./networking
+    ./networking.nix
     ./personal-security
     ./retroarch.nix
     ./qbittorrent-client.nix

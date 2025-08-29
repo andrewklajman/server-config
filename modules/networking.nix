@@ -4,6 +4,10 @@ let
   cfg = config.networking;
 in
 {
+  imports = [
+    ./mullvad.nix
+  ];
+
   options.networking = {
     NetworkManager = {
       enable = lib.mkEnableOption "NetworkManagerEnable";
@@ -25,10 +29,10 @@ in
         mountPoint = lib.mkOption { type = lib.types.str; };
       };
     };
-#    mullvad = {
-#      enable = { };
-#      configDir = "";
-#    }
+    mullvad = {
+      enable = lib.mkEnableOption "mullvad";
+      configDir = lib.mkOption { type = lib.types.str; };
+    };
   };
   
   config = lib.mkMerge [
@@ -40,6 +44,7 @@ in
       };
 
     })
+
 
     (lib.mkIf cfg.openssh.enable {
 
@@ -60,14 +65,22 @@ in
       services.openssh = {
         enable = true;
         ports = [ cfg.openssh.port ];
-	openFirewall = true;
-	settings = lib.mkIf cfg.openssh.keyFileOnlyAuth {
+	      openFirewall = true;
+	      settings = lib.mkIf cfg.openssh.keyFileOnlyAuth {
           PasswordAuthentication = false;
-	  KbdInteractiveAuthentication = false;
+	        KbdInteractiveAuthentication = false;
         };
       };
 
     } )
+
+    (lib.mkIf cfg.mullvad.enable { 
+      mullvad = {
+        enable = true;
+        configDir = "${cfg.mullvad.configDir}";
+      };
+    } )
+
   ];
 }
 

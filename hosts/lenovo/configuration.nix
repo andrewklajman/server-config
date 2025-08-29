@@ -33,6 +33,17 @@ in
   config = {
     environment.enable        = true;
 
+    networking = {
+      NetworkManager = {
+        enable = true;
+        config = "${mp}/persistence/system/system-connections";
+      };
+      mullvad = {
+        enable = true;
+        configDir = "${mp}/persistence/apps/mullvad/";
+      };
+    };
+
     calibre.enable            = true;
     dwm-enhanced.enable       = true;
 
@@ -43,10 +54,6 @@ in
       gnupgHome               = "${mp}/persistence/apps/gnupg";
       passwordStoreDir        = "${mp}/persistence/apps/password-store";
     };
-    mullvad = { 
-      enable    = true; 
-      configDir = "${mp}/persistence/apps/mullvad/";
-    };
 
     fileSystems = {
       "/home/andrew/server-config" = bindMount "${mp}/server-config";
@@ -56,7 +63,6 @@ in
       "/home/andrew/.zshrc"        = bindMount "${mp}/persistence/andrew/zshrc";
       "/home/andrew/.ssh"          = bindMount "${mp}/persistence/andrew/ssh";
       "/root/.ssh"                 = bindMount "${mp}/persistence/root/ssh";
-      "/etc/NetworkManager/system-connections" = bindMount "${mp}/persistence/system/system-connections";
     };
 
     boot.loader.systemd-boot.enable = true;
