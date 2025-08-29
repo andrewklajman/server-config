@@ -111,11 +111,11 @@ in
     };
   
   # Documentation
-    documentation = {
-      enable = true;
-      man.enable = true;
-      dev.enable = true;
-    };
+  #  documentation = {
+  #    enable = true;
+  #    man.enable = true;
+  #    dev.enable = true;
+  #  };
 
   };
 }

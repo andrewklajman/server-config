@@ -7,7 +7,6 @@ let
     options = [ "bind" ];
   };
 in
-
 {
   imports = [ 
     ./hardware-configuration.nix
@@ -31,28 +30,48 @@ in
   };
 
   config = {
-    environment.enable        = true;
+    dwm-enhanced.enable      = true;
+    zsh.enable               = true;
+    users.enable             = true;
+    doas.enable              = true;
+    sessionVariables.enable  = true;
+    bootlimit.enable         = true;
+    personal-security.enable = true;
+    networkmanager.enable    = true;
+    mullvad.enable           = true;
+    programs.git.enable      = true;
+    basePackages.enable      = true;
+    neovim.enable            = true;
+    diskusage.enable         = true;
+    bluetooth.enable         = true;
+    pipewire.enable          = true;
+    manPages.enable          = true;
+    openssh.enable           = false;
+    
+    networking.hostName      = "lenovo";
 
-    networking = {
-      NetworkManager = {
-        enable = true;
-        config = "${mp}/persistence/system/system-connections";
-      };
-      mullvad = {
-        enable = true;
-        configDir = "${mp}/persistence/apps/mullvad/";
-      };
+    networkmanager  = {
+      config = "${mp}/persistence/system/system-connections";
     };
 
-    calibre.enable            = true;
-    dwm-enhanced.enable       = true;
+    mullvad = {
+      configDir = "${mp}/persistence/apps/mullvad/";
+    };
 
-    audiobookshelf.enable     = false; 
-    qbittorrent-client.enable = true;
     personal-security = {
-      enable                  = true;
-      gnupgHome               = "${mp}/persistence/apps/gnupg";
-      passwordStoreDir        = "${mp}/persistence/apps/password-store";
+      gnupgHome        = "${mp}/persistence/apps/gnupg";
+      passwordStoreDir = "${mp}/persistence/apps/password-store";
+    };
+
+    programs.git = {
+      config = {
+        safe.directory = [ 
+          "${mp}/server-config" 
+          "/home/andrew/server-config" 
+        ];
+        user.name  = [ "andrew" ];
+        user.email = [ "andrew.klajman@gmail.com" ];
+      };
     };
 
     fileSystems = {
@@ -65,8 +84,11 @@ in
       "/root/.ssh"                 = bindMount "${mp}/persistence/root/ssh";
     };
 
+    time.timeZone = "Australia/Sydney";
+    nixpkgs.config.allowUnfree = true;
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    system.stateVersion = "25.05";
+    system.stateVersion = "25.05"; 
   };
 }

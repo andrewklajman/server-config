@@ -84,6 +84,57 @@ in
         ];
     } )
 
+    ( makeBasicModule "bluetooth" { 
+        services.blueman.enable = true;
+        hardware.bluetooth = {
+          enable = true;
+          powerOnBoot = true;
+          settings = {
+            General = {
+              Experimental = true; # Show battery charge of Bluetooth devices
+            };
+          };
+        };
+    } )
+
+    ( makeBasicModule "pipewire" { 
+        services.pipewire = {
+          enable = true;
+          alsa.enable = true;
+          alsa.support32Bit = true;
+          pulse.enable = true;
+        };
+    } )
+    
+    ( makeBasicModule "bootlimit" { 
+        boot.loader.systemd-boot.configurationLimit = 10;
+        nix.settings.auto-optimise-store = true;
+        nix.gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 1w";
+        };
+
+    } )
+
+    ( makeBasicModule "manPages" { 
+        documentation = {
+          enable = true;
+          man.enable = true;
+          dev.enable = true;
+        };
+    } )
+
+    ( makeBasicModule "diskusage" { 
+        boot.loader.systemd-boot.configurationLimit = 10;
+        nix.settings.auto-optimise-store = true;
+        nix.gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 1w";
+        };
+    } )
+
   ];
 }
 
