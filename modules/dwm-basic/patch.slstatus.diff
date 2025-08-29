@@ -1,9 +1,0 @@
---- a/config.def.h
-+++ b/config.def.h
-@@ -66,5 +66,5 @@
-  */
- static const struct arg args[] = {
- 	/* function format          argument */
--	{ datetime, "%s",           "%F %T" },
-+	{ run_command, "%s", "slstatus_command" },
- };

@@ -10,9 +10,8 @@ in
 {
   imports = [
     ./audiobookshelf.nix
-    ./dwm-basic
+    ./dwm-basic.nix
     ./dwm-enhanced
-    # ./environment
     ./mullvad.nix
     ./networking.nix
     ./networkmanager.nix
