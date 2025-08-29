@@ -31,6 +31,7 @@
   fileSystems."/mnt/persist" =
     { device = "/dev/disk/by-uuid/148de0c0-c8b7-46fb-b8ef-f641c054f08e";
       fsType = "ext4";
+      neededForBoot = true;
     };
 
   swapDevices =

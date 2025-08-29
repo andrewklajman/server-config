@@ -15,27 +15,32 @@ in
       default = 8080;
     };
     serviceTrigger = lib.mkOption {
-      type = lib.types.str;
-      default = "mnt-localLuks.service";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    services = {
-      qbittorrent = {
-        enable = true;
-        inherit (cfg) profileDir webuiPort;
+  config = lib.mkMerge [
+    ( lib.mkIf cfg.enable {
+        services = {
+          qbittorrent = {
+            enable = true;
+            inherit (cfg) profileDir webuiPort;
+            openFirewall = true;
+          };
+        }; 
 
-      };
-    };
+    } )
 
-    systemd.services.qbittorrent = {
-      description = lib.mkForce "qbittorrent BitTorrent client (After localLuks mount)";
-      requires =             [ "${cfg.serviceTrigger}" ];
-      after    =             [ "${cfg.serviceTrigger}" ];
-      wantedBy = lib.mkForce [ "${cfg.serviceTrigger}" ];
-    };
+    ( lib.mkIf (cfg.serviceTrigger != null) {
+        systemd.services.qbittorrent = {
+          description = lib.mkForce "qbittorrent BitTorrent client (after trigger)";
+          requires =             [ "${cfg.serviceTrigger}" ];
+          after    =             [ "${cfg.serviceTrigger}" ];
+          wantedBy = lib.mkForce [ "${cfg.serviceTrigger}" ];
+        };
+    } )
 
-  };
+  ];
 }
 

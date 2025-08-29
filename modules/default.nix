@@ -25,17 +25,17 @@ in
 
   imports = [
     ./audiobookshelf.nix
-    ./dwm-basic.nix
+#    ./dwm-basic.nix
     ./dwm-enhanced
     ./mullvad.nix
-    ./networking.nix
+#    ./networking.nix
     ./networkmanager.nix
     ./neovim
     ./openssh.nix
     ./personal-security
     ./qbittorrent-client.nix
     ./qbittorrent-server.nix
-    ./vsftpd-ftp-books.nix
+    ./vsftpd.nix
     ./zsh.nix
     ./users.nix
 
@@ -137,6 +137,16 @@ in
           automatic = true;
           dates = "weekly";
           options = "--delete-older-than 1w";
+        };
+    } )
+
+    ( makeBasicModule "dwm-basic" { 
+        services = {
+          xserver = {
+            enable = true;
+            displayManager.lightdm.enable = true;
+            windowManager.dwm.enable = true;
+          };
         };
     } )
 

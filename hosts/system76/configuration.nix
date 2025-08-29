@@ -16,10 +16,17 @@ in
   ];
 
   config = {
-    dwm-basic.enable        = true;
-    openssh.enable          = true;
+    dwm-basic.enable           = true;
+    openssh.enable             = true;
+    qbittorrent-server.enable  = true;
 
     networking.hostName     = "system76";
+
+    qbittorrent-server = {
+      profileDir = "${config}/qbittorrent-server";
+      webuiPort = 8080;
+#      serviceTrigger = "mnt-persist.mount";
+    };
 
     networkmanager  = {
       config = "${config}/system-connections";
