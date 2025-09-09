@@ -42,30 +42,34 @@ map <C-l> <C-w>l
 nnoremap z<CR> z<CR>2k2j
 nnoremap <leader>g :w<CR>:!git add .<CR>q:1<C-W>_i!git commit -m ''<Esc>ha
 
-" Mardown folds
-au BufEnter *.md setlocal foldexpr=MarkdownLevel()  
-au BufEnter *.md setlocal foldmethod=expr   
-function! MarkdownLevel()
-    if getline(v:lnum) =~ '^# .*$'
-        return ">1"
-    endif
-    if getline(v:lnum) =~ '^## .*$'
-        return ">2"
-    endif
-    if getline(v:lnum) =~ '^### .*$'
-        return ">3"
-    endif
-    if getline(v:lnum) =~ '^#### .*$'
-        return ">4"
-    endif
-    if getline(v:lnum) =~ '^##### .*$'
-        return ">5"
-    endif
-    if getline(v:lnum) =~ '^###### .*$'
-        return ">6"
-    endif
-    return "=" 
-endfunction
+au BufEnter *.md setlocal foldcolumn=9
+au BufEnter *.md setlocal textwidth=80
+au BufEnter *.md setlocal nonumber
+au BufEnter *.md setlocal norelativenumber
+" " Mardown folds
+" au BufEnter *.md setlocal foldexpr=MarkdownLevel()  
+" au BufEnter *.md setlocal foldmethod=expr   
+" function! MarkdownLevel()
+"     if getline(v:lnum) =~ '^# .*$'
+"         return ">1"
+"     endif
+"     if getline(v:lnum) =~ '^## .*$'
+"         return ">2"
+"     endif
+"     if getline(v:lnum) =~ '^### .*$'
+"         return ">3"
+"     endif
+"     if getline(v:lnum) =~ '^#### .*$'
+"         return ">4"
+"     endif
+"     if getline(v:lnum) =~ '^##### .*$'
+"         return ">5"
+"     endif
+"     if getline(v:lnum) =~ '^###### .*$'
+"         return ">6"
+"     endif
+"     return "=" 
+" endfunction
 
 " " gf alternative (open or create new link)
 " autocmd BufEnter *.md inoremap <leader>wf <Esc>:call OCloneFile()<CR>
