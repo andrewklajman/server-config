@@ -79,6 +79,9 @@ endfunction
 " endfunction
 
 
+nnoremap <leader>cl :colorscheme morning<CR>
+nnoremap <leader>cd :colorscheme darkblue<CR>
+
 " Cycle through color
 let g:colors = getcompletion('', 'color')
 nnoremap <leader>cn :let next_color='colorscheme '..NextColors()<CR>:execute next_color<CR>:echo next_color<CR>
