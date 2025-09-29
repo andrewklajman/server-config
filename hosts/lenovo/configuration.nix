@@ -27,10 +27,19 @@ in
   };
 
   config = {
+    calibre.enable           = true;
+
     bluetooth.enable         = true;
     dwm-enhanced.enable      = true;
     personal-security.enable = true;
     pipewire.enable          = true;
+
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 443 8000 ];
+    };
+    audiobookshelf.enable     = true;
+    qbittorrent-client.enable = true;
 
     networking.hostName      = "lenovo";
 

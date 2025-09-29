@@ -29,7 +29,6 @@
     '';
 
     programs.zsh.shellAliases = {
-      led     = "ledger -f main.txt --strict --pedantic --price-db prices.db --exchange $ --no-total";
       llol    = "ls -1 --group-directories-first";
       ll      = "ls -l --group-directories-first";
       lla     = "ls -al --group-directories-first";

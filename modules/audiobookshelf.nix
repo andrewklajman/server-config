@@ -8,7 +8,7 @@ in
     enable = lib.mkEnableOption "audiobookshelf";
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "${localLuks.mountPoint}/audiobookshelf/dataDir";
+      default = "/mnt/localLuks/audiobookshelf/dataDir";
     };
     port = lib.mkOption {
       type = lib.types.port;
@@ -28,12 +28,12 @@ in
       openFirewall = true;
       host = "0.0.0.0";
     };
-    systemd.services.audiobookshelf = {
-      description = lib.mkForce "Audiobookshelf (After localLuks mount)";
-      requires    =             [ "${cfg.serviceTrigger}" ];
-      after       =             [ "${cfg.serviceTrigger}" ];
-      wantedBy    = lib.mkForce [ "${cfg.serviceTrigger}" ];
-    };
+#    systemd.services.audiobookshelf = {
+#      description = lib.mkForce "Audiobookshelf (After localLuks mount)";
+#      requires    =             [ "${cfg.serviceTrigger}" ];
+#      after       =             [ "${cfg.serviceTrigger}" ];
+#      wantedBy    = lib.mkForce [ "${cfg.serviceTrigger}" ];
+#    };
   };
 }
 

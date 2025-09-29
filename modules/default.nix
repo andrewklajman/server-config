@@ -43,7 +43,7 @@ in
         services.udisks2.enable = true;
         services.calibre-server = {
           enable = true;
-          libraries = [ "${config.consts.localLuks.mountPoint}/calibre" ];
+          libraries = [ "/mnt/localLuks/books/calibre" ];
         }; 
     } )
 

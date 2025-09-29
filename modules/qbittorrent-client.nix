@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let 
-  mp = config.consts.localLuks.mountPoint;
-in
 {
   options.qbittorrent-client.enable = lib.mkEnableOption "qbittorrent-client";
 
@@ -15,7 +12,7 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/qbittorrent \
-            --add-flag --profile=${mp}/torrent/profile 
+            --add-flag --profile=/mnt/localLuks/torrent/profile 
         '';
       } ) 
     ];
