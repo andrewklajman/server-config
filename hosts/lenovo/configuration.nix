@@ -38,7 +38,7 @@ in
       enable = true;
       allowedTCPPorts = [ 80 443 8000 ];
     };
-    audiobookshelf.enable     = true;
+    audiobookshelf.enable     = false;
     qbittorrent-client.enable = true;
 
     networking.hostName      = "lenovo";
