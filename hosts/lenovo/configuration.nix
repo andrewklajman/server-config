@@ -28,6 +28,7 @@ in
 
   config = {
     calibre.enable           = true;
+    taskwarrior.enable       = true;
 
     bluetooth.enable         = true;
     dwm-enhanced.enable      = true;
@@ -38,7 +39,17 @@ in
       enable = true;
       allowedTCPPorts = [ 80 443 8000 ];
     };
-    audiobookshelf.enable     = false;
+
+    audiobookshelf = {
+      enable = false;
+      dataDir = "/home/andrew";
+      port = 8081;
+    };
+
+
+
+
+
     qbittorrent-client.enable = true;
 
     networking.hostName      = "lenovo";

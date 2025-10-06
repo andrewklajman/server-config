@@ -49,6 +49,22 @@ let
     
     echo " $BAT_BAR $ENCRYPT_BAR $WIRELESS_BAR $DATE_BAR "
   '';
+
+  notes_create = pkgs.writeShellScriptBin "notes_create" ''
+    FILEPATH="${localLuks.mountPoint}/Documents/open_notes/notes/$(date +%Y%m%d-%H%M.md)"
+
+    echo "" >> $FILEPATH
+    echo "++++" >> $FILEPATH
+    echo "" >> $FILEPATH
+    echo "title:" >> $FILEPATH
+    
+    nvim $FILEPATH
+  '';
+
+  notes_open = pkgs.writeShellScriptBin "notes_open" ''
+    ranger ${localLuks.mountPoint}/Documents/open_notes/tags
+  '';
+
 in
 {
   options.dwm-enhanced.enable = lib.mkEnableOption "dwm-enhanced";
@@ -71,13 +87,14 @@ in
       st tabbed
       xclip
       mullvad-browser-andrew
+      notes_create notes_open
     ];
   
     nixpkgs.overlays = [
       (self: super: {
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
-          patches = [ ./patch.dwm.9.config.def.h.diff ];
+          patches = [ ./patch.dwm.10.config.def.h.diff ];
         });
         slstatus = super.slstatus.overrideAttrs (oldAttrs: rec {
           patches = [ ./patch.slstatus.diff ];

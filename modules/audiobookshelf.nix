@@ -21,7 +21,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    #networking.firewall.allowedTCPPorts = [ 8000 ];
     services.audiobookshelf = {
       enable = true;
       inherit (cfg) dataDir port;

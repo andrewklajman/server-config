@@ -64,7 +64,9 @@ static const char *termcmd[]  = { "tabbed", "-r", "2", "st", "-w", "''", "-f", "
 static const char *passwebsite[]  = { "passwebsite", "-i", NULL };
 static const char *passmenulogin[]  = { "passmenulogin", "-i", NULL };
 static const char *passmenu[]  = { "passmenu", "-i", NULL };
-static const char *unlock[]  = { "st", "-e", "unlock", NULL };
+static const char *unlock[]  = { "st", "-f", "monospace:size=20", "-e", "unlock", NULL };
+static const char *notes_create[]  = { "st", "-f", "monospace:size=20", "-e", "notes_create", NULL };
+static const char *notes_open[]  = { "st", "-f", "monospace:size=20", "-e", "notes_open", NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
 static const char *mutevol[] = { "amixerl", "set", "Master", "toggle", NULL };
 static const char *upvol[] = { "amixer", "set", "Master", "5%+", NULL };
@@ -75,6 +77,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = passmenulogin } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = passwebsite } },
 	{ MODKEY,                       XK_u,      spawn,          {.v = unlock } },
+	{ MODKEY,                       XK_i,      spawn,          {.v = notes_create } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = notes_open } },
+
  	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = downvol } },
  	{ 0,         XF86XK_AudioMute,             spawn,          {.v = mutevol } },
  	{ 0,         XF86XK_AudioRaiseVolume,      spawn,          {.v = upvol   } },
@@ -84,7 +89,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	//{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },

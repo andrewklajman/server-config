@@ -36,6 +36,7 @@ in
     ./personal-security
     ./qbittorrent-client.nix
     ./qbittorrent-server.nix
+    ./taskwarrior.nix
     ./vsftpd.nix
     ./zsh.nix
     ./users.nix
