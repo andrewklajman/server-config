@@ -12,6 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # mkpasswd > /mnt/localLuks/...
     users.users.root.hashedPasswordFile = "${cfg.hashedPasswordFile}";
     users.users.andrew = {
       isNormalUser = true;

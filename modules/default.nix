@@ -20,15 +20,23 @@ in
     neovim.enable                    = true;
     networkmanager.enable            = true;
     programs.git.enable              = true;
+    pipewire.enable                  = true;
     sessionVariables.enable          = true;
     users.enable                     = true;
     zsh.enable                       = true;
     udev-samsung-portable-ssd.enable = true;
+
+    networking.firewall.enable       = true;
+    time.timeZone                    = "Australia/Sydney";
+    nixpkgs.config.allowUnfree       = true;
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    boot.loader.systemd-boot.enable  = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    system.stateVersion              = "25.05"; 
   };
 
   imports = [
     ./audiobookshelf.nix
-#    ./dwm-basic.nix
     ./dwm-enhanced
     ./mullvad.nix
 #    ./networking.nix

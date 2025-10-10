@@ -12,26 +12,10 @@
     in
     {
       nixosConfigurations = {
-        lenovo = mkNixosConfig ./hosts/lenovo/configuration.nix;
+        dell =          mkNixosConfig ./hosts/dell/configuration.nix;
+        lenovo =        mkNixosConfig ./hosts/lenovo/configuration.nix;
         lenovo-server = mkNixosConfig ./hosts/lenovo-server/configuration.nix;
-        system76 = mkNixosConfig ./hosts/system76/configuration.nix;
+        system76 =      mkNixosConfig ./hosts/system76/configuration.nix;
       };
-
-#      nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
-#        modules = [ ./hosts/pc/configuration.nix ];
-#        system = "x86_64-linux";
-#        specialArgs = { 
-#          localiPersist = {
-#            device     = "/dev/disk/by-uuid/75859c55-d8df-4c97-a74f-859f49e3f85a";
-#            mountPoint = "/mnt/localiPersist";
-#          };
-#          localiLuks = {
-#            device     = "/dev/nvme0n1p4";
-#            mapperName = "persist-enc";
-#            mountPoint = "/mnt/localiLuks";
-#          };
-#        };
-#      };
-
     };
 }

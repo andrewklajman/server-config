@@ -37,6 +37,7 @@
       nr      = "nixos-rebuild switch --flake ./#pc";
       nrr     = "nixos-rebuild switch --flake ./#pc && reboot";
       nrl     = "doas nixos-rebuild switch --flake /home/andrew/server-config/#lenovo";
+      nrd     = "doas nixos-rebuild switch --flake /home/andrew/server-config/#dell";
       nrp     = "doas nixos-rebuild switch --flake ./#pc";
       ts      = "tailscale status";
       ms      = "mullvad status";

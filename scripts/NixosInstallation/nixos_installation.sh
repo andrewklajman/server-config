@@ -47,9 +47,10 @@ nixos-generate-config --root /mnt
 sed -i '16 i environment.systemPackages = with pkgs; [ vim git ];' /mnt/etc/nixos/configuration.nix
 sed -i '16 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
 sed -i '16 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
-sed -i '6 i fileSystems."/mnt/localPersist".neededForBoot = true;' /mnt/etc/nixos/hardware-configuration.nix
+sed -i '7 i fileSystems."/mnt/localPersist".neededForBoot = true;' /mnt/etc/nixos/hardware-configuration.nix
 
 echo "CHECK SYSTEM BEFORE PROCEEDING"
+# // I should be able to set a read here and open each of the files
 exit
 
 echo '--- Installation ---'
@@ -62,10 +63,18 @@ cd /mnt/mnt/localPersist
 git clone https://www.github.com/andrewklajman/server-config
 
 echo '--- SSH Key Generation ---'
-mkdir /mnt/mnt/localPersist/persistence/root/ssh
-ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/root/ssh_key
-mkdir /mnt/mnt/localPersist/persistence/andrew/ssh
-ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/andrew/ssh_key
+mkdir -p /mnt/mnt/localPersist/persistence/root/ssh
+ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/root/ssh
+mkdir -p /mnt/mnt/localPersist/persistence/andrew/ssh
+ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/andrew/ssh
+
+# Need to place mkpasswd to /mnt/localPersist/andrew/hashedPasswordFile
+# Need to place systemconnectionsmkpasswd to /mnt/localPersist/andrew/hashedPasswordFile
+# Create rust folder"/home/andrew/rust"          = bindMount "${mp}/rust";
+# Need to download gpg 
+# Reminder to copy across from apps folder
+# Copy across public key
+#
 
 echo '--- Checklist ---'
 echo ' * Remove auto mount for encrypted device'
