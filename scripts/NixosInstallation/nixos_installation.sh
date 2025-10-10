@@ -1,8 +1,9 @@
 echo '--- Setting Variables ---'
 LUKS_PASS=""
+USER_PASS=""
+
 echo "LUKS Password: $LUKS_PASS"
-
-
+echo "User Password: $USER_PASS"
 
 DISK="/dev/nvme0n1"
 PART1="/dev/nvme0n1p1"
@@ -50,8 +51,12 @@ sed -i '16 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configur
 sed -i '7 i fileSystems."/mnt/localPersist".neededForBoot = true;' /mnt/etc/nixos/hardware-configuration.nix
 
 echo "CHECK SYSTEM BEFORE PROCEEDING"
-# // I should be able to set a read here and open each of the files
-exit
+read
+nvim /mnt/etc/nixos/configuration.nix
+nvim /mnt/etc/nixos/hardware-configuration.nix
+
+echo "DO YOU WANT TO PROCEED WITH INSTALLATION?"
+read
 
 echo '--- Installation ---'
 nixos-install
@@ -62,21 +67,17 @@ cp /mnt/etc/nixos/* /mnt/mnt/localPersist/original_config
 cd /mnt/mnt/localPersist
 git clone https://www.github.com/andrewklajman/server-config
 
-echo '--- SSH Key Generation ---'
+echo '--- Miscellaneous ---'
 mkdir -p /mnt/mnt/localPersist/persistence/root/ssh
 ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/root/ssh
 mkdir -p /mnt/mnt/localPersist/persistence/andrew/ssh
 ssh-keygen -N '' -f /mnt/mnt/localPersist/persistence/andrew/ssh
+chown -R andrew:users /mnt/mnt/localPersist/persistence/andrew/ssh
 
-# Need to place mkpasswd to /mnt/localPersist/andrew/hashedPasswordFile
-# Need to place systemconnectionsmkpasswd to /mnt/localPersist/andrew/hashedPasswordFile
-# Create rust folder"/home/andrew/rust"          = bindMount "${mp}/rust";
-# Need to download gpg 
-# Reminder to copy across from apps folder
-# Copy across public key
-#
+echo "$USER_PASS" | mkpasswd -s > /mnt/localPersist/andrew/hashedPasswordFile
+cp /etc/NetworkManager/system-connections /mnt/localPersist/persistence/system
+gpg --import ./server-config/scripts/NixosInstallation/gpg_public.export
 
 echo '--- Checklist ---'
-echo ' * Remove auto mount for encrypted device'
-echo ' * Set fileSystems.
+echo ' * Add SSH to github'
 
