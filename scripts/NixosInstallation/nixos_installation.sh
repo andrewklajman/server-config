@@ -1,5 +1,9 @@
 echo '--- Setting Variables ---'
 LUKS_PASS=""
+echo "LUKS Password: $LUKS_PASS"
+
+
+
 DISK="/dev/nvme0n1"
 PART1="/dev/nvme0n1p1"
 PART2="/dev/nvme0n1p2"
@@ -44,7 +48,9 @@ sed -i '16 i environment.systemPackages = with pkgs; [ vim git ];' /mnt/etc/nixo
 sed -i '16 i nix.settings.experimental-features = [ "nix-command" "flakes" ];' /mnt/etc/nixos/configuration.nix
 sed -i '16 i users.users.root.initialPassword = "pass";' /mnt/etc/nixos/configuration.nix
 sed -i '6 i fileSystems."/mnt/localPersist".neededForBoot = true;' /mnt/etc/nixos/hardware-configuration.nix
-  
+
+echo "CHECK SYSTEM BEFORE PROCEEDING"
+exit
 
 echo '--- Installation ---'
 nixos-install
