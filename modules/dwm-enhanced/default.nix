@@ -8,6 +8,10 @@ let
     doas mkdir ${localLuks.mountPoint}
     doas mount /dev/mapper/${localLuks.mapperName} ${localLuks.mountPoint}
     doas systemctl start mnt-localLuks.service
+
+    doas mkdir /home/andrew/luks
+    doas chown -R andrew:users /home/andrew/luks
+    doas mount --bind ${localLuks.mountPoint} /home/andrew/luks
   '';
   unlock_p = pkgs.writeShellScriptBin "unlock_p" '' 
     doas cryptsetup open /mnt/localLuks/.ZNfKKTx03EVnh unlock_p

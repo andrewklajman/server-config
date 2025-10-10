@@ -1,4 +1,4 @@
-{ config, pkgs, lib, localLuks, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.networkmanager;

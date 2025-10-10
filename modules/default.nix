@@ -5,6 +5,8 @@ let
     options.${moduleName}.enable = lib.mkEnableOption "${moduleName}";
     config = lib.mkIf config.${moduleName}.enable moduleContent;
   };
+
+  luks = config.consts.localLuks.mountPoint;
 in
 
 {
@@ -46,7 +48,7 @@ in
         services.udisks2.enable = true;
         services.calibre-server = {
           enable = true;
-          libraries = [ "/mnt/localLuks/books/calibre" ];
+          libraries = [ "${luks}/books/calibre" ];
         }; 
     } )
 

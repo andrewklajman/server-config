@@ -36,8 +36,8 @@
       vim     = "nvim";
       nr      = "nixos-rebuild switch --flake ./#pc";
       nrr     = "nixos-rebuild switch --flake ./#pc && reboot";
-      nrl     = "doas git add . && doas nixos-rebuild switch --flake ~/#lenovo";
-      nrp     = "doas git add . && doas nixos-rebuild switch --flake ./#pc";
+      nrl     = "doas nixos-rebuild switch --flake /home/andrew/server-config/#lenovo";
+      nrp     = "doas nixos-rebuild switch --flake ./#pc";
       ts      = "tailscale status";
       ms      = "mullvad status";
       mc      = "mullvad connect";

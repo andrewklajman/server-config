@@ -27,7 +27,7 @@ in
   };
 
   config = {
-    calibre.enable           = true;
+    calibre.enable           = false;
     taskwarrior.enable       = true;
 
     bluetooth.enable         = true;

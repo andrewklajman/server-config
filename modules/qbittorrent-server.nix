@@ -1,14 +1,15 @@
-{ config, pkgs, lib, localLuks, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.qbittorrent-server;
+  luks = config.consts.localLuks.mountPoint;
 in
 {
   options.qbittorrent-server = {
     enable = lib.mkEnableOption "qbittorrent-server";
     profileDir = lib.mkOption {
       type = lib.types.str;
-      default = "${localLuks.mountPoint}/torrent/profile";
+      default = "${luks}/torrent/profile";
     };
     webuiPort = lib.mkOption {
       type = lib.types.port;

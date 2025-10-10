@@ -1,36 +1,68 @@
 { config, pkgs, lib, ... }:
 
 let
-  log             = "/home/andrew/samsunglog";
-  rsync_source    = "/mnt/localLuks";
+  luks            = config.consts.localLuks.mountPoint;
+  log             = "${luks}/Documents/open_notes/notes";
+  rsync_source    = "${luks}";
   mnt_point       = "/mnt/ssd";
   crypt_name      = "samsung-portable-ssd";
-  crypt_key_file  = "/mnt/localLuks/samsung-portable-ssd.key";
+  crypt_key_file  = "${luks}/samsung-portable-ssd.key";
   crypt_device    = "/dev/disk/by-uuid/557f37dc-31e5-4782-ba10-302bc9277d5f";
 
   umount_samsung = pkgs.writeShellScriptBin "umount_samsung" '' 
-    echo "--- $(${pkgs.coreutils}/bin/date) Un Mounting Samsung Portable SSD ---" &>> ${log}
-    ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} &>> ${log}
-    ${pkgs.systemd}/bin/systemd-umount ${mnt_point} &>> ${log}
-    ${pkgs.cryptsetup}/bin/cryptsetup close ${crypt_name} &>> ${log}
-    echo "" &>> ${log}
+    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M.md)"
+    
+    if [ ! -f $LOG ]; then
+      echo "logs/samsung" &>> $LOG
+      echo "++++" &>> $LOG
+      echo "" &>> $LOG
+    fi
+
+    echo "# Umounting Samsung Portable SSD" &>> $LOG
+    echo "" &>> $LOG
+    
+    ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} &>> $LOG
+    echo "" &>> $LOG
+    ${pkgs.systemd}/bin/systemd-umount ${mnt_point} &>> $LOG
+    echo "" &>> $LOG
+    ${pkgs.cryptsetup}/bin/cryptsetup close ${crypt_name} &>> $LOG
+    echo "" &>> $LOG
+
+    echo " " &>> $LOG
   '';
+
   mount_samsung = pkgs.writeShellScriptBin "mount_samsung" '' 
-    echo "--- $(${pkgs.coreutils}/bin/date) Mounting Samsung Portable SSD ---" &>> ${log}
-    ${pkgs.coreutils}/bin/mkdir ${mnt_point} &>> ${log}
+    sleep 1
+    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M.md)"
+
+    if [ ! -f $LOG ]; then
+      echo "logs/samsung" &>> $LOG
+      echo "++++" &>> $LOG
+      echo "" &>> $LOG
+    fi
+
+    echo "# Mounting Samsung Portable SSD" &>> $LOG
+    echo "" &>> $LOG
+
+    ${pkgs.coreutils}/bin/mkdir ${mnt_point} &>> $LOG
+    echo "" &>> $LOG
 
     ${pkgs.cryptsetup}/bin/cryptsetup \
       open \
       --key-file ${crypt_key_file} \
       ${crypt_device} \
-      ${crypt_name} &>> ${log}
+      ${crypt_name} &>> $LOG
+    echo "" &>> $LOG
 
     ${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect \
       /dev/mapper/${crypt_name} \
-      ${mnt_point} &>> ${log}
+      ${mnt_point} &>> $LOG
+    echo "" &>> $LOG
 
     ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} &>> ${log}
-    echo "" &>> ${log}
+    echo "" &>> $LOG
+
+    echo "" &>> $LOG
   '';
 in 
 {
@@ -41,6 +73,7 @@ in
       mount_samsung
       mount
       rsync
+      coreutils
     ];
 
     services.udev = {

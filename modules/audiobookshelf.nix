@@ -2,13 +2,14 @@
 
 let
   cfg = config.audiobookshelf;
+  luks = config.consts.localLuks.mountPoint;
 in
 {
   options.audiobookshelf = {
     enable = lib.mkEnableOption "audiobookshelf";
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "/mnt/localLuks/audiobookshelf/dataDir";
+      default = "${luks}/audiobookshelf/dataDir";
     };
     port = lib.mkOption {
       type = lib.types.port;
