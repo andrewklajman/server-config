@@ -28,6 +28,12 @@ in
 
   config = {
     networking.hostName      = "dell";
+
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 8000 ];
+    };
+
     dwm-enhanced.enable      = true;
     users.hashedPasswordFile = "${settings}/andrew/hashedPasswordFile";
     networkmanager.config    = "${settings}/system/system-connections";
@@ -62,8 +68,10 @@ in
   	  };
   	};
 
+    taskwarrior.enable       = true;
+    qbittorrent-client.enable = true;
+
 #    calibre.enable           = false;
-#    taskwarrior.enable       = true;
 #    bluetooth.enable         = true;
 #    personal-security.enable = true;
 #    audiobookshelf = {
@@ -71,7 +79,6 @@ in
 #      dataDir = "/home/andrew";
 #      port = 8081;
 #    };
-#    qbittorrent-client.enable = true;
 
   };
 }

@@ -55,7 +55,7 @@ let
   '';
 
   notes_create = pkgs.writeShellScriptBin "notes_create" ''
-    FILEPATH="${localLuks.mountPoint}/Documents/open_notes/notes/$(date +%Y%m%d-%H%M.md)"
+    FILEPATH="${localLuks.mountPoint}/Documents/open_notes/notes/$(date +%Y%m%d-%H%M%S.md)"
 
     echo "" >> $FILEPATH
     echo "++++" >> $FILEPATH
@@ -66,7 +66,7 @@ let
   '';
 
   notes_open = pkgs.writeShellScriptBin "notes_open" ''
-    ranger ${localLuks.mountPoint}/Documents/open_notes/tags
+    ranger  ${localLuks.mountPoint}/Documents/open_notes/tags
   '';
 
 in

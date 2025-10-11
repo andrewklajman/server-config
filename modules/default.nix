@@ -21,6 +21,7 @@ in
     networkmanager.enable            = true;
     programs.git.enable              = true;
     pipewire.enable                  = true;
+    open-notes.enable                = true;
     sessionVariables.enable          = true;
     users.enable                     = true;
     zsh.enable                       = true;
@@ -43,6 +44,7 @@ in
     ./networkmanager.nix
     ./neovim
     ./openssh.nix
+    ./open_notes
     ./personal-security
     ./qbittorrent-client.nix
     ./qbittorrent-server.nix

@@ -10,59 +10,63 @@ let
   crypt_device    = "/dev/disk/by-uuid/557f37dc-31e5-4782-ba10-302bc9277d5f";
 
   umount_samsung = pkgs.writeShellScriptBin "umount_samsung" '' 
-    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M.md)"
+    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M%S.md)"
+    echo $LOG
     
     if [ ! -f $LOG ]; then
-      echo "logs/samsung" &>> $LOG
-      echo "++++" &>> $LOG
-      echo "" &>> $LOG
+      echo "logs/samsung" 2>&1 | tee --append $LOG
+      echo "++++" 2>&1 | tee --append $LOG
     fi
 
-    echo "# Umounting Samsung Portable SSD" &>> $LOG
-    echo "" &>> $LOG
-    
-    ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} &>> $LOG
-    echo "" &>> $LOG
-    ${pkgs.systemd}/bin/systemd-umount ${mnt_point} &>> $LOG
-    echo "" &>> $LOG
-    ${pkgs.cryptsetup}/bin/cryptsetup close ${crypt_name} &>> $LOG
-    echo "" &>> $LOG
+    echo -e "\n\n# $(date '+%Y%m%d %H%M') Un Mounting Samsung Portable SSD" 2>&1 | tee --append $LOG
 
-    echo " " &>> $LOG
+    if [ ! -d ${mnt_point} ]; then
+      echo -e "\nAborting: There is no ${mnt_point}" 2>&1 | tee --append $LOG
+      exit
+    fi
+    
+    echo -e "\n\n## IF ${mnt_point} Mounted THEN rsync -av --delete ${rsync_source} ${mnt_point}\n" 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point}
+    [ $? -eq 0 ] && ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} 2>&1 | tee --append $LOG
+
+    echo -e "\n\n## systemd-umount ${mnt_point}\n" 2>&1 | tee --append $LOG
+    ${pkgs.systemd}/bin/systemd-umount ${mnt_point} 2>&1 | tee --append $LOG
+
+    echo -e "\n\n## cryptsetup close ${crypt_name}\n" 2>&1 | tee --append $LOG
+    ${pkgs.cryptsetup}/bin/cryptsetup close ${crypt_name} 2>&1 | tee --append $LOG
+
+    echo -e "\n\n## rmdir ${mnt_point}\n"
+    rmdir ${mnt_point} 2>&1 | tee --append $LOG
   '';
 
   mount_samsung = pkgs.writeShellScriptBin "mount_samsung" '' 
-    sleep 1
-    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M.md)"
+    LOG="$(${pkgs.coreutils}/bin/date +${log}/%Y%m%d-%H%M%S.md)"
 
     if [ ! -f $LOG ]; then
-      echo "logs/samsung" &>> $LOG
-      echo "++++" &>> $LOG
-      echo "" &>> $LOG
+      echo "logs/samsung" 2>&1 | tee --append $LOG
+      echo "++++" 2>&1 | tee --append $LOG
     fi
 
-    echo "# Mounting Samsung Portable SSD" &>> $LOG
-    echo "" &>> $LOG
+    echo -e "\n\n# $(date '+%Y%m%d %H%M') Mounting Samsung Portable SSD\n" 2>&1 | tee --append $LOG
 
-    ${pkgs.coreutils}/bin/mkdir ${mnt_point} &>> $LOG
-    echo "" &>> $LOG
+    echo -e "\n\n## mkdir ${mnt_point}\n" 2>&1 | tee --append $LOG
+    [ ! -d ${mnt_point} ] && ${pkgs.coreutils}/bin/mkdir ${mnt_point} 2>&1 | tee --append $LOG
 
+    echo -e "\n\n## cryptsetup open --key-flie ${crypt_key_file} ${crypt_device} ${crypt_name}\n" 2>&1 | tee --append $LOG
     ${pkgs.cryptsetup}/bin/cryptsetup \
       open \
       --key-file ${crypt_key_file} \
       ${crypt_device} \
-      ${crypt_name} &>> $LOG
-    echo "" &>> $LOG
+      ${crypt_name} 2>&1 | tee --append $LOG
 
+    echo -e "\n\n## systemd-mount /dev/mapper/${crypt_name} ${mnt_point}\n" 2>&1 | tee --append $LOG
     ${pkgs.systemd}/bin/systemd-mount --no-block --automount=yes --collect \
       /dev/mapper/${crypt_name} \
-      ${mnt_point} &>> $LOG
-    echo "" &>> $LOG
+      ${mnt_point} 2>&1 | tee --append $LOG
 
-    ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} &>> ${log}
-    echo "" &>> $LOG
-
-    echo "" &>> $LOG
+    echo -e "\n\n## rsync -av --delete ${rsync_source} ${mnt_point}\n" 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point}
+    [ $? -eq 0 ] && ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} 2>&1 | tee --append $LOG
   '';
 in 
 {
