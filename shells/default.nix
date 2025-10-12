@@ -19,8 +19,8 @@ let
     packages = [ pkgs.cargo pkgs.rustc ];
     shellHook = '' 
       PS1="[rust] " 
-      alias ccr="clear; RUSTFLAGS=-Awarnings cargo run;"
-      alias entrust="echo src/main.rs | entr -cs 'cargo run'"
+      alias entr_cargo_run="find src/ | entr -cs 'cargo run'"
+      alias entr_cargo_test="find src/ | entr -cs 'cargo test -- --nocapture'"
     '';
   };
 

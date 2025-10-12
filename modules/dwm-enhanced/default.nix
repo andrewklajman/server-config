@@ -22,6 +22,9 @@ let
   mullvad-browser-andrew = pkgs.writeShellScriptBin "mullvad-browser-andrew" '' 
     mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/andrew
   '';
+  hhy9i = pkgs.writeShellScriptBin "hhy9i" '' 
+    mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/id
+  '';
   slstatus_command = pkgs.writeShellScriptBin "slstatus_command" '' 
     # --- Internet Status --- #
     ping -c 1 www.google.com > /dev/null
@@ -90,7 +93,7 @@ in
       slstatus slstatus_command
       st tabbed
       xclip
-      mullvad-browser-andrew
+      mullvad-browser-andrew hhy9i
       notes_create notes_open
     ];
   

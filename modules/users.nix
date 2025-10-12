@@ -16,7 +16,7 @@ in
     users.users.root.hashedPasswordFile = "${cfg.hashedPasswordFile}";
     users.users.andrew = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ]; 
+      extraGroups = [ "wheel" "networkmanager" ]; 
       hashedPasswordFile = "${cfg.hashedPasswordFile}";
     };
   };
