@@ -2,9 +2,16 @@
 
 let 
   cfg = config.open-notes;
-  tag-with-title-sh = import ./tag_with_title.nix pkgs;
-  tag-without-title-sh = import ./tag_without_title.nix pkgs;
-  tag-sh = import ./tag.nix pkgs tag-with-title-sh tag-without-title-sh;
+  tag-with-title = pkgs.writeShellScriptBin 
+    "tag_with_title" 
+    '' ${builtins.readFile ./tag_with_title.sh} '';
+  tag-without-title = pkgs.writeShellScriptBin 
+    "tag_without_title" 
+    '' ${builtins.readFile ./tag_without_title.sh} '';
+  tag = pkgs.writeShellScriptBin 
+    "tag" 
+    '' ${builtins.readFile ./tag.sh} '';
+
 in
 {
   options.open-notes = {
@@ -20,16 +27,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      tag-sh
-      tag-with-title-sh
-      tag-without-title-sh
-    ];
 
     systemd.timers."open_notes" = {
       wantedBy = [ "timers.target" ];
         timerConfig = {
-          #OnCalendar = "*:1/1";
           OnCalendar = "*:5/10";
           Persistent = "true";
           Unit = "open_notes.service";
@@ -38,9 +39,17 @@ in
     
     systemd.services."open_notes" = {
       enable = true;
+      path = [
+        tag-with-title
+        tag-without-title
+      ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${tag-sh}/bin/tag";
+        Environment = [
+          "DIR_NOTES=/home/andrew/luks/Documents/open_notes/notes"
+          "DIR_TAGS=/home/andrew/luks/Documents/open_notes/tags"
+        ];
+        ExecStart = "${tag}/bin/tag $DIR_NOTES $DIR_TAGS";
         User = "andrew";
       };
     };
