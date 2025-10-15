@@ -95,6 +95,7 @@ in
       xclip
       mullvad-browser-andrew hhy9i
       notes_create notes_open
+      dunst libnotify
     ];
   
     nixpkgs.overlays = [
