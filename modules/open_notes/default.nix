@@ -11,6 +11,12 @@ let
   tag = pkgs.writeShellScriptBin 
     "tag" 
     '' ${builtins.readFile ./tag.sh} '';
+  audio-create = pkgs.writeShellScriptBin 
+    "audio_create" 
+    '' ${builtins.readFile ./audio_create.sh} '';
+  tag-audio = pkgs.writeShellScriptBin 
+    "tag_audio" 
+    '' ${builtins.readFile ./tag_audio.sh} '';
 
 in
 {
@@ -24,9 +30,17 @@ in
       type = lib.types.str;
       default = "/home/andrew/luks/Documents/open_notes/tags";
     };
+    DirAudio = lib.mkOption {
+      type = lib.types.str;
+      default = "/home/andrew/luks/Documents/open_notes/audio";
+    };
   };
 
   config = lib.mkIf cfg.enable {
+
+    environment.systemPackages = [
+      audio-create
+    ];
 
     systemd.timers."open_notes" = {
       wantedBy = [ "timers.target" ];
@@ -42,14 +56,17 @@ in
       path = [
         tag-with-title
         tag-without-title
+        tag-audio
       ];
       serviceConfig = {
         Type = "oneshot";
         Environment = [
-          "DIR_NOTES=/home/andrew/luks/Documents/open_notes/notes"
-          "DIR_TAGS=/home/andrew/luks/Documents/open_notes/tags"
+          "DIR_NOTES=${cfg.DirNotes}"
+          "DIR_TAGS=${cfg.DirTags}"
+          "DIR_AUDIO=${cfg.DirAudio}"
         ];
-        ExecStart = "${tag}/bin/tag $DIR_NOTES $DIR_TAGS";
+        #ExecStart = "${tag}/bin/tag $DIR_NOTES $DIR_TAGS";
+        ExecStart = "${tag}/bin/tag";
         User = "andrew";
       };
     };

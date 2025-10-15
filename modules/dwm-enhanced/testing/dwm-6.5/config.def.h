@@ -29,6 +29,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
+	{ "OpenNotesAudio", NULL, NULL,       0,            1,           -1 },
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
@@ -59,26 +60,33 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "tabbed", "-r", "2", "st", "-w", "''", "-f", "monospace:size=20", NULL };
-static const char *passwebsite[]  = { "passwebsite", "-i", NULL };
+static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]        = { "tabbed", "-r", "2", "st", "-w", "''", "-f", "monospace:size=20", NULL };
+
+static const char *passwebsite[]    = { "passwebsite", "-i", NULL };
 static const char *passmenulogin[]  = { "passmenulogin", "-i", NULL };
-static const char *passmenu[]  = { "passmenu", "-i", NULL };
-static const char *unlock[]  = { "st", "-f", "monospace:size=20", "-e", "unlock", NULL };
-static const char *notes_create[]  = { "st", "-f", "monospace:size=20", "-e", "notes_create", NULL };
-static const char *notes_open[]  = { "st", "-f", "monospace:size=20", "-e", "notes_open", NULL };
-static const char *downvol[] = { "amixer", "set", "Master", "5%-", NULL };
-static const char *mutevol[] = { "amixerl", "set", "Master", "toggle", NULL };
-static const char *upvol[] = { "amixer", "set", "Master", "5%+", NULL };
+static const char *passmenu[]       = { "passmenu", "-i", NULL };
+
+static const char *unlock[]         = { "st", "-f", "monospace:size=20", "-e", "unlock", NULL };
+static const char *notes_create[]   = { "st", "-f", "monospace:size=20", "-e", "notes_create", NULL };
+static const char *notes_open[]     = { "st", "-f", "monospace:size=20", "-e", "notes_open", NULL };
+static const char *audio_create[]   = { "st", "-f", "monospace:size=20", "-e", "audio_create", NULL };
+
+static const char *downvol[]        = { "amixer", "set", "Master", "5%-", NULL };
+static const char *mutevol[]        = { "amixerl", "set", "Master", "toggle", NULL };
+static const char *upvol[]          = { "amixer", "set", "Master", "5%+", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_e,      spawn,          {.v = passmenu } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = passmenulogin } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = passwebsite } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = passmenulogin } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = passmenu } },
+
 	{ MODKEY,                       XK_u,      spawn,          {.v = unlock } },
 	{ MODKEY,                       XK_i,      spawn,          {.v = notes_create } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = notes_open } },
+
+	{ MODKEY,                       XK_j,      spawn,          {.v = audio_create } },
 
  	{ 0,         XF86XK_AudioLowerVolume,      spawn,          {.v = downvol } },
  	{ 0,         XF86XK_AudioMute,             spawn,          {.v = mutevol } },

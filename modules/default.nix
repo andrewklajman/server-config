@@ -21,7 +21,6 @@ in
     networkmanager.enable            = true;
     programs.git.enable              = true;
     pipewire.enable                  = true;
-    open-notes.enable                = true;
     sessionVariables.enable          = true;
     users.enable                     = true;
     zsh.enable                       = true;

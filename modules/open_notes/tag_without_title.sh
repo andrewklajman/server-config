@@ -4,7 +4,7 @@ FILEPATH_NOTE=$2
 grep -e '^title:' $FILEPATH_NOTE &>> /dev/null
 [ $? -eq 0 ] && exit
 
-FILENAME_TAG="''${FILEPATH_NOTE##*/}"
+FILENAME_TAG="${FILEPATH_NOTE##*/}"
 
 echo "ln -s (without title)\ "
 echo "    $FILEPATH_NOTE \ "

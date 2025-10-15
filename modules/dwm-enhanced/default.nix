@@ -101,7 +101,7 @@ in
       (self: super: {
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
-          patches = [ ./patch.dwm.10.config.def.h.diff ];
+          patches = [ ./patch.dwm.11.config.def.h.diff ];
         });
         slstatus = super.slstatus.overrideAttrs (oldAttrs: rec {
           patches = [ ./patch.slstatus.diff ];

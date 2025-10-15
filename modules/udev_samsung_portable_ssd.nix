@@ -2,11 +2,11 @@
 
 let
   luks            = config.consts.localLuks.mountPoint;
-  log             = "${luks}/Documents/open_notes/notes";
+  log             = "${luks}/critical/open_notes/notes";
   rsync_source    = "${luks}";
   mnt_point       = "/mnt/ssd";
   crypt_name      = "samsung-portable-ssd";
-  crypt_key_file  = "${luks}/samsung-portable-ssd.key";
+  crypt_key_file  = "${luks}/critical/samsung-portable-ssd.key";
   crypt_device    = "/dev/disk/by-uuid/557f37dc-31e5-4782-ba10-302bc9277d5f";
 
   umount_samsung = pkgs.writeShellScriptBin "umount_samsung" '' 
@@ -25,9 +25,9 @@ let
       exit
     fi
     
-    echo -e "\n\n## IF ${mnt_point} Mounted THEN rsync -av --delete ${rsync_source} ${mnt_point}\n" 2>&1 | tee --append $LOG
-    mount -v | grep ${mnt_point}
-    [ $? -eq 0 ] && ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} 2>&1 | tee --append $LOG
+    #echo -e "\n\n## IF ${mnt_point} Mounted THEN rsync -av --delete ${rsync_source} ${mnt_point}\n" 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/critical ${mnt_point} 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/Documents ${mnt_point} 2>&1 | tee --append $LOG
 
     echo -e "\n\n## systemd-umount ${mnt_point}\n" 2>&1 | tee --append $LOG
     ${pkgs.systemd}/bin/systemd-umount ${mnt_point} 2>&1 | tee --append $LOG
@@ -65,8 +65,11 @@ let
       ${mnt_point} 2>&1 | tee --append $LOG
 
     echo -e "\n\n## rsync -av --delete ${rsync_source} ${mnt_point}\n" 2>&1 | tee --append $LOG
-    mount -v | grep ${mnt_point}
-    [ $? -eq 0 ] && ${pkgs.rsync}/bin/rsync -av --delete ${rsync_source} ${mnt_point} 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/critical ${mnt_point} 2>&1 | tee --append $LOG
+    mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/Documents ${mnt_point} 2>&1 | tee --append $LOG
+
+
+
   '';
 in 
 {
@@ -80,12 +83,12 @@ in
       coreutils
     ];
 
-    services.udev = {
-      enable = true;
-      extraRules = ''
-        ACTION=="add", SUBSYSTEM=="block", ATTRS{serial}=="S6XDNS0W617557K", RUN+="${mount_samsung}/bin/mount_samsung"
-      '';
-    };
+#    services.udev = {
+#      enable = true;
+#      extraRules = ''
+#        ACTION=="add", SUBSYSTEM=="block", ATTRS{serial}=="S6XDNS0W617557K", RUN+="${mount_samsung}/bin/mount_samsung"
+#      '';
+#    };
   };
 }
 

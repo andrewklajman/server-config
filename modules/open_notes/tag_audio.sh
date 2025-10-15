@@ -1,0 +1,5 @@
+DIR_TAGS=$1
+FILEPATH_AUDIO=$2
+
+mkdir -p "$DIR_TAGS/audio"
+ln -s "$FILEPATH_NOTE" "$FILEPATH_TAG"

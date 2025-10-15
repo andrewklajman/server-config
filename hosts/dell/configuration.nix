@@ -27,6 +27,10 @@ in
   };
 
   config = {
+    environment.systemPackages = [ pkgs.ffmpeg ];
+
+
+
     networking.hostName      = "dell";
 
     networking.firewall = {
@@ -55,6 +59,12 @@ in
 
     mullvad = {
       configDir = "${settings}/apps/mullvad/";
+    };
+
+    open-notes = {
+      enable   = true;
+      DirNotes = "/home/andrew/luks/critical/open_notes/notes";
+      DirTags  = "/home/andrew/luks/critical/open_notes/tags";
     };
 
   	programs.git = {
