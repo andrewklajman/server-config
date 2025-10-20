@@ -1,81 +1,18 @@
 { config, lib, pkgs, ... }:
 
 let 
-  localLuks = config.consts.localLuks;
-
-  unlock = pkgs.writeShellScriptBin "unlock" '' 
-    doas cryptsetup open ${localLuks.device} ${localLuks.mapperName}
-    doas mkdir ${localLuks.mountPoint}
-    doas mount /dev/mapper/${localLuks.mapperName} ${localLuks.mountPoint}
-    doas systemctl start mnt-localLuks.service
-
-    doas mkdir /home/andrew/luks
-    doas chown -R andrew:users /home/andrew/luks
-    doas mount --bind ${localLuks.mountPoint} /home/andrew/luks
-  '';
-  unlock_p = pkgs.writeShellScriptBin "unlock_p" '' 
-    doas cryptsetup open /mnt/localLuks/.ZNfKKTx03EVnh unlock_p
-    doas mkdir /home/andrew/unlock_p
-    doas mount /dev/mapper/unlock_p /home/andrew/unlock_p
-    mullvad-browser --profile /home/andrew/unlock_p/mullvad-browser &
-  '';
-  mullvad-browser-andrew = pkgs.writeShellScriptBin "mullvad-browser-andrew" '' 
-    mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/andrew
-  '';
-  hhy9i = pkgs.writeShellScriptBin "hhy9i" '' 
-    mullvad-browser --profile ${localLuks.mountPoint}/mullvad-profiles/id
-  '';
-  slstatus_command = pkgs.writeShellScriptBin "slstatus_command" '' 
-    # --- Internet Status --- #
-    ping -c 1 www.google.com > /dev/null
-    if [ $? -eq 0 ]; then 
-      # Internet Connected
-      if [[ "$(mullvad status | head -n1)" == "Connected" ]]; then
-        WIRELESS_BAR="󰖩  |"
-      else
-        WIRELESS_BAR="󰖩 |"
-      fi
-    else
-      # Internet Unavailable
-      WIRELESS_BAR="󱛅 |"
-    fi
-    
-    # --- Date Bar --- #
-    DATE_BAR="$(date '+%A %B %d %r')"
-    
-    # --- Encrypted Disk --- #
-    ls -l /mnt | grep localLuks > /dev/null
-    if [ $? -eq 0 ]; then
-      ENCRYPT_BAR="󰢬 |"
-    else
-      ENCRYPT_BAR=""
-    fi
-    
-    # --- Battery Capacity --- #
-    BAT_BAR="BAT $(cat /sys/class/power_supply/BAT0/capacity)% |"
-    
-    echo " $BAT_BAR $ENCRYPT_BAR $WIRELESS_BAR $DATE_BAR "
-  '';
-
-  notes_create = pkgs.writeShellScriptBin "notes_create" ''
-    FILEPATH="${localLuks.mountPoint}/Documents/open_notes/notes/$(date +%Y%m%d-%H%M%S.md)"
-
-    echo "" >> $FILEPATH
-    echo "++++" >> $FILEPATH
-    echo "" >> $FILEPATH
-    echo "title:" >> $FILEPATH
-    
-    nvim $FILEPATH
-  '';
-
-  notes_open = pkgs.writeShellScriptBin "notes_open" ''
-    ranger  ${localLuks.mountPoint}/Documents/open_notes/tags
-  '';
+  localLuks              = config.consts.localLuks;
+  script_args            = { inherit config pkgs; };
+  unlock                 = import ./scripts/unlock.nix script_args;
+  slstatus_command       = import ./scripts/slstatus_command.nix script_args;
+  mullvad-browser-andrew = import ./scripts/mullvad-browser-andrew.nix script_args;
+  hhy9i                  = import ./scripts/hhy9i.nix script_args;
+  notes_open             = import ./scripts/notes_open.nix script_args;
 
 in
 {
   options.dwm-enhanced.enable = lib.mkEnableOption "dwm-enhanced";
-  #config = lib.mkIf config.dwm-enhanced.enable {
+
   config = lib.mkIf config.dwm-enhanced.enable {
     systemd.services.mnt-localLuks = { 
       enable = true;
@@ -88,13 +25,12 @@ in
     ];
   
     environment.systemPackages = with pkgs; [ 
-      unlock unlock_p
-      dmenu 
-      slstatus slstatus_command
+      xclip dmenu 
       st tabbed
-      xclip
+      unlock
+      slstatus slstatus_command
       mullvad-browser-andrew hhy9i
-      notes_create notes_open
+      notes_open
       dunst libnotify
     ];
   
@@ -102,7 +38,10 @@ in
       (self: super: {
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
-          patches = [ ./patch.dwm.11.config.def.h.diff ];
+          patches = [ 
+            ./dwm-patches/dwm-center-6.2.diff
+            ./dwm-patches/dwm-config.diff
+          ];
         });
         slstatus = super.slstatus.overrideAttrs (oldAttrs: rec {
           patches = [ ./patch.slstatus.diff ];

@@ -37,6 +37,8 @@ let
 
     echo -e "\n\n## rmdir ${mnt_point}\n"
     rmdir ${mnt_point} 2>&1 | tee --append $LOG
+
+    mount -v | grep ${mnt_point} || ${pkgs.doas}/bin/doas -u andrew ${pkgs.libnotify}/bin/notify-send "Samsung SSD Removed"
   '';
 
   mount_samsung = pkgs.writeShellScriptBin "mount_samsung" '' 
@@ -68,8 +70,7 @@ let
     mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/critical ${mnt_point} 2>&1 | tee --append $LOG
     mount -v | grep ${mnt_point} && ${pkgs.rsync}/bin/rsync -av --delete ${luks}/Documents ${mnt_point} 2>&1 | tee --append $LOG
 
-
-
+    mount -v | grep ${mnt_point} && ${pkgs.doas}/bin/doas -u andrew ${pkgs.libnotify}/bin/notify-send "Samsung SSD Mounted"
   '';
 in 
 {
@@ -83,12 +84,12 @@ in
       coreutils
     ];
 
-#    services.udev = {
-#      enable = true;
-#      extraRules = ''
-#        ACTION=="add", SUBSYSTEM=="block", ATTRS{serial}=="S6XDNS0W617557K", RUN+="${mount_samsung}/bin/mount_samsung"
-#      '';
-#    };
+    services.udev = {
+      enable = true;
+      extraRules = ''
+        ACTION=="add", SUBSYSTEM=="block", ATTRS{serial}=="S6XDNS0W617557K", RUN+="${mount_samsung}/bin/mount_samsung"
+      '';
+    };
   };
 }
 

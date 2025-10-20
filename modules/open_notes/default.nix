@@ -2,22 +2,17 @@
 
 let 
   cfg = config.open-notes;
-  tag-with-title = pkgs.writeShellScriptBin 
-    "tag_with_title" 
-    '' ${builtins.readFile ./tag_with_title.sh} '';
-  tag-without-title = pkgs.writeShellScriptBin 
-    "tag_without_title" 
-    '' ${builtins.readFile ./tag_without_title.sh} '';
-  tag = pkgs.writeShellScriptBin 
-    "tag" 
-    '' ${builtins.readFile ./tag.sh} '';
-  audio-create = pkgs.writeShellScriptBin 
-    "audio_create" 
-    '' ${builtins.readFile ./audio_create.sh} '';
-  tag-audio = pkgs.writeShellScriptBin 
-    "tag_audio" 
-    '' ${builtins.readFile ./tag_audio.sh} '';
+  script = name: pkgs.writeShellScriptBin 
+                    "${name}" '' ${builtins.readFile ./${name}.sh} '';
 
+  tag               = script "tag";
+  tag-with-title    = script "tag_with_title";
+  tag-without-title = script "tag_without_title";
+
+  quicknote         = script "quicknote";
+  quicknote-journal = script "quicknote-journal";
+  quicknote-health  = script "quicknote-health";
+  quicknote-vimrc   = script "quicknote-vimrc";
 in
 {
   options.open-notes = {
@@ -39,7 +34,10 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = [
-      audio-create
+      quicknote
+      quicknote-journal
+      quicknote-health
+      quicknote-vimrc
     ];
 
     systemd.timers."open_notes" = {
@@ -56,7 +54,6 @@ in
       path = [
         tag-with-title
         tag-without-title
-        tag-audio
       ];
       serviceConfig = {
         Type = "oneshot";

@@ -151,3 +151,10 @@ if getcwd() == '/home/andrew/Documents/notes'
 
 endif
 
+"
+" ---
+nmap <leader>r :call RunCommand()<CR>
+function! RunCommand()
+  execute "!"..getline(".")
+  q!
+endfunction
