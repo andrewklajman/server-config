@@ -1,6 +1,7 @@
 CONTENT=$(mktemp)
     echo "quicknote-journal" >> $CONTENT
     echo "quicknote-health" >> $CONTENT
+    echo "quicknote-exercise" >> $CONTENT
 
 VIMRC=$(mktemp)
   # Remove status line

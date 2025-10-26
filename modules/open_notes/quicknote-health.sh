@@ -16,7 +16,7 @@ CONTENT="$DIR/$DATETIME.health.md"
     echo "Pulse Rate    : "                            >> $CONTENT
     echo "Oximeter      : "                            >> $CONTENT
     echo "Waist         : "                            >> $CONTENT
-    echo "Weight        : "                            >> $CONTENT
+    echo "Notes         : "                            >> $CONTENT
  
 STARTUP=$(mktemp)
     echo "normal 11GA"  >> $STARTUP
@@ -47,4 +47,3 @@ record_log "Blood Pressure"
 record_log "Pulse Rate"
 record_log "Oximeter"
 record_log "Waist"
-record_log "Weight"

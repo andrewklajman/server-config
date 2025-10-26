@@ -5,14 +5,15 @@ let
   script = name: pkgs.writeShellScriptBin 
                     "${name}" '' ${builtins.readFile ./${name}.sh} '';
 
-  tag               = script "tag";
-  tag-with-title    = script "tag_with_title";
-  tag-without-title = script "tag_without_title";
+  tag                = script "tag";
+  tag-with-title     = script "tag_with_title";
+  tag-without-title  = script "tag_without_title";
 
-  quicknote         = script "quicknote";
-  quicknote-journal = script "quicknote-journal";
-  quicknote-health  = script "quicknote-health";
-  quicknote-vimrc   = script "quicknote-vimrc";
+  quicknote          = script "quicknote";
+  quicknote-journal  = script "quicknote-journal";
+  quicknote-health   = script "quicknote-health";
+  quicknote-exercise = script "quicknote-exercise";
+  quicknote-vimrc    = script "quicknote-vimrc";
 in
 {
   options.open-notes = {
@@ -37,6 +38,7 @@ in
       quicknote
       quicknote-journal
       quicknote-health
+      quicknote-exercise
       quicknote-vimrc
     ];
 

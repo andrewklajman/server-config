@@ -29,10 +29,10 @@ find "$DIR_NOTES" -type f -print | \
 find "$DIR_NOTES" -type f -print | \
   xargs -I {} tag_without_title $DIR_TAGS {} 2>&1 | \
   tee --append $LOG
-#find "$DIR_NOTES" -type f -print | xargs -I {} tag_with_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
-#find "$DIR_NOTES" -type f -print | xargs -I {} tag_without_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
 echo "" 2>&1 | tee --append $LOG
 
+#find "$DIR_NOTES" -type f -print | xargs -I {} tag_with_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
+#find "$DIR_NOTES" -type f -print | xargs -I {} tag_without_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
 #echo -e "# All files\n" 2>&1 | tee --append $LOG
 #find "$DIR_NOTES" -type f -print | tee --append $LOG
 #echo "" 2>&1 | tee --append $LOG

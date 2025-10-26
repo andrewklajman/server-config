@@ -11,7 +11,7 @@ VIMRC=$(mktemp)
   
   # Miscellaneous
     echo "colorscheme catppuccin-frappe" >> $VIMRC
-    echo "nnoremap q :wq<CR>"            >> $VIMRC
+    echo "noremap q :wq<CR>"            >> $VIMRC
     echo "set textwidth=80"                  >> $VIMRC
     echo "set colorcolumn=90"                >> $VIMRC
     echo "set mouse=\"\""                    >> $VIMRC
