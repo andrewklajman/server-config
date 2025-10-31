@@ -2,12 +2,7 @@ DIR="/mnt/localLuks/critical/open_notes/notes"
 DATETIME=$(date +'%Y%m%d-%H%M%S')
 
 CONTENT="$DIR/$DATETIME.health.md"
-    echo "health"                                      >> $CONTENT
-    echo "health/Blood Pressure"                       >> $CONTENT
-    echo "health/PulseRate"                            >> $CONTENT
-    echo "health/Oximeter"                             >> $CONTENT
-    echo "health/Weight"                               >> $CONTENT
-    echo "health/Waist"                                >> $CONTENT
+    echo "health/HealthRecord"                                >> $CONTENT
     echo "++++"                                        >> $CONTENT
     echo ""                                            >> $CONTENT
     echo "title: Health Record $(date +%Y%m%d-%H%M%S)" >> $CONTENT

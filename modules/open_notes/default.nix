@@ -8,11 +8,13 @@ let
   tag                = script "tag";
   tag-with-title     = script "tag_with_title";
   tag-without-title  = script "tag_without_title";
+  tag-set-remiders   = script "tag-set-reminders";
 
   quicknote          = script "quicknote";
   quicknote-journal  = script "quicknote-journal";
   quicknote-health   = script "quicknote-health";
   quicknote-exercise = script "quicknote-exercise";
+  quicknote-add-food = script "quicknote-add-food";
   quicknote-vimrc    = script "quicknote-vimrc";
 in
 {
@@ -35,8 +37,10 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = [
+      pkgs.fzf
       quicknote
       quicknote-journal
+      quicknote-add-food
       quicknote-health
       quicknote-exercise
       quicknote-vimrc
@@ -56,6 +60,7 @@ in
       path = [
         tag-with-title
         tag-without-title
+        tag-set-remiders
       ];
       serviceConfig = {
         Type = "oneshot";

@@ -22,19 +22,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    #networking.firewall.allowedTCPPorts = [ 8000 ];
     services.audiobookshelf = {
       enable = true;
-      inherit (cfg) dataDir port;
+      inherit (cfg) port;
       openFirewall = true;
       host = "0.0.0.0";
     };
-#    systemd.services.audiobookshelf = {
-#      description = lib.mkForce "Audiobookshelf (After localLuks mount)";
-#      requires    =             [ "${cfg.serviceTrigger}" ];
-#      after       =             [ "${cfg.serviceTrigger}" ];
-#      wantedBy    = lib.mkForce [ "${cfg.serviceTrigger}" ];
-#    };
+    systemd.services.audiobookshelf = {
+# Working Directory mounted in the unlock script
+      description = lib.mkForce "Audiobookshelf (After localLuks mount)";
+      requires    =             [ "${cfg.serviceTrigger}" ];
+      after       =             [ "${cfg.serviceTrigger}" ];
+      wantedBy    = lib.mkForce [ "${cfg.serviceTrigger}" ];
+    };
   };
 }
 

@@ -12,6 +12,7 @@
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [ 
             catppuccin-nvim     # https://github.com/catppuccin/nvim/
+            vim-table-mode
           ];
           opt = [ ];
         }; 

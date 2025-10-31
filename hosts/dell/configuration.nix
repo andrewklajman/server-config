@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let 
-  mp = "/mnt/localPersist";
+  persist = "/mnt/localPersist";
   settings = "/mnt/localPersist/persistence";
   bindMount = device: {
     inherit device;
@@ -27,68 +27,60 @@ in
   };
 
   config = {
-    environment.systemPackages = [ pkgs.ffmpeg ];
+    networking.hostName            = "dell";
 
+    dwm-enhanced.enable            = true;
+    audiobookshelf.enable          = true;
 
-
-    networking.hostName      = "dell";
-
-    networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [ 8000 ];
-    };
-
-    dwm-enhanced.enable      = true;
-    users.hashedPasswordFile = "${settings}/andrew/hashedPasswordFile";
-    networkmanager.config    = "${settings}/system/system-connections";
-    personal-security.enable = true;
+    users.hashedPasswordFile       = "${persist}/persistence/andrew/hashedPasswordFile";
+    networkmanager.config          = "${persist}/persistence/system/system-connections";
 
     fileSystems = {
-      "/home/andrew/server-config" = bindMount "${mp}/server-config";
-      "/home/andrew/rust"          = bindMount "${mp}/rust";
+      "/home/andrew/server-config" = bindMount "${persist}/server-config";
+      "/home/andrew/rust"          = bindMount "${persist}/rust";
 
-      "/home/andrew/.zshrc"        = bindMount "${settings}/andrew/zshrc";
-      "/home/andrew/.ssh"          = bindMount "${settings}/andrew/ssh";
-      "/root/.ssh"                 = bindMount "${settings}/root/ssh";
+      "/home/andrew/.zshrc"        = bindMount "${persist}/persistence/andrew/zshrc";
+      "/home/andrew/.ssh"          = bindMount "${persist}/persistence/andrew/ssh";
+      "/root/.ssh"                 = bindMount "${persist}/persistence/root/ssh";
     };
 
     personal-security = {
-      gnupgHome        = "${settings}/apps/gnupg";
-      passwordStoreDir = "${settings}/apps/password-store";
+      enable                       = true;
+      gnupgHome                    = "${persist}/persistence/apps/gnupg";
+      passwordStoreDir             = "${persist}/persistence/apps/password-store";
     };
 
     mullvad = {
-      configDir = "${settings}/apps/mullvad/";
+      configDir                    = "${persist}/persistence/apps/mullvad/";
     };
 
     open-notes = {
-      enable   = true;
-      DirNotes = "/home/andrew/luks/critical/open_notes/notes";
-      DirTags  = "/home/andrew/luks/critical/open_notes/tags";
+      enable                       = true;
+      DirNotes                     = "/home/andrew/luks/critical/open_notes/notes";
+      DirTags                      = "/home/andrew/luks/critical/open_notes/tags";
+    };
+
+    taskwarrior = {
+      enable                       = true;
+      taskrc                       = "/home/andrew/luks/Documents/taskwarrior/taskrc";
+      taskdata                     = "/home/andrew/luks/Documents/taskwarrior/taskdata";
     };
 
   	programs.git = {
   	  config = {
   	    safe.directory = [ 
-  	      "${mp}/server-config" 
+  	      "${persist}/server-config" 
   	      "/home/andrew/server-config" 
   	    ];
-  	    user.name  = [ "andrew" ];
-  	    user.email = [ "andrew.klajman@gmail.com" ];
+  	    user = {
+          name  = [ "andrew" ];
+  	      email = [ "andrew.klajman@gmail.com" ];
+        };
   	  };
   	};
 
-    taskwarrior.enable       = true;
     qbittorrent-client.enable = true;
-
-#    calibre.enable           = false;
-#    bluetooth.enable         = true;
-#    personal-security.enable = true;
-#    audiobookshelf = {
-#      enable = false;
-#      dataDir = "/home/andrew";
-#      port = 8081;
-#    };
+    calibre.enable           = true;
 
   };
 }

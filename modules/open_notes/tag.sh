@@ -1,53 +1,25 @@
-LOG="$(date +$DIR_NOTES/%Y%m%d-%H%M%S.log.tag.md)"
+echo -e "# Setting variables\n"
+echo "DIR_NOTES: $DIR_NOTES"
+echo "DIR_TAGS:  $DIR_TAGS"
+echo ""
 
-echo "logs/open-notes" 2>&1 | tee --append $LOG
-echo "++++" 2>&1 | tee --append $LOG
-echo "" 2>&1 | tee --append $LOG
-
-echo "" 2>&1 | tee --append $LOG
-echo $LOG
-echo "" 2>&1 | tee --append $LOG
-
-echo -e "# Setting variables\n" 2>&1 | tee --append $LOG
-echo "DIR_NOTES: $DIR_NOTES" 2>&1 | tee --append $LOG
-echo "DIR_TAGS:  $DIR_TAGS" 2>&1 | tee --append $LOG
-echo "" 2>&1 | tee --append $LOG
-
-echo -e "# Creating DIR_TAGS folder\n" 2>&1 | tee --append $LOG
+echo -e "# Creating DIR_TAGS folder\n"
 if [ -d "$DIR_TAGS" ]; then
-  rm -r "$DIR_TAGS" 2>&1 | tee --append $LOG
+  rm -r "$DIR_TAGS"
 else
-  echo "No directory present" 2>&1 | tee --append $LOG
+  echo "No directory present"
 fi
-mkdir "$DIR_TAGS" 2>&1 | tee --append $LOG
+mkdir "$DIR_TAGS"
 echo
 
-echo -e "# Linking tags\n" 2>&1 | tee --append $LOG
+echo -e "# Linking tags\n"
 find "$DIR_NOTES" -type f -print | \
-  xargs -I {} tag_with_title $DIR_TAGS {} 2>&1 | \
-  tee --append $LOG
+  xargs -I {} tag_with_title $DIR_TAGS {}
 find "$DIR_NOTES" -type f -print | \
-  xargs -I {} tag_without_title $DIR_TAGS {} 2>&1 | \
-  tee --append $LOG
-echo "" 2>&1 | tee --append $LOG
+  xargs -I {} tag_without_title $DIR_TAGS {}
+find "$DIR_NOTES" -type f -exec tag-set-reminders {} \;
 
-#find "$DIR_NOTES" -type f -print | xargs -I {} tag_with_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
-#find "$DIR_NOTES" -type f -print | xargs -I {} tag_without_title "$DIR_TAGS" {} 2>&1 | tee --append $LOG
-#echo -e "# All files\n" 2>&1 | tee --append $LOG
-#find "$DIR_NOTES" -type f -print | tee --append $LOG
-#echo "" 2>&1 | tee --append $LOG
 
-#echo -e "# Linking tags\n" 2>&1 | tee --append $LOG
-#for FILE in $DIR_NOTES; do 
-#  echo "## Linking $FILE" 2>&1 | tee --append $LOG
-#
-#  grep -e '^title:' $FILEPATH_NOTE &>> /dev/null
-#  [ $? -eq 0 ] && tag_without_title "$DIR_TAGS" $FILE 2>&1 | tee --append $LOG
-#
-#
-#  grep -e '^title:' $FILEPATH_NOTE &>> /dev/null
-#  [ $? -ne 0 ] && tag_with_title "$DIR_TAGS" $FILE 2>&1 | tee --append $LOG
-#
-#  echo "" 2>&1 | tee --append $LOG
-#done
-#echo "" 2>&1 | tee --append $LOG
+
+echo
+

@@ -1,0 +1,57 @@
+LOG="$(date +$DIR_NOTES/%Y%m%d-%H%M%S.log.tag.md)"
+
+shopt -s expand_aliases
+# alias debug="tee --append $LOG"
+alias debug="cat"
+
+echo "logs/open-notes" 2>&1 | debug
+echo "++++" 2>&1 | debug
+echo "" 2>&1 | debug
+
+echo "" 2>&1 | debug
+echo $LOG
+echo "" 2>&1 | debug
+
+echo -e "# Setting variables\n" 2>&1 | debug
+echo "DIR_NOTES: $DIR_NOTES" 2>&1 | debug
+echo "DIR_TAGS:  $DIR_TAGS" 2>&1 | debug
+echo "" 2>&1 | debug
+
+echo -e "# Creating DIR_TAGS folder\n" 2>&1 | debug
+if [ -d "$DIR_TAGS" ]; then
+  rm -r "$DIR_TAGS" 2>&1 | debug
+else
+  echo "No directory present" 2>&1 | debug
+fi
+mkdir "$DIR_TAGS" 2>&1 | debug
+echo
+
+echo -e "# Linking tags\n" 2>&1 | debug
+find "$DIR_NOTES" -type f -print | \
+  xargs -I {} tag_with_title $DIR_TAGS {} 2>&1 | \
+  tee --append $LOG
+find "$DIR_NOTES" -type f -print | \
+  xargs -I {} tag_without_title $DIR_TAGS {} 2>&1 | \
+  tee --append $LOG
+echo "" 2>&1 | debug
+
+#find "$DIR_NOTES" -type f -print | xargs -I {} tag_with_title "$DIR_TAGS" {} 2>&1 | debug
+#find "$DIR_NOTES" -type f -print | xargs -I {} tag_without_title "$DIR_TAGS" {} 2>&1 | debug
+#echo -e "# All files\n" 2>&1 | debug
+#find "$DIR_NOTES" -type f -print | debug
+#echo "" 2>&1 | debug
+
+#echo -e "# Linking tags\n" 2>&1 | debug
+#for FILE in $DIR_NOTES; do 
+#  echo "## Linking $FILE" 2>&1 | debug
+#
+#  grep -e '^title:' $FILEPATH_NOTE &>> /dev/null
+#  [ $? -eq 0 ] && tag_without_title "$DIR_TAGS" $FILE 2>&1 | debug
+#
+#
+#  grep -e '^title:' $FILEPATH_NOTE &>> /dev/null
+#  [ $? -ne 0 ] && tag_with_title "$DIR_TAGS" $FILE 2>&1 | debug
+#
+#  echo "" 2>&1 | debug
+#done
+#echo "" 2>&1 | debug
