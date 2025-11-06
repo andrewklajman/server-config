@@ -11,10 +11,10 @@ CONTENT="$DIR/$DATETIME.health.md"
     echo "Pulse Rate    : "                            >> $CONTENT
     echo "Oximeter      : "                            >> $CONTENT
     echo "Waist         : "                            >> $CONTENT
-    echo "Notes         : "                            >> $CONTENT
+    echo "Back          : "                            >> $CONTENT
  
 STARTUP=$(mktemp)
-    echo "normal 11GA"  >> $STARTUP
+    echo "normal 6GA"  >> $STARTUP
     echo "startinsert" >> $STARTUP
 
 VIMRC=$(quicknote-vimrc)
@@ -29,12 +29,20 @@ st \
 
 record_log() {
   local MEASUREMENT=$1
+  echo MEASUREMENT: $MEASUREMENT
+
   LOG="$DIR/$MEASUREMENT.log"
+  echo LOG: $LOG
 
+  # Exclude tags at beginning of file
   DATA=$(mktemp)
-  tail -n $(grep -n '++++' $CONTENT | cut -d':' -f1) $CONTENT > $DATA
-  VAL=$(grep -e "$MEASUREMENT" $DATA | cut -d':' -f2 | xargs)
+  #tail -n $(grep -n '++++' $CONTENT | cut -d':' -f1) $CONTENT > $DATA
+  PLUS_LINE_NUM=$(grep -n '++++' $CONTENT | cut -d':' -f1)
+  TOT_LINE_NUM=$(cat $CONTENT | wc -l)
+  CONTENT_TAIL=$(($TOT_LINE_NUM - PLUS_LINE_NUM))
+  tail -n $CONTENT_TAIL $CONTENT > $DATA
 
+  VAL=$(grep -e "$MEASUREMENT" $DATA | cut -d':' -f2 | xargs)
   echo "$DATETIME,$VAL" >> "$LOG"
 }
 

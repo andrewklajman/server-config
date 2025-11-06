@@ -22,7 +22,7 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/qbittorrent \
-            --add-flag --profile=${luks}
+            --add-flag --profile=${luks}/torrent
         '';
       } ) 
     ];

@@ -9,6 +9,8 @@ let
   };
 in
 {
+
+
   imports = [ 
     ./hardware-configuration.nix
     ../../modules
@@ -27,6 +29,14 @@ in
   };
 
   config = {
+
+#    environment.systemPackages = [ 
+#      pkgs.nginx
+#      pkgs.dnsmasq
+#    ];
+#    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.nameservers = [ "1.1.1.1" ];
+
     networking.hostName            = "dell";
 
     dwm-enhanced.enable            = true;
