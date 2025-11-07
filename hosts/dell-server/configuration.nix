@@ -9,10 +9,16 @@
   ];
 
   config = {
-    #audiobookshelf.enable          = true;
+    audiobookshelf.enable          = true;
+    environment.systemPackages = [ pkgs.nginx ];
     networking = {
       hostName              = "dell-server";
       networkmanager.enable = true;
+      firewall = {
+        enable = true;
+        allowedTCPPorts = [ 80 443 8081 8000];
+
+      };
     };
 
     i18n.defaultLocale = "en_AU.UTF-8";
