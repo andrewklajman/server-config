@@ -11,39 +11,28 @@ in
 
 {
   config = {
+    basePackages.enable                  = true;
+    bootlimit.enable                     = true;
+    diskusage.enable                     = true;
+    doas.enable                          = true;
+    manPages.enable                      = true;
+    neovim.enable                        = true;
+    sessionVariables.enable              = true;
+    zsh.enable                           = true;
 
-
-
-
-    basePackages.enable              = true;
-    bootlimit.enable                 = true;
-    diskusage.enable                 = true;
-    doas.enable                      = true;
-    manPages.enable                  = true;
-    mullvad.enable                   = true;
-    neovim.enable                    = true;
-    networkmanager.enable            = true;
-    programs.git.enable              = true;
-    pipewire.enable                  = true;
-    sessionVariables.enable          = true;
-    users.enable                     = true;
-    zsh.enable                       = true;
-    udev-samsung-portable-ssd.enable = true;
-
-    networking.firewall.enable       = true;
-    time.timeZone                    = "Australia/Sydney";
-    nixpkgs.config.allowUnfree       = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    boot.loader.systemd-boot.enable  = true;
+    time.timeZone                        = "Australia/Sydney";
+    nixpkgs.config.allowUnfree           = true;
+    nix.settings.experimental-features   = [ "nix-command" "flakes" ];
+    boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    system.stateVersion              = "25.05"; 
+    system.stateVersion                  = "25.05"; 
+
   };
 
   imports = [
     ./audiobookshelf.nix
     ./dwm-enhanced
     ./mullvad.nix
-#    ./networking.nix
     ./networkmanager.nix
     ./neovim
     ./openssh.nix
@@ -99,11 +88,11 @@ in
           mpv
           ncdu
           ranger
-          yubikey-manager
+          yubikey-manager # TODO: This should be moved elsewhere
           yt-dlp
           cups-pdf-to-pdf
-          ledger
-	        wget
+          ledger          # TODO: This should be moved elsewhere
+	  wget
         ];
     } )
 
