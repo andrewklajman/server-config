@@ -36,7 +36,7 @@
 
     services.nginx = {
       enable = true;
-      config = ''${builtins.readFile ./config/dell-server-nginx.conf}'';
+      config = ''${builtins.readFile ../../config/dell-server-nginx.conf}'';
     };
 
     services.audiobookshelf = {
