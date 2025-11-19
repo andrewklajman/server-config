@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/default-server.nix
 
-    ../../modules/dell-server/cloudflare-abs-sertup.nix
+#    ../../modules/dell-server/cloudflare-abs-sertup.nix
   ];
 
   config = {
