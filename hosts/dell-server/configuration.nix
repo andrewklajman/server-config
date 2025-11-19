@@ -10,6 +10,7 @@
 
     networking = {
       hostName              = "dell-server";
+      networkmanager.enable = true;
       firewall = {
         allowedTCPPorts = [ 80 443 ];
         allowedUDPPorts = [ 53 ];

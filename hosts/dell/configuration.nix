@@ -27,22 +27,25 @@ in
 
   config = {
     dwm-enhanced.enable                 = true;
-    networking.hostName                 = "dell";
+    networking = {
+      hostName                 = "dell";
+      firewall.allowedTCPPorts = [ 80 443 ];
+      networkmanager.enable = true; 
+    };
     pipewire.enable                     = true;
     users.enable                        = true;
     udev-samsung-portable-ssd.enable    = true;
     qbittorrent-client.enable           = true;
     users.hashedPasswordFile            = "${persist}/persistence/andrew/hashedPasswordFile";
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-    networkmanager.config               = "${persist}/persistence/system/system-connections";
 
     fileSystems = {
-      "/home/andrew/server-config"      = bindMount "${persist}/server-config";
-      "/home/andrew/rust"               = bindMount "${persist}/rust";
+      "/home/andrew/server-config"             = bindMount "${persist}/server-config";
+      "/home/andrew/rust"                      = bindMount "${persist}/rust";
 
-      "/home/andrew/.zshrc"             = bindMount "${persist}/persistence/andrew/zshrc";
-      "/home/andrew/.ssh"               = bindMount "${persist}/persistence/andrew/ssh";
-      "/root/.ssh"                      = bindMount "${persist}/persistence/root/ssh";
+      "/home/andrew/.zshrc"                    = bindMount "${persist}/persistence/andrew/zshrc";
+      "/home/andrew/.ssh"                      = bindMount "${persist}/persistence/andrew/ssh";
+      "/root/.ssh"                             = bindMount "${persist}/persistence/root/ssh";
+      "/etc/NetworkManager/system-connections" = bindMount "${persist}/persistence/system/system-connections";
     };
 
   	programs.git = {

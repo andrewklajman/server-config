@@ -18,7 +18,6 @@ in
     neovim.enable                        = true;
     sessionVariables.enable              = true;
     zsh.enable                           = true;
-    networkmanager.enable                = true;
 
     time.timeZone                        = "Australia/Sydney";
     nixpkgs.config.allowUnfree           = true;
