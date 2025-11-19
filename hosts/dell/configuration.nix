@@ -2,15 +2,12 @@
 
 let 
   persist = "/mnt/localPersist";
-  settings = "/mnt/localPersist/persistence";
   bindMount = device: {
     inherit device;
     options = [ "bind" ];
   };
 in
 {
-
-
   imports = [ 
     ./hardware-configuration.nix
     ../../modules
@@ -29,68 +26,71 @@ in
   };
 
   config = {
-
-#    environment.systemPackages = [ 
-#      pkgs.nginx
-#      pkgs.dnsmasq
-#    ];
-#    networking.firewall.allowedTCPPorts = [ 80 443 ];
-    networking.nameservers = [ "1.1.1.1" ];
-
-    networking.hostName            = "dell";
-
-    dwm-enhanced.enable            = true;
-    audiobookshelf.enable          = true;
-
-    users.hashedPasswordFile       = "${persist}/persistence/andrew/hashedPasswordFile";
-    networkmanager.config          = "${persist}/persistence/system/system-connections";
+    dwm-enhanced.enable                 = true;
+    networking.hostName                 = "dell";
+    pipewire.enable                     = true;
+    users.enable                        = true;
+    udev-samsung-portable-ssd.enable    = true;
+    qbittorrent-client.enable           = true;
+    users.hashedPasswordFile            = "${persist}/persistence/andrew/hashedPasswordFile";
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networkmanager.config               = "${persist}/persistence/system/system-connections";
 
     fileSystems = {
-      "/home/andrew/server-config" = bindMount "${persist}/server-config";
-      "/home/andrew/rust"          = bindMount "${persist}/rust";
+      "/home/andrew/server-config"      = bindMount "${persist}/server-config";
+      "/home/andrew/rust"               = bindMount "${persist}/rust";
 
-      "/home/andrew/.zshrc"        = bindMount "${persist}/persistence/andrew/zshrc";
-      "/home/andrew/.ssh"          = bindMount "${persist}/persistence/andrew/ssh";
-      "/root/.ssh"                 = bindMount "${persist}/persistence/root/ssh";
-    };
-
-    personal-security = {
-      enable                       = true;
-      gnupgHome                    = "${persist}/persistence/apps/gnupg";
-      passwordStoreDir             = "${persist}/persistence/apps/password-store";
-    };
-
-    mullvad = {
-      configDir                    = "${persist}/persistence/apps/mullvad/";
-    };
-
-    open-notes = {
-      enable                       = true;
-      DirNotes                     = "/home/andrew/luks/critical/open_notes/notes";
-      DirTags                      = "/home/andrew/luks/critical/open_notes/tags";
-    };
-
-    taskwarrior = {
-      enable                       = true;
-      taskrc                       = "/home/andrew/luks/Documents/taskwarrior/taskrc";
-      taskdata                     = "/home/andrew/luks/Documents/taskwarrior/taskdata";
+      "/home/andrew/.zshrc"             = bindMount "${persist}/persistence/andrew/zshrc";
+      "/home/andrew/.ssh"               = bindMount "${persist}/persistence/andrew/ssh";
+      "/root/.ssh"                      = bindMount "${persist}/persistence/root/ssh";
     };
 
   	programs.git = {
+      enable = true;
   	  config = {
   	    safe.directory = [ 
   	      "${persist}/server-config" 
   	      "/home/andrew/server-config" 
   	    ];
   	    user = {
-          name  = [ "andrew" ];
+          name = [ "andrew" ];
   	      email = [ "andrew.klajman@gmail.com" ];
         };
   	  };
   	};
 
-    qbittorrent-client.enable = true;
-    calibre.enable           = true;
+    mullvad = {
+      enable = true;
+      configDir = "${persist}/persistence/apps/mullvad/";
+    };
+
+    tailscale-userspace = {
+      enable = true;
+      configDir = "/mnt/localPersist/tailscale";
+    };
+
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+
+    personal-security = {
+      enable = true;
+      gnupgHome = "${persist}/persistence/apps/gnupg";
+      passwordStoreDir = "${persist}/persistence/apps/password-store";
+    };
+
+    open-notes = {
+      enable = true;
+      DirNotes = "/home/andrew/luks/critical/open_notes/notes";
+      DirTags = "/home/andrew/luks/critical/open_notes/tags";
+    };
+
+    taskwarrior = {
+      enable = true;
+      taskrc = "/home/andrew/luks/Documents/taskwarrior/taskrc";
+      taskdata = "/home/andrew/luks/Documents/taskwarrior/taskdata";
+    };
 
   };
 }

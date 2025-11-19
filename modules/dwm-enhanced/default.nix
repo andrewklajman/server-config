@@ -39,12 +39,12 @@ in
         dwm = super.dwm.overrideAttrs (oldAttrs: rec {
           buildInputs = oldAttrs.buildInputs ++ [ pkgs.xorg.libXext ];
           patches = [ 
-            ./dwm-patches/dwm-center-6.2.diff
-            ./dwm-patches/dwm-config.diff
+            ./patches/dwm-center-6.2.diff
+            ./patches/dwm-config.diff
           ];
         });
         slstatus = super.slstatus.overrideAttrs (oldAttrs: rec {
-          patches = [ ./patch.slstatus.diff ];
+          patches = [ ./patches/slstatus.default.diff ];
         });
       })
     ];

@@ -1,48 +1,78 @@
 { config, lib, pkgs, ... }:
 
 {
-
-
   imports = [ 
     ./hardware-configuration.nix
-    ../../modules/default-server.nix
+    ../../modules
   ];
 
   config = {
-    #audiobookshelf.enable          = true;
+
     networking = {
       hostName              = "dell-server";
-      networkmanager.enable = true;
+      firewall = {
+        allowedTCPPorts = [ 80 443 ];
+        allowedUDPPorts = [ 53 ];
+      };
     };
 
-    i18n.defaultLocale = "en_AU.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "en_AU.UTF-8";
-      LC_IDENTIFICATION = "en_AU.UTF-8";
-      LC_MEASUREMENT = "en_AU.UTF-8";
-      LC_MONETARY = "en_AU.UTF-8";
-      LC_NAME = "en_AU.UTF-8";
-      LC_NUMERIC = "en_AU.UTF-8";
-      LC_PAPER = "en_AU.UTF-8";
-      LC_TELEPHONE = "en_AU.UTF-8";
-      LC_TIME = "en_AU.UTF-8";
+    mullvad = {
+      enable = true;
+      configDir = "${persist}/persistence/apps/mullvad/";
     };
-  
+
+    tailscale-userspace = {
+      enable = true;
+      configDir = "/mnt/localPersist/tailscale";
+    };
+
+
+    services.dnsmasq = {
+      enable = true;
+      settings = {
+        interface = "tailscale0";
+        address = [
+          "/abs/100.70.63.101"
+          "/torrent/100.70.63.101"
+        ];
+        server = [ "8.8.8.8" "8.8.4.4" ];
+      };
+    
+    };
+
+    services.nginx = {
+      enable = true;
+      config = ''${builtins.readFile ./config/dell-server-nginx.conf}''
+    };
+
+    services.audiobookshelf = {
+      enable = true;
+      host = "0.0.0.0";
+    };
+    services.qbittorrent = {
+      enable = true;
+      openFirewall = true;
+#/root/torrent/config/qBittorrent.conf
+    };
+    mullvad = {
+      enable = true;
+      configDir = "/root/mullvad/config";
+    };
+
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
-  
     services.xserver.xkb = {
       layout = "au";
       variant = "";
     };
-  
+    
     services.openssh.enable = true;
     users.users.andrew = {
       isNormalUser = true;
       description = "andrew";
       extraGroups = [ "networkmanager" "wheel" ];
-      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkquaq2kA7aXURJ0YNaK/E5jmlvrBPTmXoZWABmi0FA andrew@dell" ];  
+      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkquaq2kA7aXURJ0YNaK/E5jmlvrBPTmXoZWABmi0FA andrew@dell" ];
     };
 
     services.displayManager.autoLogin.enable = true;
@@ -51,12 +81,10 @@
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
   
-    programs.firefox.enable = true;
-  
     programs.git = {
       enable = true;
       config = {
-        safe.directory = [ "/home/andrew/server-config" ];
+        safe.directory = [ "/root/server-config" ];
         user = {
           name  = [ "andrew" ];
           email = [ "andrew.klajman@gmail.com" ];

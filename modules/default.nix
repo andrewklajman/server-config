@@ -5,45 +5,35 @@ let
     options.${moduleName}.enable = lib.mkEnableOption "${moduleName}";
     config = lib.mkIf config.${moduleName}.enable moduleContent;
   };
-
   luks = config.consts.localLuks.mountPoint;
 in
 
 {
   config = {
+    basePackages.enable                  = true;
+    bootlimit.enable                     = true;
+    diskusage.enable                     = true;
+    doas.enable                          = true;
+    manPages.enable                      = true;
+    neovim.enable                        = true;
+    sessionVariables.enable              = true;
+    zsh.enable                           = true;
+    networkmanager.enable                = true;
 
-
-
-
-    basePackages.enable              = true;
-    bootlimit.enable                 = true;
-    diskusage.enable                 = true;
-    doas.enable                      = true;
-    manPages.enable                  = true;
-    mullvad.enable                   = true;
-    neovim.enable                    = true;
-    networkmanager.enable            = true;
-    programs.git.enable              = true;
-    pipewire.enable                  = true;
-    sessionVariables.enable          = true;
-    users.enable                     = true;
-    zsh.enable                       = true;
-    udev-samsung-portable-ssd.enable = true;
-
-    networking.firewall.enable       = true;
-    time.timeZone                    = "Australia/Sydney";
-    nixpkgs.config.allowUnfree       = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    boot.loader.systemd-boot.enable  = true;
+    time.timeZone                        = "Australia/Sydney";
+    nixpkgs.config.allowUnfree           = true;
+    nix.settings.experimental-features   = [ "nix-command" "flakes" ];
+    boot.loader.systemd-boot.enable      = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    system.stateVersion              = "25.05"; 
+    system.stateVersion                  = "25.05"; 
+
   };
 
   imports = [
+    ./tailscale-userspace.nix
     ./audiobookshelf.nix
     ./dwm-enhanced
     ./mullvad.nix
-#    ./networking.nix
     ./networkmanager.nix
     ./neovim
     ./openssh.nix
@@ -56,6 +46,19 @@ in
     ./zsh.nix
     ./users.nix
     ./udev_samsung_portable_ssd.nix
+
+    ( makeBasicModule "cloudflared" {
+        environment.systemPackages = [ pkgs.cloudflared ];
+        services.cloudflared = {
+          enable = true;
+          tunnels = {
+            "klajman_xyz" = {
+              credentialsFile = "/mnt/localLuks/cloudflared/cert.pem";
+              default = "http_status:404";
+            };
+          };
+        };
+    } )
 
     ( makeBasicModule "calibre" {
         services.udisks2.enable = true;

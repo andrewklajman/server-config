@@ -11,6 +11,7 @@ let
   tag-set-remiders   = script "tag-set-reminders";
 
   quicknote          = script "quicknote";
+  quicknote-audio    = script "quicknote-audio";
   quicknote-journal  = script "quicknote-journal";
   quicknote-health   = script "quicknote-health";
   quicknote-exercise = script "quicknote-exercise";
@@ -37,8 +38,10 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = [
+      pkgs.vorbis-tools
       pkgs.fzf
       quicknote
+      quicknote-audio
       quicknote-journal
       quicknote-add-food
       quicknote-health
@@ -49,7 +52,8 @@ in
     systemd.timers."open_notes" = {
       wantedBy = [ "timers.target" ];
         timerConfig = {
-          OnCalendar = "*:5/10";
+          OnBootSec = "10minutes";
+          #OnCalendar = "*:5/10";
           Persistent = "true";
           Unit = "open_notes.service";
         };

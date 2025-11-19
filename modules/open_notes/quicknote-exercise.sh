@@ -15,7 +15,7 @@ CONTENT="$DIR/$DATETIME.health.md"
     echo "Notes   : "                            >> $CONTENT
  
 STARTUP=$(mktemp)
-    echo "normal 8GA"  >> $STARTUP
+    echo "normal 6GA"  >> $STARTUP
     echo "startinsert" >> $STARTUP
 
 VIMRC=$(quicknote-vimrc)
