@@ -16,16 +16,10 @@
       };
     };
 
-    mullvad = {
-      enable = true;
-      configDir = "${persist}/persistence/apps/mullvad/";
-    };
-
     tailscale-userspace = {
       enable = true;
-      configDir = "/mnt/localPersist/tailscale";
+      configDir = "/root/tailscale";
     };
-
 
     services.dnsmasq = {
       enable = true;
