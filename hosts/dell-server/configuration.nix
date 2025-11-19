@@ -9,6 +9,11 @@
   ];
 
   config = {
+    networking = {
+      hostName                 = "dell";
+      firewall.allowedTCPPorts = [ 80 443 ];
+      networkmanager.enable = true; 
+    };
 #     cloudflare-abs.enable = true;
 
 #    environment.systemPackages = [ pkgs.dnsmasq ];
