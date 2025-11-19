@@ -19,10 +19,10 @@ in
     neovim.enable                        = true;
     sessionVariables.enable              = true;
     zsh.enable                           = true;
-    tailscale-userspace = {
-      enable           = true;
-      configDir = "/root/tailscale";
-    };
+#    tailscale-userspace = {
+#      enable           = true;
+#      configDir = "/root/tailscale";
+#    };
 
     time.timeZone                        = "Australia/Sydney";
     nixpkgs.config.allowUnfree           = true;
