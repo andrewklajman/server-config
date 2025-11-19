@@ -10,7 +10,7 @@
 
   config = {
     networking = {
-      hostName                 = "dell";
+      hostName                 = "dell-server";
       firewall.allowedTCPPorts = [ 80 443 ];
       networkmanager.enable = true; 
     };
@@ -100,15 +100,6 @@
 
 
 
-    networking = {
-      hostName              = "dell-server";
-#      networkmanager.enable = true;
-      firewall = {
-#        enable = true;
-        allowedTCPPorts = [ 80 443 ];
-        allowedUDPPorts = [ 53 ];
-      };
-    };
 
     i18n.defaultLocale = "en_AU.UTF-8";
     i18n.extraLocaleSettings = {
