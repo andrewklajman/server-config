@@ -20,6 +20,7 @@ in
 
   config = 
     let
+      server_ip = "100.98.178.79";
       authKeyFile = "${cfg.configDir}/tailscale.authkey";
       state = "${cfg.configDir}/tailscaled.state";
       inherit (cfg) proxy;
@@ -28,8 +29,8 @@ in
         environment.systemPackages = [ mullvad-browser-proxy ];
 
         networking.extraHosts = ''
-            100.70.63.101 abs
-            100.70.63.101 torrent
+            ${server_ip} abs
+            ${server_ip} torrent
         '';
 
         services.tailscale = {

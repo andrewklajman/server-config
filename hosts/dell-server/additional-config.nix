@@ -6,7 +6,7 @@
     nix.settings.experimental-features   = [ "nix-command" "flakes" ];
 
     networking.firewall = {
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [ 80 443 8080 ];
       allowedUDPPorts = [ 53 ];
     };
 
@@ -51,7 +51,6 @@
         ];
         server = [ "8.8.8.8" "8.8.4.4" ];
       };
-    
     };
 
     services.nginx = {
@@ -65,12 +64,11 @@
     };
     services.qbittorrent = {
       enable = true;
-      openFirewall = true;
-#/root/torrent/config/qBittorrent.conf
+      profileDir = "/qbittorrent/config";
     };
     mullvad = {
       enable = true;
-      configDir = "/root/mullvad/config";
+      configDir = "/root/mullvad";
     };
 
   };

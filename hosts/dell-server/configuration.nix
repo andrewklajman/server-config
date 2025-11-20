@@ -14,7 +14,7 @@
   networking.hostName = "dell-server";
 
   networking.networkmanager.enable = true;
-  time.timeZone = "AUstralia/Sydney";
+  time.timeZone = "Australia/Sydney";
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
