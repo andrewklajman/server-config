@@ -26,6 +26,25 @@ in
   };
 
   config = {
+    basePackages.enable                  = true;
+    bootlimit.enable                     = true;
+    diskusage.enable                     = true;
+    doas.enable                          = true;
+    manPages.enable                      = true;
+    neovim.enable                        = true;
+    sessionVariables.enable              = true;
+    zsh.enable                           = true;
+
+    time.timeZone                        = "Australia/Sydney";
+    nixpkgs.config.allowUnfree           = true;
+    nix.settings.experimental-features   = [ "nix-command" "flakes" ];
+    boot.loader.systemd-boot.enable      = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    system.stateVersion                  = "25.05"; 
+
+
+
+
     dwm-enhanced.enable                 = true;
     networking = {
       hostName                 = "dell";
