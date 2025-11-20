@@ -2,6 +2,8 @@
   description = "System Configuration";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.copyparty.url = "github:9001/copyparty";
+
 
   outputs = { self, nixpkgs, ... }@inputs: 
     let 
