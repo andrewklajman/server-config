@@ -4,17 +4,6 @@
 {
   config = {
 
-    imports = [ 
-      copyparty.nixosModules.default
-      ({ pkgs, ... }: {
-        nixpkgs.overlays = [ copyparty.overlays.default ];
-        # (optional) install the package globally
-        environment.systemPackages = [ pkgs.copyparty ];
-        # configure the copyparty module
-    #    services.copyparty.enable = true;
-      })
-    ];
-
     nix.settings.experimental-features   = [ "nix-command" "flakes" ];
 
     networking.firewall = {
