@@ -10,22 +10,23 @@ in
 
 {
   imports = [
-    ./tailscale-userspace.nix
     ./audiobookshelf.nix
     ./dwm-enhanced
+    ./homepage-dashboard.nix
     ./mullvad.nix
-    ./networkmanager.nix
     ./neovim
-    ./openssh.nix
+    ./networkmanager.nix
     ./open_notes
+    ./openssh.nix
     ./personal-security
     ./qbittorrent-client.nix
     ./qbittorrent-server.nix
+    ./tailscale-userspace.nix
     ./taskwarrior.nix
+    ./udev_samsung_portable_ssd.nix
+    ./users.nix
     ./vsftpd.nix
     ./zsh.nix
-    ./users.nix
-    ./udev_samsung_portable_ssd.nix
 
     ( makeBasicModule "cloudflared" {
         environment.systemPackages = [ pkgs.cloudflared ];

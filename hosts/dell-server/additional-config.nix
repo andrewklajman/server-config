@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 
-
 {
   config = {
 
@@ -37,9 +36,13 @@
     };
 
 
+    homepage-dashboard = {
+      enable = true;
+    };
+
     tailscale-userspace = {
       enable = true;
-      configDir = "/root/tailscale";
+      configDir = "/fileserver/config/tailscale";
     };
 
     services.dnsmasq = {
@@ -65,11 +68,11 @@
     };
     services.qbittorrent = {
       enable = true;
-      profileDir = "/qbittorrent/config";
+      profileDir = "/fileserver/config/qbittorrent";
     };
     mullvad = {
       enable = true;
-      configDir = "/root/mullvad";
+      configDir = "/fileserver/config/mullvad";
     };
 
   };

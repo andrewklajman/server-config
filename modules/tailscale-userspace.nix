@@ -31,6 +31,7 @@ in
         networking.extraHosts = ''
             ${server_ip} abs
             ${server_ip} torrent
+            ${server_ip} homepage
         '';
 
         services.tailscale = {
