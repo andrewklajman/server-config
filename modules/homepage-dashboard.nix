@@ -21,35 +21,10 @@ in
           { qBittorrent = [ { abbr = "qb"; href = "http://torrent/"; } ]; }
           { Audiobookshelf = [ { abbr = "abs"; href = "http://abs/"; } ]; }
           { Gitea = [ { abbr = "git"; href = "http://gitea/"; } ]; }
+          { "Free Media Heck Yeah" = [ { abbr = "fmhy"; href = "https://fmhy.net/"; } ]; }
+          { "Copyparty" = [ { abbr = "cpy"; href = "http://copyparty/"; } ]; }
         ];
       } ];
-
-#      services = [ 
-#        {
-#          "Summary" = [ 
-#            { "Audiobookshelf" = {
-#                href = "http://abs/";
-#                widget = {
-#                  type = "audiobookshelf";
-#                  url = "http://localhost:8000";
-#                  key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODg5ZDM2NS0zMDU5LTRmOTAtYjQ1Ny0zNmZjM2RjZTY5MWEiLCJ1c2VybmFtZSI6InJvb3QiLCJpYXQiOjE3NjM2Mjc0MTF9.nSWnpYWN4Q7zHXryv28BsG2qMiXaiMIuRTAtdQ56K2A";
-#                };
-#              };
-#            }
-#            { "Torrents" = {
-#                href = "http://torrent/";
-#                widget = {
-#                  type = "qbittorrent";
-#                  url = "http://localhost:8080";
-#                  username = "admin";
-#                  password = "adminadmin";
-#                };
-#              };
-#            } 
-#
-#          ];
-#        }
-#      ];
 
     };
   };

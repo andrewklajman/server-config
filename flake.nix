@@ -2,12 +2,14 @@
   description = "System Configuration";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.copyparty.url = "github:9001/copyparty";
 
-  outputs = { self, nixpkgs, ... }@inputs: 
+  outputs = { self, nixpkgs, copyparty, ... }@inputs: 
     let 
       mkNixosConfig = modulePath: nixpkgs.lib.nixosSystem {
         modules = [ modulePath ];
         system = "x86_64-linux";
+        specialArgs = { inherit copyparty; };
       };
     in
     {

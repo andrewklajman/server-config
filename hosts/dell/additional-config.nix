@@ -4,7 +4,7 @@
 {
   config = {
     networking.extraHosts = ''
-      dell-server 192.168.0.232
+      192.168.0.232 dell-server
     '';
   };
 

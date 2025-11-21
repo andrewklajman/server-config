@@ -33,6 +33,7 @@ in
             ${server_ip} torrent
             ${server_ip} homepage
             ${server_ip} gitea
+            ${server_ip} copyparty
         '';
 
         services.tailscale = {

@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./audiobookshelf.nix
+    ./copyparty-server.nix
     ./dwm-enhanced
     ./homepage-dashboard.nix
     ./mullvad.nix

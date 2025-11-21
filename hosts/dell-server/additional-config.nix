@@ -2,11 +2,12 @@
 
 {
   config = {
+    copyparty-server.enable = true;
 
     nix.settings.experimental-features   = [ "nix-command" "flakes" ];
 
     networking.firewall = {
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [ 80 443 3000 ];
       allowedUDPPorts = [ 53 ];
     };
 
@@ -40,15 +41,18 @@
       };
     };
 
+#environment.systemPackages = [ pkgs.cloudflared ];
+
     services.cloudflared = {
       enable = true;
       tunnels = {
-        "klajman_xyz" = {
-          credentialsFile = "/root/cloudflared/credentialsFile.json";
+        "klajman.xyz" = {
+          credentialsFile = "/fileserver/cloudflared/credentialsFile.json";
           default = "http_status:404";
           ingress = {
-            "gitea.klajman.xyz" = "http://localhost:3000";
+            "gitea.klajman.xyz" = "http://0.0.0.0:3000";
           };
+          warp-routing.enabled = true;
         };
       };
     };
@@ -66,6 +70,11 @@
     services.gitea = {
       enable = true;
       stateDir = "/fileserver/gitea/stateDir";
+      settings.session = {
+        COOKIE_SECURE = true;
+        ROOT_URL = "gitea.klajman.xyz";
+        DISABLE_REGISTRATION = true;
+      };
     };
 
     services.dnsmasq = {

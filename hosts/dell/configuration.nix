@@ -10,6 +10,7 @@ in
 {
   imports = [ 
     ./hardware-configuration.nix
+    ./additional-config.nix
     ../../modules
   ];
 
