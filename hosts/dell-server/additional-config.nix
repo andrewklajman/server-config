@@ -40,6 +40,19 @@
       };
     };
 
+    services.cloudflared = {
+      enable = true;
+      tunnels = {
+        "klajman_xyz" = {
+          credentialsFile = "/root/cloudflared/credentialsFile.json";
+          default = "http_status:404";
+          ingress = {
+            "gitea.klajman.xyz" = "http://localhost:3000";
+          };
+        };
+      };
+    };
+
 
     homepage-dashboard = {
       enable = true;

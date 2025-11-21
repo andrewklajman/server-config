@@ -20,8 +20,7 @@ in
            credentialsFile = "/root/.cloudflared/95694a32-70f1-4bd6-bdf0-74e07fa4b76a.json";
            default = "http_status:404";
            ingress = {
-             "klajman.xyz" = "http://localhost";
-             "abs.klajman.xyz" = "http://localhost";
+             "gitea.klajman.xyz" = "http://localhost:3000";
            };
          };
        };
