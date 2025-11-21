@@ -6,7 +6,7 @@
     nix.settings.experimental-features   = [ "nix-command" "flakes" ];
 
     networking.firewall = {
-      allowedTCPPorts = [ 80 443 8080 ];
+      allowedTCPPorts = [ 80 443 ];
       allowedUDPPorts = [ 53 ];
     };
 
@@ -20,8 +20,13 @@
     zsh.enable                = true;
 
     services.openssh.enable = true;
-    users.users.andrew = {
-      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkquaq2kA7aXURJ0YNaK/E5jmlvrBPTmXoZWABmi0FA andrew@dell" ];  
+    users.users = {
+      andrew = {
+        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkquaq2kA7aXURJ0YNaK/E5jmlvrBPTmXoZWABmi0FA andrew@dell" ];  
+      };
+      root = {
+        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGkquaq2kA7aXURJ0YNaK/E5jmlvrBPTmXoZWABmi0FA andrew@dell" ];  
+      };
     };
 
     programs.git = {
@@ -45,6 +50,11 @@
       configDir = "/fileserver/config/tailscale";
     };
 
+    services.gitea = {
+      enable = true;
+      stateDir = "/fileserver/gitea/stateDir";
+    };
+
     services.dnsmasq = {
       enable = true;
       settings = {
@@ -52,6 +62,7 @@
         address = [
           "/abs/100.70.63.101"
           "/torrent/100.70.63.101"
+          "/gitea/100.70.63.101"
         ];
         server = [ "8.8.8.8" "8.8.4.4" ];
       };

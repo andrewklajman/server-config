@@ -20,6 +20,7 @@ in
         Links = [
           { qBittorrent = [ { abbr = "qb"; href = "http://torrent/"; } ]; }
           { Audiobookshelf = [ { abbr = "abs"; href = "http://abs/"; } ]; }
+          { Gitea = [ { abbr = "git"; href = "http://gitea/"; } ]; }
         ];
       } ];
 

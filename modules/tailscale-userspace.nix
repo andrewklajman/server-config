@@ -32,6 +32,7 @@ in
             ${server_ip} abs
             ${server_ip} torrent
             ${server_ip} homepage
+            ${server_ip} gitea
         '';
 
         services.tailscale = {
